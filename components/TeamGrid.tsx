@@ -1,4 +1,5 @@
 import { team } from "../data/team";
+import Image from "next/image";
 
 export default function TeamGrid() {
   return (
@@ -13,7 +14,13 @@ export default function TeamGrid() {
       <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
         {team.map((m) => (
           <div key={m.initials} className="flex flex-col items-center text-center p-4 bg-card border border-line rounded-md">
-            <div className="w-16 h-16 rounded-full flex items-center justify-center bg-slate/10 border border-line text-slate font-mono text-lg">{m.initials}</div>
+            {m.photoUrl ? (
+              <div className="w-16 h-16 rounded-full overflow-hidden border border-line">
+                <Image src={m.photoUrl} alt={m.name} width={64} height={64} className="object-cover" />
+              </div>
+            ) : (
+              <div className="w-16 h-16 rounded-full flex items-center justify-center bg-slate/10 border border-line text-slate font-mono text-lg">{m.initials}</div>
+            )}
             <div className="mt-3 font-display text-ink">{m.name}</div>
             <div className="mt-1 font-mono text-sm text-muted">{m.role}</div>
           </div>

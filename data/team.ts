@@ -2,7 +2,7 @@ import type { TeamMember } from "../lib/types";
 
 // PLACEHOLDERS: Replace these entries with real names and roles before launch.
 export const team: TeamMember[] = [
-  { initials: "DF", name: "De Fon", role: "Full-stack / Team lead" },
+  { initials: "DF", name: "De Fon", role: "Full-stack / Team lead", photoUrl: "/images/team/defon.jpg" },
   { initials: "M2", name: "Member 2", role: "Frontend / React" },
   { initials: "M3", name: "Member 3", role: "Backend / APIs" },
   { initials: "M4", name: "Member 4", role: "Backend / Python" },

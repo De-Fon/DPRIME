@@ -17,6 +17,7 @@ export interface TeamMember {
   initials: string;
   name: string;
   role: string;
+  photoUrl?: string;
 }
 
 export interface Service {
