@@ -22,14 +22,14 @@ export default function ProjectCard({ project }: { project: Project }) {
             )}
 
             <div className="ml-auto font-mono text-sm flex items-center gap-2 text-muted">
-              <span className={`text-${statusIsShipped ? "slate" : "amber"}`}>
+              <span className={statusIsShipped ? "text-slate" : "text-amber"}>
                 {statusIsShipped ? "■" : "□"}
               </span>
               <span className="text-muted">{project.status}</span>
             </div>
           </div>
 
-          <p className="mt-2 text-serif text-body">{project.tagline}</p>
+          <p className="mt-2 font-serif text-body">{project.tagline}</p>
 
           <div className="mt-4 text-sm font-mono text-muted">{project.stack.join(" · ")}</div>
         </div>

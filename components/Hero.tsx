@@ -6,7 +6,7 @@ export default function Hero() {
 
       <h1 id="hero-heading" className="font-serif text-3xl text-ink">Need working software but no in-house dev team?</h1>
 
-      <p className="mt-4 text-serif text-body">
+      <p className="mt-4 font-serif text-body">
         We build and ship production-ready products — from Rumia (a live hostel discovery product) to mobile-first crowdfunding (EduPesa) and campus systems like booking and laundry.
       </p>
 

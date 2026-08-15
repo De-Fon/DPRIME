@@ -10,7 +10,7 @@ export default function ProcessSteps() {
           <div key={step.index} className="border-t-4 border-slate bg-card rounded-md p-6">
             <div className="font-mono text-xl text-slate">{step.index}</div>
             <h5 className="mt-2 font-display text-ink">{step.stage}</h5>
-            <p className="mt-2 text-serif text-body">{step.description}</p>
+            <p className="mt-2 font-serif text-body">{step.description}</p>
           </div>
         ))}
       </div>

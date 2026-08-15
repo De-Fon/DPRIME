@@ -12,7 +12,7 @@ export default function ServicesGrid() {
               <div className="font-mono text-xl text-slate">{s.index}</div>
               <h4 className="font-display text-ink">{s.title}</h4>
             </div>
-            <p className="mt-3 text-serif text-body">{s.description}</p>
+            <p className="mt-3 font-serif text-body">{s.description}</p>
             <div className="mt-4 text-sm font-mono text-muted">{s.stack.join(" · ")}</div>
           </div>
         ))}
