@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Font variables are injected via next/font using the class on <html> */
+}
+
+/* Design tokens */
+.bg-paper { background-color: #EEF0F2; }
+.text-ink { color: #171A21; }
+.border-line { border-color: #CDD1D6; }
+
+/* Utility for faint blueprint grid (use with a layering element) */
+.bg-blueprint {
+  background-image: linear-gradient(#DDE1E5 0.5px, transparent 0.5px), linear-gradient(90deg, #DDE1E5 0.5px, transparent 0.5px);
+  background-size: 28px 28px;
+}
+
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-family: var(--font-lora), Georgia, serif; }
