@@ -1,8 +1,18 @@
 export default function Hero() {
   return (
     <section className="max-w-5xl mx-auto px-6 py-16 bg-blueprint bg-paper" aria-labelledby="hero-heading">
-      <div className="font-mono text-sm text-muted mb-3">scope → build → ship → support</div>
-      <div className="font-mono text-sm text-muted mb-6">overview</div>
+      <div className="font-mono text-sm text-muted mb-3">
+        <span className="inline-flex items-center">
+          <span className="inline-block w-[3px] h-[14px] bg-slate mr-2.5" aria-hidden />
+          <span className="font-medium tracking-[0.05em]">scope → build → ship → support</span>
+        </span>
+      </div>
+      <div className="font-mono text-sm text-muted mb-6">
+        <span className="inline-flex items-center">
+          <span className="inline-block w-[3px] h-[14px] bg-slate mr-2.5" aria-hidden />
+          <span className="font-medium tracking-[0.05em]">overview</span>
+        </span>
+      </div>
 
       <h1 id="hero-heading" className="font-serif text-3xl text-ink">Need working software but no in-house dev team?</h1>
 
