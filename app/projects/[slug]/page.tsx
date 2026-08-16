@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 
@@ -17,7 +18,7 @@ export default async function ProjectPage({
 
   return (
     <section className="max-w-3xl mx-auto px-6 py-14 sm:py-16">
-      <a href="/#projects" className="font-mono text-slate">← back to projects</a>
+      <Link href="/projects" className="font-mono text-slate">← back to projects</Link>
 
       <div className="mt-6 flex items-start gap-6">
         <div className="font-mono text-line text-6xl select-none">{project!.index}</div>

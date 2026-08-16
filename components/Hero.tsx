@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="max-w-5xl mx-auto px-6 py-16 bg-blueprint bg-paper" aria-labelledby="hero-heading">
@@ -21,7 +23,7 @@ export default function Hero() {
       </p>
 
       <div className="mt-6">
-        <a href="#contact" className="inline-block px-5 py-3 bg-amber text-paper rounded font-semibold">Start a project</a>
+        <Link href="/contact" className="inline-block px-5 py-3 bg-amber text-paper rounded font-semibold">Start a project</Link>
       </div>
     </section>
   );
