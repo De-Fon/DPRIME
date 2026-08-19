@@ -11,11 +11,12 @@ const config: Config = {
       colors: {
         paper: '#EEF0F2',
         ink: '#171A21',
-        slate: '#3D4F7C',
+        // neutral slate: warm/neutral gray (replaces blue-leaning slate)
+        slate: '#5B6166',
         amber: '#C97A3D',
         line: '#CDD1D6',
-        card: '#F8F9FA',
-        muted: '#5C6470',
+        card: '#FFFFFF',
+        muted: '#6B7075',
         body: '#3A3F47',
       },
       fontFamily: {
@@ -24,7 +25,8 @@ const config: Config = {
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
       },
       backgroundImage: {
-        'blueprint-grid': "linear-gradient(#DDE1E5 0.5px, transparent 0.5px), linear-gradient(90deg, #DDE1E5 0.5px, transparent 0.5px)",
+        // subtle neutral grid using the `line` token
+        'blueprint-grid': "linear-gradient(#CDD1D6 0.5px, transparent 0.5px), linear-gradient(90deg, #CDD1D6 0.5px, transparent 0.5px)",
       },
       backgroundSize: {
         'grid-28': '28px 28px',

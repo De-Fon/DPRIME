@@ -5,14 +5,14 @@ export default function ProcessSteps() {
     <section className="max-w-5xl mx-auto px-6 py-14">
       <div className="font-mono text-sm text-muted mb-6">
         <span className="inline-flex items-center">
-          <span className="inline-block w-[3px] h-[14px] bg-slate mr-2.5" aria-hidden />
+          <span className="inline-block w-[3px] h-[14px] bg-amber mr-2.5" aria-hidden />
           <span className="font-medium tracking-[0.05em]">how we work</span>
         </span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {process.map((step) => (
-          <div key={step.index} className="border-t-4 border-slate bg-card rounded-md p-6">
+          <div key={step.index} className="border-t-4 border-slate card p-6 hover:shadow-md transition-shadow">
             <div className="font-mono text-xl text-slate">{step.index}</div>
             <h5 className="mt-2 font-display text-ink">{step.stage}</h5>
             <p className="mt-2 font-serif text-body">{step.description}</p>

@@ -12,9 +12,87 @@
 
 /* Utility for faint blueprint grid (use with a layering element) */
 .bg-blueprint {
-  background-image: linear-gradient(#DDE1E5 0.5px, transparent 0.5px), linear-gradient(90deg, #DDE1E5 0.5px, transparent 0.5px);
+  /* use neutral line color rather than blue tints */
+  background-image: linear-gradient(#CDD1D6 0.5px, transparent 0.5px), linear-gradient(90deg, #CDD1D6 0.5px, transparent 0.5px);
   background-size: 28px 28px;
 }
 
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body { font-family: var(--font-lora), Georgia, serif; }
+
+/* Prevent accidental horizontal scrolling from large images/SVGs */
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* clip accidental horizontal overflow while preserving vertical scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Global card utility to ensure consistent surfaces */
+.card {
+  @apply bg-card border border-line rounded-md shadow-sm transition-shadow transition-transform duration-150 ease-out;
+}
+.card:hover,
+.card:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(23,26,33,0.06);
+  border-color: rgba(255,122,45,0.12);
+}
+
+/* Buttons: primary and secondary helpers */
+.btn-primary {
+  @apply inline-block px-4 py-2 bg-amber text-paper rounded font-semibold transition-colors transition-transform duration-150 ease-out;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  transform: translateY(-3px);
+}
+.btn-secondary {
+  @apply inline-block px-4 py-2 bg-transparent border border-line text-ink rounded transition-colors duration-150 ease-out;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  transform: translateY(-2px);
+}
+
+/* Micro-interaction helpers for nav/social */
+.nav-link {
+  transition: color 150ms ease-out;
+}
+.social-link {
+  transition: color 150ms ease-out, transform 150ms ease-out;
+}
+.social-link:hover {
+  transform: translateY(-2px);
+}
+
+/* Focus states for accessibility */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.nav-link:focus-visible,
+.social-link:focus-visible,
+.card:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid theme('colors.amber');
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-secondary,
+  .card,
+  .nav-link,
+  .social-link {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}

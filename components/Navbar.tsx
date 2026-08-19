@@ -1,49 +1,100 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname() || "/";
+  const [open, setOpen] = useState(false);
 
-  const linkClass = (path: string) =>
-    `text-sm ${pathname === path || (path !== "/" && pathname.startsWith(path)) ? "text-slate font-semibold" : "text-ink hover:text-slate"}`;
+  const navItems = [
+    { label: "Projects", href: "/projects" },
+    { label: "Services", href: "/services" },
+    { label: "Team", href: "/team" },
+    { label: "Contact", href: "/contact" },
+  ];
+
+  const isActive = (path: string) => pathname === path || (path !== "/" && pathname.startsWith(path));
 
   return (
-    <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur-sm border-b border-line">
+    <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur-sm border-b border-line">
       <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" aria-label="DPRIME — home" className="flex items-center justify-between">
-          <Image
-            src="/images/team/logo3.png"
-            alt="DPRIME"
-            width={50}
-            height={50}
-            priority
-            className="object-contain"
-          />
-          <span className="text-xl font-bold text-ink">DPRIME</span>
+        {/* Brand */}
+        <Link href="/" aria-label="DPRIME — home" className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <Image
+              src="/images/brand/logo3.png"
+              alt="DPRIME"
+              width={56}
+              height={56}
+              priority
+              className="object-contain w-auto h-auto"
+            />
+            <span className="text-2xl font-extrabold text-ink tracking-tight truncate">DPRIME</span>
+          </div>
         </Link>
 
-        <div className="hidden md:flex items-center space-x-6">
-          <Link href="/projects" className={linkClass("/projects")}>
-            Projects
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center space-x-8">
+          <div className="flex items-center space-x-6">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className="relative group">
+                <span className={`nav-link text-sm font-medium duration-150 ease-out ${isActive(item.href) ? "text-amber" : "text-ink hover:text-amber"}`}>
+                  {item.label}
+                </span>
+                <span
+                  className={`absolute left-0 -bottom-1 h-0.5 bg-amber rounded transition-all duration-150 ${isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'}`}
+                  aria-hidden
+                />
+              </Link>
+            ))}
+          </div>
+
+          <Link href="/contact" className="group ml-4 inline-flex items-center btn-primary">
+            <span>Start a project</span>
+            <span className="ml-3 transform transition-transform duration-150 group-hover:translate-x-1">→</span>
           </Link>
-          <Link href="/services" className={linkClass("/services")}>
-            Services
-          </Link>
-          <Link href="/team" className={linkClass("/team")}>
-            Team
-          </Link>
-          <Link href="/contact" className={linkClass("/contact")}>
-            Contact
-          </Link>
-          <Link href="/contact" className="ml-4 inline-block px-4 py-2 rounded bg-amber text-paper text-sm font-semibold">Start a project</Link>
         </div>
 
-        {/* Mobile: simple anchor links; keep behavior minimal */}
-        <div className="md:hidden">
-          <Link href="/contact" className="inline-block px-3 py-2 rounded bg-amber text-paper text-sm font-semibold">Start</Link>
+        {/* Mobile: minimal menu */}
+        <div className="md:hidden relative">
+          <button
+            aria-expanded={open}
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex items-center justify-center p-2 rounded-md border border-line bg-card"
+          >
+            {/* simple icon */}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M3 6h14M3 10h14M3 14h14" stroke="#171A21" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {open && (
+            <div className="absolute right-0 mt-2 w-[240px] max-w-[calc(100vw-3rem)] bg-card border border-line rounded-md shadow-xl p-3 z-50">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-sm px-3 py-2 rounded ${isActive(item.href) ? 'text-amber font-medium' : 'text-ink hover:text-amber'}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+
+                <div className="mt-2">
+                  <Link href="/contact" className="group w-full inline-flex items-center justify-center btn-primary">
+                    <span>Start a project</span>
+                    <span className="ml-3">→</span>
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          )}
         </div>
       </nav>
     </header>

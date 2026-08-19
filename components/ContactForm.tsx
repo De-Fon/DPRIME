@@ -24,11 +24,11 @@ export default function ContactForm() {
       <section id="contact" className="max-w-5xl mx-auto px-6 py-14">
         <div className="font-mono text-sm text-muted mb-6">
           <span className="inline-flex items-center">
-            <span className="inline-block w-[3px] h-[14px] bg-slate mr-2.5" aria-hidden />
+            <span className="inline-block w-[3px] h-[14px] bg-amber mr-2.5" aria-hidden />
             <span className="font-medium tracking-[0.05em]">start a project</span>
           </span>
         </div>
-        <div className="bg-card border border-line rounded-md p-6">
+        <div className="card p-6">
           <div className="text-ink font-display text-lg">Message sent. We'll get back to you shortly.</div>
         </div>
       </section>
@@ -38,18 +38,18 @@ export default function ContactForm() {
   return (
     <section id="contact" className="max-w-5xl mx-auto px-6 py-14">
       <div className="font-mono text-sm text-muted mb-6">
-        <span className="inline-flex items-center">
-          <span className="inline-block w-[3px] h-[14px] bg-slate mr-2.5" aria-hidden />
-          <span className="font-medium tracking-[0.05em]">start a project</span>
-        </span>
+          <span className="inline-flex items-center">
+            <span className="inline-block w-[3px] h-[14px] bg-amber mr-2.5" aria-hidden />
+            <span className="font-medium tracking-[0.05em]">start a project</span>
+          </span>
       </div>
 
-      <form className="bg-card border border-line rounded-md p-6" onSubmit={handleSubmit} noValidate>
+      <form className="card p-6" onSubmit={handleSubmit} noValidate>
         <div className="grid grid-cols-1 gap-4">
           <label className="flex flex-col">
             <span className="text-sm font-mono text-muted">Name</span>
             <input
-              className="mt-1 bg-paper border border-line focus:border-slate rounded px-3 py-2"
+              className="mt-1 bg-paper border border-line focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-colors rounded px-3 py-2"
               value={name}
               onChange={(e) => setName(e.target.value)}
               aria-invalid={errors.name ? "true" : "false"}
@@ -66,7 +66,7 @@ export default function ContactForm() {
             <span className="text-sm font-mono text-muted">Email</span>
             <input
               type="email"
-              className="mt-1 bg-paper border border-line focus:border-slate rounded px-3 py-2"
+              className="mt-1 bg-paper border border-line focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-colors rounded px-3 py-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               aria-invalid={errors.email ? "true" : "false"}
@@ -82,7 +82,7 @@ export default function ContactForm() {
           <label className="flex flex-col">
             <span className="text-sm font-mono text-muted">Message</span>
             <textarea
-              className="mt-1 bg-paper border border-line focus:border-slate rounded px-3 py-2 min-h-[120px]"
+              className="mt-1 bg-paper border border-line focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-colors rounded px-3 py-2 min-h-[120px]"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               aria-invalid={errors.message ? "true" : "false"}
@@ -96,7 +96,7 @@ export default function ContactForm() {
           </label>
 
           <div>
-            <button type="submit" className="inline-block px-4 py-2 bg-amber text-paper rounded font-semibold">Send message</button>
+            <button type="submit" className="btn-primary">Send message</button>
           </div>
         </div>
       </form>

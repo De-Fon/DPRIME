@@ -11,6 +11,10 @@ export interface Project {
   live: boolean;
   url: string;
   imageUrl?: string;
+  problem?: string;
+  solution?: string;
+  features?: string[];
+  approach?: string;
 }
 
 export interface TeamMember {

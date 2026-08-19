@@ -201,7 +201,6 @@ Local component state only (useState/useEffect), scoped to Client Components suc
 6. Content Inventory
 6.1 Projects
     • Rumia — live hostel discovery platform for DeKUT students (flagship, marked "live")
-    • EduPesa — M-Pesa crowdfunding platform for university students (in progress)
     • Campus Laundry — booking + auth system, FastAPI + PostgreSQL (shipped)
     • CineX — movie discovery app on the TMDB API (shipped)
 6.2 Services (mapped to team skills)
