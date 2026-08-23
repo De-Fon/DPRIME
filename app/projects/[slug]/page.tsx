@@ -139,9 +139,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
             <div className="mt-6">
               {project!.url && project!.url.length > 0 ? (
-                <a href={project!.url} target="_blank" rel="noopener noreferrer" className="inline-block w-full text-center px-4 py-3 bg-amber text-paper rounded font-semibold">Visit Rumia →</a>
+                <a href={project!.url} target="_blank" rel="noopener noreferrer" className="inline-block w-full text-center px-4 py-3 bg-amber text-paper rounded font-semibold">Visit →</a>
               ) : (
-                <button className="inline-block w-full text-center px-4 py-3 bg-amber/10 text-amber rounded font-semibold cursor-default" disabled>Visit Rumia →</button>
+                <button className="inline-block w-full text-center px-4 py-3 bg-amber/10 text-amber rounded font-semibold cursor-default" disabled>Visit →</button>
               )}
             </div>
           </div>
