@@ -4,13 +4,13 @@ export default function ClubIntro() {
       <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-20 items-start">
         {/* Label */}
         <div>
-          <div className="font-mono text-sm text-muted">
+          <div className="font-mono text-base md:text-lg text-muted">
             <span className="inline-flex items-center">
               <span
-                className="inline-block w-[3px] h-[14px] bg-amber mr-2.5"
+                className="inline-block w-[4px] h-[20px] bg-amber mr-3"
                 aria-hidden
               />
-              <span className="font-medium tracking-[0.05em]">
+              <span className="font-semibold tracking-[0.12em] uppercase">
                 who we are
               </span>
             </span>
