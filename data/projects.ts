@@ -19,7 +19,7 @@ export const projects: Project[] = [
   },
   {
     slug: "campus-laundry",
-    index: "03",
+    index: "02",
     name: "Campus Laundry",
     tagline: "Booking and auth system for an on-campus laundry service",
     description:
@@ -35,7 +35,7 @@ export const projects: Project[] = [
   },
   {
     slug: "cinex",
-    index: "04",
+    index: "03",
     name: "CineX",
     tagline: "Movie discovery app built on the TMDB API",
     description:
