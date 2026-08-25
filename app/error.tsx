@@ -16,7 +16,7 @@ export default function GlobalError({
       <p className="mt-4 text-serif text-body">An unexpected error occurred while rendering this page. You can try again.</p>
 
       <div className="mt-6">
-        <button onClick={() => reset()} className="inline-block px-4 py-2 bg-ink text-paper rounded font-semibold">Try again</button>
+        <button onClick={() => reset()} className="inline-block px-4 py-2 bg-darkbg text-paper rounded font-semibold">Try again</button>
       </div>
     </div>
   );

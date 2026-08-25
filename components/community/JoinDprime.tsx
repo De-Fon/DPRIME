@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function JoinDprime() {
   return (
     <section className="max-w-6xl mx-auto px-6 py-20 md:py-24">
-      <div className="relative overflow-hidden rounded-lg border border-line bg-ink text-paper">
+      <div className="relative overflow-hidden rounded-lg border border-line bg-darkbg text-paper">
         {/* Decorative grid */}
         <div
           className="absolute inset-0 opacity-[0.06]"
