@@ -1,17 +1,34 @@
 import Hero from "../components/Hero";
 import StatsBar from "../components/StatsBar";
 import ProjectCard from "../components/ProjectCard";
+
+import ClubIntro from "../components/story/ClubIntro";
+import JourneyTimeline from "../components/story/JourneyTimeline";
+import FirstsWall from "../components/story/FirstsWall";
+import ValuesSection from "../components/story/ValuesSection";
+
+import CommunitySection from "../components/community/CommunitySection";
+import LearningTracks from "../components/community/LearningTracks";
+import BuildLog from "../components/community/BuildLog";
+import JoinDprime from "../components/community/JoinDprime";
+
 import { projects } from "../data/projects";
 import { services } from "../data/services";
+import { team } from "../data/team";
+
 import Link from "next/link";
 import Image from "next/image";
-import { team } from "../data/team";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <StatsBar />
+      <ClubIntro />
+
+      <JourneyTimeline />
+
+      <FirstsWall />
 
       {/* Projects teaser */}
       <section className="max-w-5xl mx-auto px-6 py-14">
@@ -32,6 +49,10 @@ export default function Home() {
           <Link href="/projects" className="inline-block text-sm text-ink hover:text-amber">View all projects →</Link>
         </div>
       </section>
+      <CommunitySection />
+
+      <LearningTracks />
+
 
       {/* Services teaser */}
       <section id="services" className="max-w-6xl mx-auto px-6 py-10">
@@ -93,6 +114,10 @@ export default function Home() {
           <Link href="/services" className="inline-block text-sm text-ink hover:text-amber">View all services →</Link>
         </div>
       </section>
+      <BuildLog />
+
+      <ValuesSection />
+
 
         {/* Meet the Team feature */}
         <section className="max-w-6xl mx-auto px-6 py-12">
@@ -127,6 +152,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <JoinDprime />
 
       {/* Final CTA */}
       <section className="max-w-5xl mx-auto px-6 py-14">
