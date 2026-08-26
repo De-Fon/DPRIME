@@ -1,55 +1,51 @@
 export default function ClubIntro() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-12 md:py-20">
-      {/* Label */}
-      <div className="font-mono text-base md:text-lg text-muted mb-6">
-        <span className="inline-flex items-center">
-          <span
-            className="inline-block w-[4px] h-[20px] bg-amber mr-3"
-            aria-hidden
-          />
-          <span className="font-semibold tracking-[0.12em] uppercase">
-            who we are
-          </span>
-        </span>
-      </div>
+    <section className="max-w-6xl mx-auto px-6 py-20">
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-      {/* Main story */}
-      <div>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-ink break-words whitespace-normal">
-          We didn&apos;t start as developers.
-        </h2>
+        <div>
+          <div className="font-mono text-sm text-muted mb-5">
+            <span className="inline-flex items-center">
+              <span
+                className="inline-block w-[3px] h-[14px] bg-amber mr-2.5"
+                aria-hidden
+              />
+              who we are
+            </span>
+          </div>
 
-        <div className="mt-8 space-y-5 text-lg md:text-xl leading-relaxed text-muted max-w-2xl">
+          <h2 className="font-display text-4xl md:text-5xl text-ink leading-tight">
+            We didn't start as developers.
+          </h2>
+        </div>
+
+        <div className="text-muted text-lg leading-relaxed">
           <p>
-            DPRIME started as a group of students who wanted to understand
-            technology by actually building with it.
+            DPRIME started in January 2026 as a group of students who wanted
+            to learn how to code.
           </p>
 
-          <p>
-            We learned together, made mistakes together, helped each other
-            through problems, and slowly turned what we were learning into
-            real software.
+          <p className="mt-5">
+            We did not have someone sitting in front of us teaching us
+            everything. We chose what to learn, studied independently,
+            struggled through problems and came together to share what we
+            discovered.
           </p>
 
-          <p className="text-ink font-medium">
-            We&apos;re still learning. We&apos;re still building. And
-            we&apos;re just getting started.
+          <p className="mt-5">
+            Over time, those learning sessions became projects. The projects
+            became systems. And the people who started out learning together
+            became a community of builders.
+          </p>
+
+          <p className="mt-5 text-ink font-medium">
+            DPRIME is still learning. We're just building while we do it.
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-3">
-          {["LEARN", "BUILD", "SHIP", "GROW"].map((item, index) => (
-            <div
-              key={item}
-              className="inline-flex items-center gap-2 px-3 py-2 border border-line rounded-md bg-card font-mono text-xs text-muted"
-            >
-              <span className="text-amber">0{index + 1}</span>
-              {item}
-            </div>
-          ))}
-        </div>
       </div>
+
     </section>
   );
 }
