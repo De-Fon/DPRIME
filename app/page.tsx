@@ -35,11 +35,15 @@ export default function Home() {
 
       <FirstsWall />
 
-      <LearningTracks />
+      <section id="learning">
+        <LearningTracks />
+      </section>
 
       <CommunitySection />
 
-      <EventsSection />
+      <section id="events">
+        <EventsSection />
+      </section>
 
       <section className="max-w-6xl mx-auto px-6 py-20">
         <div className="font-mono text-sm text-muted mb-5">
