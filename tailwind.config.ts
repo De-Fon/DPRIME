@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         paper: '#EEF0F2',
         ink: '#171A21',
+        darkbg: '#002B36',
         // neutral slate: warm/neutral gray (replaces blue-leaning slate)
         slate: '#5B6166',
         amber: '#C97A3D',

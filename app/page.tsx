@@ -18,13 +18,13 @@ import { team } from "../data/team";
 
 import Link from "next/link";
 import Image from "next/image";
+import ScrollUnveil from "../components/ScrollUnveil";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <StatsBar />
       <ClubIntro />
+      <StatsBar />
 
       <JourneyTimeline />
 
@@ -177,6 +177,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ScrollUnveil>
+        <Hero />
+      </ScrollUnveil>
     </>
   );
 }

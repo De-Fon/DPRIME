@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="max-w-6xl mx-auto px-6 py-12 md:py-20 grid md:grid-cols-2 items-center gap-12"
+      className="max-w-6xl mx-auto px-6 py-20 md:py-28"
     >
       {/* LEFT: copy */}
       <div>
@@ -15,7 +15,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 id="hero-heading" className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-ink break-words whitespace-normal">
+        <h1 id="hero-heading" className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink">
           Need <span className="inline-block"> <span className="underline decoration-amber/40 decoration-4 underline-offset-4">working software</span></span>
           <span className="block md:inline"> but <span className="font-black">no in-house dev team?</span></span>
         </h1>
@@ -59,11 +59,11 @@ export default function Hero() {
             <rect x="28" y="40" width="504" height="180" rx="12" fill="#0f1720" stroke="#2b2f33" />
 
             {/* screen inner */}
-            <rect x="46" y="58" width="468" height="148" rx="8" fill="#0b0c0d" />
+            <rect x="46" y="58" width="468" height="148" rx="8" fill="#002B36" />
 
             {/* product UI panel */}
             <g transform="translate(66,78)">
-              <rect width="220" height="108" rx="6" fill="#0e1112" stroke="#26282a" />
+              <rect width="220" height="108" rx="6" fill="#002B36" stroke="#26282a" />
               <rect x="10" y="10" width="80" height="12" rx="3" fill="#2b2f32" />
               <rect x="10" y="30" width="190" height="8" rx="3" fill="#1f2224" />
               <rect x="10" y="46" width="90" height="8" rx="3" fill="#1f2224" />
@@ -72,7 +72,7 @@ export default function Hero() {
 
             {/* code editor panel with orange accents */}
             <g transform="translate(306,78)">
-              <rect width="180" height="108" rx="6" fill="#0e1112" stroke="#26282a" />
+              <rect width="180" height="108" rx="6" fill="#002B36" stroke="#26282a" />
               {/* code lines */}
               <rect x="10" y="10" width="150" height="8" rx="3" fill="#1f2224" />
               <rect x="10" y="26" width="120" height="8" rx="3" fill="#1f2224" />
