@@ -1,7 +1,7 @@
 export default function ClubIntro() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-20 md:py-24">
-
+    <section className="max-w-6xl mx-auto px-6 py-20">
+      
       {/* Section heading */}
       <div className="max-w-3xl">
         <div className="font-mono text-sm text-muted mb-5">
@@ -15,97 +15,84 @@ export default function ClubIntro() {
         </div>
 
         <h2 className="font-display text-4xl md:text-5xl text-ink leading-tight">
-          A place to learn, build
-          <br className="hidden md:block" />
-          and grow together.
+          You don't have to figure it all out alone.
         </h2>
 
-        <p className="mt-6 text-lg md:text-xl text-muted leading-relaxed max-w-2xl">
-          DPRIME is a student-led technology community where we learn,
-          experiment, build projects, share knowledge and grow together.
+        <p className="mt-5 text-muted text-lg leading-relaxed max-w-2xl">
+          DPRIME brings students together around technology, curiosity and
+          the willingness to keep learning. It's a space to ask questions,
+          exchange ideas, work on things that interest you and meet people
+          who are on a similar journey.
         </p>
       </div>
 
-      {/* Community values */}
-      <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5">
+      {/* Why join */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12">
 
-        {/* Learn */}
-        <article className="group border border-line bg-card rounded-md p-6 md:p-7 transition-all duration-200 hover:-translate-y-1 hover:border-amber/40 hover:shadow-sm">
+        {/* Card 01 */}
+        <article className="bg-white border border-line rounded-md p-6 md:p-7">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-sm text-amber">
-              01
-            </span>
-
-            <span className="text-muted group-hover:text-amber transition-colors">
-              →
-            </span>
+            <span className="font-mono text-sm text-amber">01</span>
+            <span className="text-muted">→</span>
           </div>
 
-          <h3 className="mt-8 font-display text-2xl text-ink">
-            Learn together.
+          <h3 className="mt-10 font-display text-2xl text-ink">
+            Learn with people.
           </h3>
 
-          <p className="mt-3 text-muted leading-relaxed">
-            Explore new technologies, study difficult concepts and learn
-            from people who are figuring things out alongside you.
+          <p className="mt-4 text-muted leading-relaxed">
+            Explore technology with other students, exchange what you
+            discover and get help when something doesn't make sense.
           </p>
         </article>
 
-        {/* Build */}
-        <article className="group border border-line bg-card rounded-md p-6 md:p-7 transition-all duration-200 hover:-translate-y-1 hover:border-amber/40 hover:shadow-sm">
+        {/* Card 02 */}
+        <article className="bg-white border border-line rounded-md p-6 md:p-7">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-sm text-amber">
-              02
-            </span>
-
-            <span className="text-muted group-hover:text-amber transition-colors">
-              →
-            </span>
+            <span className="font-mono text-sm text-amber">02</span>
+            <span className="text-muted">→</span>
           </div>
 
-          <h3 className="mt-8 font-display text-2xl text-ink">
-            Build real things.
+          <h3 className="mt-10 font-display text-2xl text-ink">
+            Turn ideas into projects.
           </h3>
 
-          <p className="mt-3 text-muted leading-relaxed">
-            Turn what you learn into projects, experiments and systems
-            that give you experience beyond the classroom.
+          <p className="mt-4 text-muted leading-relaxed">
+            Take what interests you beyond theory. Work on projects,
+            experiment with different technologies and learn by actually
+            making things.
           </p>
         </article>
 
-        {/* Community */}
-        <article className="group border border-line bg-card rounded-md p-6 md:p-7 transition-all duration-200 hover:-translate-y-1 hover:border-amber/40 hover:shadow-sm">
+        {/* Card 03 */}
+        <article className="bg-white border border-line rounded-md p-6 md:p-7">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-sm text-amber">
-              03
-            </span>
-
-            <span className="text-muted group-hover:text-amber transition-colors">
-              →
-            </span>
+            <span className="font-mono text-sm text-amber">03</span>
+            <span className="text-muted">→</span>
           </div>
 
-          <h3 className="mt-8 font-display text-2xl text-ink">
-            Find your people.
+          <h3 className="mt-10 font-display text-2xl text-ink">
+            Find your community.
           </h3>
 
-          <p className="mt-3 text-muted leading-relaxed">
-            Meet other students interested in technology, share what you
-            know, ask questions and grow alongside a community.
+          <p className="mt-4 text-muted leading-relaxed">
+            Meet students with different interests and strengths, share
+            knowledge, collaborate and grow alongside people who want to
+            build something too.
           </p>
         </article>
 
       </div>
 
-      {/* Community statement */}
-      <div className="mt-10 border-t border-line pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-        <p className="font-mono text-sm text-muted">
+      {/* Bottom statement */}
+      <div className="mt-8 pt-6 border-t border-line flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <span className="font-mono text-sm text-muted">
           students → learners → developers → builders
-        </p>
+        </span>
 
-        <p className="text-sm text-ink">
-          You don't have to know everything before you join.
-        </p>
+        <span className="font-serif text-body text-muted">
+          You don't need to know everything before you join.
+        </span>
       </div>
 
     </section>
