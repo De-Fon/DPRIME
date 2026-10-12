@@ -10,6 +10,17 @@ DPrime uses one Supabase project for two things:
 The admin portal at `/admin` writes to both. The public site reads from both.
 Everything below is a one-time setup, about ten minutes.
 
+## Checklist
+
+- [ ] Create a Supabase project and save the database password
+- [ ] Copy the **transaction pooler** connection string, add `?sslmode=no-verify`
+- [ ] Create a **public** Storage bucket named `images`
+- [ ] Copy the Project URL and the service (secret) key
+- [ ] Put the values in `.env.local` and in Vercel, then redeploy
+- [ ] Sign in at `/admin/login` and upload an image to an event
+
+The sections below explain each step.
+
 ## 1. Create the project
 
 1. Sign in at supabase.com and choose **New project**.
