@@ -10,11 +10,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
 const navItems = [
-  { label: "Our Story", href: "/#journey" },
-  { label: "Learning", href: "/#learning" },
-  { label: "Projects", href: "/projects" },
-  { label: "Events", href: "/#events" },
-  { label: "People", href: "/team" },
+  { label: "Discover", href: "/discover" },
+  { label: "Communities", href: "/communities" },
+  { label: "Events", href: "/events" },
+  { label: "Opportunities", href: "/opportunities" },
+  { label: "About", href: "/about" },
 ];
 
   const isActive = (path: string) =>
@@ -27,7 +27,7 @@ const navItems = [
 
         {/* Brand */}
         <Link
-          href="/#"
+          href="/"
           aria-label="DPRIME — home"
           className="flex items-center gap-3 min-w-0"
         >
@@ -83,10 +83,10 @@ const navItems = [
 
           {/* Main community CTA */}
           <Link
-            href="/#join"
+            href="/communities"
             className="group ml-4 inline-flex items-center btn-primary"
           >
-            <span>Join DPRIME</span>
+            <span>Explore communities</span>
 
             <span className="ml-3 transform transition-transform duration-150 group-hover:translate-x-1">
               →
@@ -145,11 +145,11 @@ const navItems = [
                 <div className="mt-2 pt-2 border-t border-line">
 
                   <Link
-                    href="/join"
+                    href="/communities"
                     className="group w-full inline-flex items-center justify-center btn-primary"
                     onClick={() => setOpen(false)}
                   >
-                    <span>Join DPRIME</span>
+                    <span>Explore communities</span>
 
                     <span className="ml-3">
                       →

@@ -215,3 +215,48 @@ Local component state only (useState/useEffect), scoped to Client Components suc
     • Add live URLs for each project (Rumia especially)
     • Wire the contact form to a real submission endpoint or service (e.g. Formspree, EmailJS, or a small FastAPI/Next.js API endpoint matching the team's existing backend pattern)
     • Add real project screenshots (currently a text-only spec-sheet layout)
+---
+
+## 6. Ecosystem Revamp (DPrime as a community connecting communities)
+
+DPrime is moving from a single-team showcase to an ecosystem layer that
+connects technology communities. The original club site is preserved at
+`/about`, `/projects`, `/team`, `/services` and `/contact`.
+
+### 6.1 Entity model (`lib/types.ts`)
+
+`Community`, `Organization`, `EcosystemEvent`, `Program`, `Opportunity` and
+`Partnership`. Communities and organizations share one slug namespace, so
+events, programs, opportunities and partnerships reference either by slug.
+`resolveEntity()` in `lib/ecosystem.ts` is the single lookup point.
+
+### 6.2 Community graph
+
+`data/partnerships.ts` stores each relationship once as a typed edge
+(`partner`, `sponsor`, `event partner`, ...). `connectionsOf(slug)` reads it
+from both directions, so a link shows on both communities' profiles.
+
+### 6.3 Discovery
+
+Filters (search text, region, topic) are plain query parameters on a GET form.
+Pages stay server-rendered and shareable, and need no client JavaScript.
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Ecosystem dashboard: events, communities, opportunities |
+| `/discover` | Unified search across all entity types |
+| `/communities`, `/communities/[slug]` | Directory and community profile |
+| `/events`, `/opportunities` | Filterable listings |
+| `/about` | The DPRIME club story (previous homepage) |
+
+### 6.4 Data status
+
+Only `dprime` is a real record. Everything else is flagged `sample: true`
+and rendered with a "sample" badge. Replace these as real communities onboard.
+
+### 6.5 Not yet built (needs a backend)
+
+Accounts, following, joining, community management tools, event
+registration, and the AI-assisted recommendations from priority 5.
+Static data is the deliberate Phase 1 trade-off; the typed model is the
+contract a backend would implement.

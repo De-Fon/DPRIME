@@ -4,7 +4,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "DPRIME | Student Developer Team",
+  title: "DPRIME | A community connecting communities",
+  description:
+    "Discover technology communities, events and opportunities across Africa.",
 };
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });

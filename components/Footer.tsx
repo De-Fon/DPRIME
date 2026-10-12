@@ -10,13 +10,14 @@ export default function Footer() {
             <Link href="/" aria-label="DPRIME home" className="inline-block">
               <span className="font-display text-lg text-ink">DPRIME</span>
             </Link>
-            <p className="mt-3 text-sm text-muted max-w-xs">Small, capable student dev team building production-ready web apps and backend systems.</p>
+            <p className="mt-3 text-sm text-muted max-w-xs">A community connecting technology communities across Africa.</p>
           </div>
 
           <div className="min-w-0">
-            <h4 className="font-mono text-sm text-ink mb-3">Company</h4>
+            <h4 className="font-mono text-sm text-ink mb-3">DPRIME</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="text-muted hover:text-amber nav-link">Home</Link></li>
+              <li><Link href="/about" className="text-muted hover:text-amber nav-link">About</Link></li>
               <li><Link href="/projects" className="text-muted hover:text-amber nav-link">Projects</Link></li>
               <li><Link href="/services" className="text-muted hover:text-amber nav-link">Services</Link></li>
               <li><Link href="/team" className="text-muted hover:text-amber nav-link">Team</Link></li>
@@ -69,7 +70,7 @@ export default function Footer() {
 
         <div className="mt-8 border-t border-line pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-muted">© 2026 DPRIME. All rights reserved.</div>
-          <div className="text-xs text-muted">Small, capable student dev team building production-ready web apps and ongoing support.</div>
+          <div className="text-xs text-muted">Connection. Discovery. Collaboration. Opportunity.</div>
         </div>
       </div>
     </footer>
