@@ -1,13 +1,36 @@
+// Title of the first slide, and the heading on the final full-text screen.
+export const manifestoTitle = "A civilisation out of balance";
+
 // One entry per click. Edit freely; the reveal adapts to any length.
+// The text is the club's own manifesto; "DPRIME" stands in for the original
+// club name in the sentence that introduces the community.
 export const manifesto: string[] = [
-  "DPRIME began as ten students and a shared habit of building things.",
-  "We were not waiting to be qualified. We were learning in public, one project at a time.",
-  "Along the way we found that the people we needed were already out there, running clubs, meetups and communities of their own.",
-  "They were building too, just in rooms we could not see into.",
-  "So DPrime is not trying to be another place to post.",
-  "It is a way for communities to find each other, share what they know and make room for the next builder.",
-  "We keep what already works, from WhatsApp groups to campus clubs, and connect them.",
-  "If you build, teach, organise or simply want to learn, there is a seat for you here.",
+  "We live in a time where noise outruns understanding.",
+  "Where attention is spent before thought begins.",
+  "Where speed is worshipped, but depth is neglected.",
+  "Something in that imbalance has left many of us restless.",
+  "Not because life is hard, but because it feels shallow.",
+  "Not because we lack comfort, but because comfort isn’t meaning.",
+  "This restlessness is not a weakness.",
+  "It’s the mind recognising that the world it was handed isn’t the world it wishes to inherit.",
+  "It’s a response to a civilisation optimised for consumption rather than creation.",
+  "Across disciplines, cities, and timelines, there is a quiet group of people who feel this shift.",
+  "People who think too much because they see too clearly.",
+  "People who build slowly because noise feels dishonest.",
+  "People who care about the work because the work is alive.",
+  "DPRIME is not a brand or a movement.",
+  "It’s a meeting point — a place where these people can recognise each other.",
+  "A place for those who design, who invent, who observe, who rebuild.",
+  "Not through motivation, but through clarity.",
+  "Human capability deserves tools that honour it.",
+  "Systems that feel sincere and authentic.",
+  "Progress should come from understanding, not acceleration.",
+  "The future should be shaped deliberately, not stumbled into.",
+  "Our work unfolds in phases.",
+  "This first phase is simple.",
+  "A quiet room before the lights come on.",
+  "A place to gather, to experiment, to find the others.",
+  "Nothing polished, nothing final — just the early sparks of something worth building together.",
 ];
 
 // Set NEXT_PUBLIC_DISCORD_URL to the real invite link.
