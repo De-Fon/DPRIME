@@ -253,12 +253,14 @@ Pages stay server-rendered and shareable, and need no client JavaScript.
 
 Ecosystem data is served from Postgres when `DATABASE_URL` is set, and from the
 static files in `data/` when it is not (read-only; used for local dev and CI).
-On Vercel, add the Neon integration from the Marketplace, which sets
-`DATABASE_URL`. Vercel's runtime filesystem is read-only, so file-based
-storage is not an option there.
+The database is Supabase (Postgres), reached with the `pg` driver through the
+transaction pooler (see `.env.example`). Vercel's runtime filesystem is
+read-only, so file-based storage is not an option there.
 
 - One table, `entities (kind, slug, data jsonb)`, plus a `meta` table. The
-  schema is created on first use (`lib/store.ts`).
+  schema is created on first use (`lib/store.ts`). Row-level security is
+  enabled on both tables with no policies, so Supabase's public Data API
+  cannot read or write them; only the server's direct connection can.
 - The `data/` files seed an empty database once. A `meta` marker makes this
   atomic and permanent, so deleting every record does not bring samples back.
 - Records with `sample: true` render a "sample" badge. Saving a record in the

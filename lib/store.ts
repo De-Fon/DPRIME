@@ -91,6 +91,11 @@ function ready(): Promise<void> {
       await client.query(
         "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text NOT NULL)",
       );
+      // Supabase exposes public-schema tables through its Data API using a
+      // public key. With RLS on and no policies that API is denied everything,
+      // while this server's direct connection (table owner) is unaffected.
+      await client.query("ALTER TABLE entities ENABLE ROW LEVEL SECURITY");
+      await client.query("ALTER TABLE meta ENABLE ROW LEVEL SECURITY");
       const marker = await client.query(
         "INSERT INTO meta (key, value) VALUES ('seeded', 'true') ON CONFLICT DO NOTHING",
       );
