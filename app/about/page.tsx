@@ -1,26 +1,28 @@
-import Hero from "../components/Hero";
-import StatsBar from "../components/StatsBar";
-import ProjectCard from "../components/ProjectCard";
+import Hero from "@/components/Hero";
+import StatsBar from "@/components/StatsBar";
+import ProjectCard from "@/components/ProjectCard";
 
-import ClubIntro from "../components/story/ClubIntro";
-import JourneyTimeline from "../components/story/JourneyTimeline";
-import FirstsWall from "../components/story/FirstsWall";
-import ValuesSection from "../components/story/ValuesSection";
+import ClubIntro from "@/components/story/ClubIntro";
+import JourneyTimeline from "@/components/story/JourneyTimeline";
+import FirstsWall from "@/components/story/FirstsWall";
+import ValuesSection from "@/components/story/ValuesSection";
 
-import CommunitySection from "../components/community/CommunitySection";
-import LearningTracks from "../components/community/LearningTracks";
-import BuildLog from "../components/community/BuildLog";
-import JoinDprime from "../components/community/JoinDprime";
-import EventsSection from "../components/community/EventsSection";
+import CommunitySection from "@/components/community/CommunitySection";
+import LearningTracks from "@/components/community/LearningTracks";
+import BuildLog from "@/components/community/BuildLog";
+import JoinDprime from "@/components/community/JoinDprime";
+import EventsSection from "@/components/community/EventsSection";
 
-import { projects } from "../data/projects";
-import { team } from "../data/team";
+import { projects } from "@/data/projects";
+import { team } from "@/data/team";
 
 import Link from "next/link";
 import Image from "next/image";
 
 
-export default function Home() {
+export const metadata = { title: "About | DPRIME" };
+
+export default function About() {
   return (
     <>
       <Hero />
