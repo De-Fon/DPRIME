@@ -10,6 +10,12 @@ DPrime uses one Supabase project for two things:
 The admin portal at `/admin` writes to both. The public site reads from both.
 Everything below is a one-time setup, about ten minutes.
 
+> **For whoever is setting this up:** this guide and the code behind it were
+> tested against a local Postgres and a mock of Supabase's Storage API, not a
+> live Supabase project. Follow the checklist and the first-run steps in
+> section 6 on a real project, and use the troubleshooting table (section 8)
+> if something differs. Any real-world differences are worth fixing in this file.
+
 ## Checklist
 
 - [ ] Create a Supabase project and save the database password
