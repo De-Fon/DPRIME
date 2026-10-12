@@ -70,6 +70,9 @@ export default async function Home() {
             <Link href="/communities" className="btn-secondary">
               Browse communities
             </Link>
+            <Link href="/manifesto" className="btn-secondary">
+              Read the manifesto
+            </Link>
           </div>
         </div>
       </section>
