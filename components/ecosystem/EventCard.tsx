@@ -1,6 +1,7 @@
 import type { EcosystemEvent } from "@/lib/types";
 import { formatDate, type EntityRef } from "@/lib/ecosystem";
 import Link from "next/link";
+import CoverImage from "./CoverImage";
 import SampleBadge from "./SampleBadge";
 
 export default function EventCard({
@@ -11,7 +12,9 @@ export default function EventCard({
   host: EntityRef | null;
 }) {
   return (
-    <article className="bg-card border border-line rounded-md p-6 transition duration-150 hover:-translate-y-1 hover:border-amber/40 hover:shadow-md">
+    <article className="bg-card border border-line rounded-md overflow-hidden transition duration-150 hover:-translate-y-1 hover:border-amber/40 hover:shadow-md">
+      <CoverImage src={event.imageUrl} alt={event.title} />
+      <div className="p-6">
       <div className="flex items-center justify-between gap-3 mb-6">
         <span className="font-mono text-xs text-amber">
           {formatDate(event.date)}
@@ -34,6 +37,7 @@ export default function EventCard({
         ) : (
           <span>hosted by {host?.name ?? event.hostSlug}</span>
         )}
+      </div>
       </div>
     </article>
   );

@@ -1,4 +1,5 @@
 import CommunityCard from "@/components/ecosystem/CommunityCard";
+import CoverImage from "@/components/ecosystem/CoverImage";
 import EmptyState from "@/components/ecosystem/EmptyState";
 import EventCard from "@/components/ecosystem/EventCard";
 import FilterBar from "@/components/ecosystem/FilterBar";
@@ -100,8 +101,10 @@ export default async function DiscoverPage({
           {orgs.map((o) => (
             <li
               key={o.slug}
-              className="bg-card border border-line rounded-md p-6"
+              className="bg-card border border-line rounded-md overflow-hidden"
             >
+              <CoverImage src={o.imageUrl} alt={o.name} />
+              <div className="p-6">
               <div className="flex items-center justify-between mb-3">
                 <span className="font-mono text-xs text-amber">{o.kind}</span>
                 {o.sample && <SampleBadge />}
@@ -109,6 +112,7 @@ export default async function DiscoverPage({
               <h3 className="font-display text-lg text-ink">{o.name}</h3>
               <p className="mt-2 text-sm text-muted">{o.description}</p>
               <p className="mt-4 font-mono text-xs text-muted">{o.location}</p>
+              </div>
             </li>
           ))}
         </ul>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import EntityForm from "@/components/admin/EntityForm";
 import { requireAdmin } from "@/lib/auth";
+import { storageConfigured } from "@/lib/storage";
 import { SCHEMAS, SEGMENT_TO_KIND, toFormValues } from "@/lib/adminSchema";
 import { getEntity } from "@/lib/store";
 
@@ -26,6 +27,7 @@ export default async function AdminEdit({
         fields={schema.fields}
         initial={toFormValues(schema, entity as unknown as Record<string, unknown>)}
         originalSlug={slug}
+        storageEnabled={storageConfigured()}
       />
     </>
   );

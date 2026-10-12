@@ -13,7 +13,8 @@ export type FieldType =
   | "tags" // comma separated, value is string[]
   | "date"
   | "number"
-  | "ref"; // slug of a community or organization
+  | "ref" // slug of a community or organization
+  | "image"; // file upload stored in Supabase Storage; value is the URL
 
 export interface Field {
   name: string;
@@ -45,6 +46,13 @@ const slugField: Field = {
   help: "Lowercase letters, numbers and hyphens. Cannot be changed after creation.",
 };
 
+const imageField = (label: string): Field => ({
+  name: "imageUrl",
+  label,
+  type: "image",
+  help: "JPEG, PNG or WebP, up to 4 MB. Optional.",
+});
+
 const str = (v: unknown) => (typeof v === "string" ? v : "");
 
 export const SCHEMAS: Record<Kind, KindSchema> = {
@@ -58,6 +66,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
     detail: (d) => `${str(d.kind)} · ${str(d.location)}`,
     fields: [
       slugField,
+      imageField("Image"),
       { name: "name", label: "Name", type: "text", required: true },
       {
         name: "kind",
@@ -87,6 +96,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
     detail: (d) => `${str(d.kind)} · ${str(d.location)}`,
     fields: [
       slugField,
+      imageField("Image"),
       { name: "name", label: "Name", type: "text", required: true },
       { name: "kind", label: "Kind", type: "select", required: true, options: ["company", "institution", "nonprofit"] },
       { name: "description", label: "Description", type: "textarea", required: true },
@@ -106,6 +116,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
     detail: (d) => `${str(d.kind)} · ${str(d.date)} · ${str(d.location)}`,
     fields: [
       slugField,
+      imageField("Image"),
       { name: "title", label: "Title", type: "text", required: true },
       {
         name: "kind",
@@ -133,6 +144,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
     detail: (d) => `${str(d.kind)} · ${str(d.duration)}`,
     fields: [
       slugField,
+      imageField("Image"),
       { name: "title", label: "Title", type: "text", required: true },
       {
         name: "kind",
@@ -157,6 +169,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
     detail: (d) => `${str(d.kind)} · ${str(d.location)}`,
     fields: [
       slugField,
+      imageField("Image"),
       { name: "title", label: "Title", type: "text", required: true },
       {
         name: "kind",
@@ -230,6 +243,13 @@ function isHttpUrl(v: string): boolean {
 export function rawValues(schema: KindSchema, fd: FormData): FormValues {
   const out: FormValues = {};
   for (const f of schema.fields) {
+    if (f.type === "image") {
+      // The file itself is read in the action; the form value is the URL
+      // already stored, or "" if the admin ticked "remove".
+      out[f.name] =
+        fd.get(`${f.name}__remove`) === "on" ? "" : String(fd.get(`${f.name}__current`) ?? "").trim();
+      continue;
+    }
     out[f.name] =
       f.type === "multi"
         ? fd.getAll(f.name).map(String)
@@ -313,6 +333,10 @@ export function validate(
         else data[f.name] = n;
         break;
       }
+      case "image":
+        if (!isHttpUrl(text)) errors[f.name] = "Invalid image URL";
+        else data[f.name] = text;
+        break;
       case "ref":
         if (!known.has(text)) errors[f.name] = "No community or organization with this slug";
         else data[f.name] = text;

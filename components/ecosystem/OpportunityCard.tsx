@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Opportunity } from "@/lib/types";
 import { formatDate, type EntityRef } from "@/lib/ecosystem";
+import CoverImage from "./CoverImage";
 import SampleBadge from "./SampleBadge";
 
 export default function OpportunityCard({
@@ -11,7 +12,9 @@ export default function OpportunityCard({
   poster: EntityRef | null;
 }) {
   return (
-    <article className="bg-card border border-line rounded-md p-6 border-l-2 hover:border-l-amber transition duration-150 hover:-translate-y-1 hover:shadow-md">
+    <article className="bg-card border border-line rounded-md overflow-hidden border-l-2 hover:border-l-amber transition duration-150 hover:-translate-y-1 hover:shadow-md">
+      <CoverImage src={opportunity.imageUrl} alt={opportunity.title} />
+      <div className="p-6">
       <div className="flex items-center justify-between gap-3 mb-4">
         <span className="font-mono text-xs text-amber">{opportunity.kind}</span>
         {opportunity.sample && <SampleBadge />}
@@ -32,6 +35,7 @@ export default function OpportunityCard({
         ) : (
           <span>{poster?.name ?? opportunity.postedBySlug}</span>
         )}
+      </div>
       </div>
     </article>
   );

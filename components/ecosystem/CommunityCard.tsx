@@ -1,16 +1,19 @@
 import Link from "next/link";
 import type { Community } from "@/lib/types";
+import CoverImage from "./CoverImage";
 import SampleBadge from "./SampleBadge";
 import Tag from "./Tag";
 
 export default function CommunityCard({ community }: { community: Community }) {
   return (
-    <article className="group relative bg-card border border-line rounded-md p-6 border-l-2 hover:border-l-amber transition duration-150 hover:-translate-y-1 hover:shadow-md">
+    <article className="group relative bg-card border border-line rounded-md overflow-hidden border-l-2 hover:border-l-amber transition duration-150 hover:-translate-y-1 hover:shadow-md">
       <Link
         href={`/communities/${community.slug}`}
         className="absolute inset-0 rounded-md"
         aria-label={`View ${community.name}`}
       />
+      <CoverImage src={community.imageUrl} alt={community.name} />
+      <div className="p-6">
       <div className="flex items-center justify-between gap-3 mb-4">
         <span className="font-mono text-xs text-amber">{community.kind}</span>
         {community.sample && <SampleBadge />}
@@ -24,6 +27,7 @@ export default function CommunityCard({ community }: { community: Community }) {
       </div>
       <div className="mt-5 pt-4 border-t border-line font-mono text-xs text-muted">
         {community.location}
+      </div>
       </div>
     </article>
   );

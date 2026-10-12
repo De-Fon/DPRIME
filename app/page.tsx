@@ -7,6 +7,9 @@ import { getEcosystem, resolveEntity } from "@/lib/ecosystem";
 
 const HOME_PREVIEW = 3;
 
+// "Upcoming" depends on today's date, so re-render at least hourly.
+export const revalidate = 3600;
+
 function SectionHeader({
   label,
   title,
@@ -34,7 +37,9 @@ function SectionHeader({
 export default async function Home() {
   const eco = await getEcosystem();
   const { communities, organizations, opportunities, partnerships } = eco;
-  const upcoming = [...eco.events]
+  const today = new Date().toISOString().slice(0, 10);
+  const upcoming = eco.events
+    .filter((e) => e.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(0, HOME_PREVIEW);
 
@@ -73,7 +78,10 @@ export default async function Home() {
             <a
               href="/manifesto"
               target="_blank"
-              rel="noopener noreferrer"
+              // Same-origin page, so keeping the opener is safe. It is what lets
+              // the new tab play sound immediately: browsers default
+              // target=_blank to noopener, which drops the click's permission.
+              rel="opener"
               className="manifesto-launch group relative inline-flex cursor-pointer items-center gap-3 rounded-full bg-ink px-8 py-4 text-base font-semibold text-paper transition-colors hover:bg-amber"
             >
               <span className="relative flex h-2.5 w-2.5" aria-hidden>
@@ -114,11 +122,17 @@ export default async function Home() {
           href="/events"
           cta="All events"
         />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {upcoming.map((e) => (
-            <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
-          ))}
-        </div>
+        {upcoming.length === 0 ? (
+          <p className="border border-dashed border-line rounded-md p-8 text-center text-sm text-muted">
+            No upcoming events yet. Check back soon.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {upcoming.map((e) => (
+              <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-14">

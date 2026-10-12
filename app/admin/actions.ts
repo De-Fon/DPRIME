@@ -13,7 +13,8 @@ import {
 import { dbConfigured } from "@/lib/db";
 import { getEcosystem, referencesTo } from "@/lib/ecosystem";
 import { SCHEMAS, rawValues, validate, type FormState } from "@/lib/adminSchema";
-import { createEntity, deleteEntity as removeEntity, saveEntity, type Kind } from "@/lib/store";
+import { createEntity, deleteEntity as removeEntity, getEntity, saveEntity, type Kind } from "@/lib/store";
+import { deleteImage, storageConfigured, uploadImage, validateImageFile } from "@/lib/storage";
 
 export interface LoginState {
   error?: string;
@@ -73,12 +74,42 @@ async function saveEntity_(
 
   const eco = await getEcosystem();
   const result = validate(schema, values, eco);
-  if ("errors" in result) return { errors: result.errors, values };
+  const errors: Record<string, string> = "errors" in result ? { ...result.errors } : {};
+
+  // Newly chosen image files, checked by their real bytes before anything is
+  // stored. They are uploaded only once the rest of the form is valid.
+  const uploads: Record<string, File> = {};
+  for (const f of schema.fields) {
+    if (f.type !== "image") continue;
+    const file = fd.get(f.name);
+    if (!(file instanceof File) || file.size === 0) continue;
+    if (!storageConfigured()) {
+      errors[f.name] = "Image storage is not configured (see the Supabase guide)";
+      continue;
+    }
+    const problem = await validateImageFile(file);
+    if (problem) errors[f.name] = problem;
+    else uploads[f.name] = file;
+  }
+  if (Object.keys(errors).length || "errors" in result) return { errors, values };
+
+  const data = { ...result.data };
+  const previous = originalSlug
+    ? ((await getEntity(kind, originalSlug)) as unknown as Record<string, unknown> | null)
+    : null;
+  const uploaded: string[] = [];
 
   try {
+    for (const [field, file] of Object.entries(uploads)) {
+      const url = await uploadImage(file, schema.segment);
+      uploaded.push(url);
+      data[field] = url;
+    }
+
     if (originalSlug === null) {
-      const created = await createEntity(kind, result.slug, result.data);
+      const created = await createEntity(kind, result.slug, data);
       if (!created) {
+        await Promise.all(uploaded.map(deleteImage));
         return {
           errors: { [schema.hasSlug ? "slug" : "type"]: "This already exists" },
           values,
@@ -87,16 +118,24 @@ async function saveEntity_(
     } else {
       // For partnerships the key is derived, so editing an endpoint changes it.
       if (result.slug !== originalSlug) {
-        const created = await createEntity(kind, result.slug, result.data);
+        const created = await createEntity(kind, result.slug, data);
         if (!created) return { errors: { type: "This partnership already exists" }, values };
         await removeEntity(kind, originalSlug);
       } else {
-        await saveEntity(kind, result.slug, result.data);
+        await saveEntity(kind, result.slug, data);
       }
     }
   } catch (err) {
     console.error("admin save failed", err);
-    return { errors: {}, values, formError: "Could not save. Check the database connection and try again." };
+    await Promise.all(uploaded.map(deleteImage));
+    return { errors: {}, values, formError: "Could not save. Check the database and storage connection and try again." };
+  }
+
+  // The record now points at the new image (or none); drop the file it replaced.
+  for (const f of schema.fields) {
+    if (f.type !== "image") continue;
+    const old = previous?.[f.name];
+    if (typeof old === "string" && old && old !== data[f.name]) await deleteImage(old);
   }
 
   refresh();
@@ -119,7 +158,9 @@ export async function deleteEntityAction(kind: Kind, slug: string): Promise<void
   }
 
   try {
+    const existing = (await getEntity(kind, slug)) as unknown as Record<string, unknown> | null;
     await removeEntity(kind, slug);
+    if (typeof existing?.imageUrl === "string") await deleteImage(existing.imageUrl);
   } catch (err) {
     console.error("admin delete failed", err);
     redirect(`${back}?error=${encodeURIComponent("Could not delete. Try again.")}`);

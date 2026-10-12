@@ -73,6 +73,7 @@ export type CommunityKind =
   | "innovation hub";
 
 export interface Community {
+  imageUrl?: string; // cover image or logo, hosted in Supabase Storage
   slug: string;
   name: string;
   kind: CommunityKind;
@@ -91,6 +92,7 @@ export interface Community {
 export type OrganizationKind = "company" | "institution" | "nonprofit";
 
 export interface Organization {
+  imageUrl?: string; // cover image or logo, hosted in Supabase Storage
   slug: string;
   name: string;
   kind: OrganizationKind;
@@ -111,6 +113,7 @@ export type EventKind =
   | "demo day";
 
 export interface EcosystemEvent {
+  imageUrl?: string; // cover image or logo, hosted in Supabase Storage
   slug: string;
   title: string;
   kind: EventKind;
@@ -132,6 +135,7 @@ export type ProgramKind =
   | "developer program";
 
 export interface Program {
+  imageUrl?: string; // cover image or logo, hosted in Supabase Storage
   slug: string;
   title: string;
   kind: ProgramKind;
@@ -155,6 +159,7 @@ export type OpportunityKind =
   | "collaboration";
 
 export interface Opportunity {
+  imageUrl?: string; // cover image or logo, hosted in Supabase Storage
   slug: string;
   title: string;
   kind: OpportunityKind;

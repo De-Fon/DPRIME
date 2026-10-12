@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import CoverImage from "@/components/ecosystem/CoverImage";
 import EventCard from "@/components/ecosystem/EventCard";
 import OpportunityCard from "@/components/ecosystem/OpportunityCard";
 import SampleBadge from "@/components/ecosystem/SampleBadge";
@@ -46,6 +47,12 @@ export default async function CommunityPage({
       </Link>
 
       <header className="mt-6">
+        <CoverImage
+          src={community.imageUrl}
+          alt={community.name}
+          priority
+          className="mb-8 rounded-md border border-line max-w-3xl"
+        />
         <SectionLabel>{community.kind}</SectionLabel>
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="font-display text-4xl md:text-5xl text-ink">
@@ -157,13 +164,16 @@ export default async function CommunityPage({
             {programs.map((p) => (
               <article
                 key={p.slug}
-                className="bg-card border border-line rounded-md p-6"
+                className="bg-card border border-line rounded-md overflow-hidden"
               >
+                <CoverImage src={p.imageUrl} alt={p.title} />
+                <div className="p-6">
                 <div className="font-mono text-xs text-amber mb-2">
                   {p.kind} · {p.duration}
                 </div>
                 <h3 className="font-display text-xl text-ink">{p.title}</h3>
                 <p className="mt-2 text-sm text-muted">{p.description}</p>
+                </div>
               </article>
             ))}
           </div>
