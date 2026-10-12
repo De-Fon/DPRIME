@@ -67,7 +67,7 @@ export default function BuildLog() {
 
                 <div className="mt-2 inline-flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-amber" />
-                  <span className="font-mono text-[11px] text-amber">
+                  <span className="font-mono text-xs text-amber">
                     {item.status}
                   </span>
                 </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { WHATSAPP_URL } from "@/data/links";
 
 export default function JoinDprime() {
   return (
@@ -41,7 +42,9 @@ export default function JoinDprime() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                href="/contact"
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center px-5 py-3 bg-amber text-paper rounded-md font-semibold hover:shadow-md transition"
               >
                 Join the community

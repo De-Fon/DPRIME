@@ -10,11 +10,11 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
 const navItems = [
-  { label: "Our Story", href: "/#journey" },
-  { label: "Learning", href: "/#learning" },
-  { label: "Projects", href: "/projects" },
-  { label: "Events", href: "/#events" },
-  { label: "People", href: "/team" },
+  { label: "Discover", href: "/discover" },
+  { label: "Communities", href: "/communities" },
+  { label: "Events", href: "/events" },
+  { label: "Opportunities", href: "/opportunities" },
+  { label: "About", href: "/about" },
 ];
 
   const isActive = (path: string) =>
@@ -27,7 +27,7 @@ const navItems = [
 
         {/* Brand */}
         <Link
-          href="/#"
+          href="/"
           aria-label="DPRIME — home"
           className="flex items-center gap-3 min-w-0"
         >
@@ -48,7 +48,7 @@ const navItems = [
         </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-8">
 
           <div className="flex items-center space-x-6">
 
@@ -56,7 +56,7 @@ const navItems = [
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative group"
+                className="relative group py-2"
               >
                 <span
                   className={`nav-link text-sm font-medium duration-150 ease-out ${
@@ -69,7 +69,7 @@ const navItems = [
                 </span>
 
                 <span
-                  className={`absolute left-0 -bottom-1 h-0.5 bg-amber rounded transition-all duration-150 ${
+                  className={`absolute left-0 bottom-1 h-0.5 bg-amber rounded transition-all duration-150 ${
                     isActive(item.href)
                       ? "w-full"
                       : "w-0 group-hover:w-full"
@@ -83,10 +83,10 @@ const navItems = [
 
           {/* Main community CTA */}
           <Link
-            href="/#join"
+            href="/communities"
             className="group ml-4 inline-flex items-center btn-primary"
           >
-            <span>Join DPRIME</span>
+            <span>Explore communities</span>
 
             <span className="ml-3 transform transition-transform duration-150 group-hover:translate-x-1">
               →
@@ -96,7 +96,7 @@ const navItems = [
         </div>
 
         {/* Mobile menu */}
-        <div className="md:hidden relative">
+        <div className="lg:hidden relative">
 
           <button
             aria-expanded={open}
@@ -145,11 +145,11 @@ const navItems = [
                 <div className="mt-2 pt-2 border-t border-line">
 
                   <Link
-                    href="/join"
+                    href="/communities"
                     className="group w-full inline-flex items-center justify-center btn-primary"
                     onClick={() => setOpen(false)}
                   >
-                    <span>Join DPRIME</span>
+                    <span>Explore communities</span>
 
                     <span className="ml-3">
                       →

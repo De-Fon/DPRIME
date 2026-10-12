@@ -35,7 +35,7 @@ export default function Hero() {
           <div className="mt-10 flex flex-wrap items-center gap-4">
 
             <Link
-              href="/#join"
+              href="/about#join"
               className="inline-flex items-center px-6 py-3 bg-amber text-paper rounded-md font-semibold shadow-sm hover:shadow-md transition"
             >
               <span>Join DPRIME</span>
@@ -43,7 +43,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/#journey"
+              href="/about#journey"
               className="inline-flex items-center px-6 py-3 border border-line bg-card text-ink rounded-md font-medium hover:border-amber/40 hover:text-amber transition"
             >
               <span>Explore our journey</span>

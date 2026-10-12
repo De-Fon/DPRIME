@@ -1,115 +1,156 @@
-# DPRIME — Student Developer Team Website
+# DPRIME
 
-This repository contains a Next.js (App Router) site scaffold for DPRIME — a small student developer team that builds production-ready web apps. The site is intentionally minimal and opinionated, using Server Components by default, TypeScript types for static data, Tailwind CSS v4 with theme tokens, and a lightweight contact form implemented as a Client Component.
+A community connecting communities.
 
-Contents
- - `app/` — Next.js App Router routes and layouts (Server Components by default). Key files:
-	 - `app/layout.tsx` — root layout, loads global fonts and CSS variables.
-	 - `app/globals.css` — Tailwind v4 config import and design tokens / utilities.
-	 - `app/page.tsx` — home page composition of sections (Hero, Projects, Services, Team, Contact).
-	 - `app/projects/[slug]/page.tsx` — project detail page with dynamic route.
-	 - `app/not-found.tsx`, `app/error.tsx`, `app/loading.tsx` — route-level UI.
+DPRIME helps technology communities across Africa find each other, run events together and share opportunities. University clubs, developer groups and open-source collectives get a public profile, can show their partners, and can post events and opportunities. Nobody has to leave the WhatsApp, Discord or campus group they already use.
 
- - `components/` — UI components (mostly Server Components). Notable components:
-	 - `Navbar.tsx`, `Footer.tsx` — global navigation and footer.
-	 - `Hero.tsx`, `ProjectsGrid.tsx`, `ProjectCard.tsx`, `ServicesGrid.tsx`, `ProcessSteps.tsx`, `TeamGrid.tsx`, `ContactForm.tsx`.
-	 - `ContactForm.tsx` is a Client Component (`"use client"`) and contains validation state.
+## What is in the product
 
- - `lib/` — shared TypeScript types and helpers:
-	 - `lib/types.ts` — `Project`, `TeamMember`, `Service`, `ProcessStep` interfaces.
-	 - `lib/validate.ts` — `validateContactForm()` used by the client contact form.
+| Area | Route | What it does |
+| --- | --- | --- |
+| Home | `/` | What DPRIME does, who it is for, upcoming events, communities, opportunities |
+| Discover | `/discover` | One search across communities, events, opportunities and organizations |
+| Communities | `/communities`, `/communities/[slug]` | Directory with filters, and a profile with partners, events and programs |
+| Events | `/events` | Meetups, hackathons and workshops, with cover images |
+| Opportunities | `/opportunities` | Internships, grants, speaking slots, collaborations |
+| Manifesto | `/manifesto` | Full-screen, one-sentence-at-a-time reveal with background audio |
+| About | `/about` | The DPRIME club story, plus `/projects`, `/team`, `/services` |
+| Get in touch | `/contact` | Links to the WhatsApp group and Discord |
+| Admin | `/admin` | Password-protected portal to manage all of the data above |
 
- - `data/` — static typed data exported and consumed by Server Components:
-	 - `data/projects.ts`, `data/team.ts`, `data/services.ts`, `data/process.ts`.
+## Tech stack
 
- - `public/images/team/` — team photos go here (used by `TeamGrid`).
+- Next.js 16 (App Router, Server Components by default), React 19, TypeScript
+- Tailwind CSS 4 with theme tokens in `tailwind.config.ts`
+- Supabase: Postgres for data, Storage for images (`pg` driver and the Storage REST API, no SDK)
+- Deployed on Vercel
 
-Key Features and Design
-- Next.js App Router (Server Components by default). Use client components sparingly (e.g., `ContactForm`).
-- Tailwind CSS v4 with design tokens and CSS variables for fonts and colors.
-- PostCSS is configured to use the Turbopack-compatible plugin `@tailwindcss/postcss` + `autoprefixer`.
-- Fonts loaded via `next/font/google` and exposed as CSS variables: `--font-archivo`, `--font-lora`, `--font-jetbrains-mono`.
-- Static content is stored in typed data files under `data/` for easier editing and type-safety.
+This Next.js version has breaking changes from older releases. Read the guides in `node_modules/next/dist/docs/` before changing framework-level code.
 
-Adding or Updating Team Photos
-- Place images in `public/images/team/` and name them lowercase (e.g. `defon.jpg`).
-- `data/team.ts` supports an optional `photoUrl?: string` on `TeamMember`. When `photoUrl` is set, `TeamGrid` will render the image with `next/image`; otherwise it falls back to initials.
-- Recommended: square images (256×256 or 512×512). Use ImageMagick to crop/resize:
-	```bash
-	convert input.jpg -resize 512x512^ -gravity center -extent 512x512 public/images/team/defon.jpg
-	```
+## Quick start
 
-Local Development
-1. Install dependencies:
-	 ```bash
-	 npm install
-	 ```
-2. Development server (Turbopack):
-	 ```bash
-	 npm run dev
-	 ```
-	 If you encounter Turbopack-specific PostCSS errors, you can fall back to Webpack:
-	 ```bash
-	 npx next dev --webpack
-	 ```
+```bash
+npm install
+npm run dev
+```
 
-Build and Production
- - Build:
-	 ```bash
-	 npm run build
-	 ```
- - Start production server:
-	 ```bash
-	 npm start
-	 ```
+Open http://localhost:3000. With no environment variables the site runs read-only from the sample data in `data/`, which is enough to work on the front end. The admin login is disabled in this mode.
 
-PostCSS / Tailwind v4 Notes
-- Turbopack requires the PostCSS Tailwind plugin from `@tailwindcss/postcss`. The repo uses `postcss.config.mjs` pointing to `{"@tailwindcss/postcss": {}, autoprefixer: {}}`.
-- Keep Tailwind class names static where possible — dynamic template strings like `text-${color}` prevent Tailwind from generating utilities.
+The first request after starting the dev server is slow because it compiles routes on demand.
 
-Styling and Theme Tokens
-- Theme colors are defined in `tailwind.config.ts` (tokens: `paper`, `ink`, `slate`, `amber`, `line`, `card`, `muted`, `body`).
-- `app/globals.css` imports Tailwind and sets CSS variables for font families and design tokens. The `bg-blueprint` utility creates the subtle grid background used in `Hero`.
+## Full setup with Supabase
 
-Code Conventions
-- Keep Server Components by default; add `"use client"` at the top of client components.
-- Use typed data from `data/` and `lib/types.ts` rather than inline arrays in components.
-- Avoid one-letter variable names; prefer descriptive names.
+To use the admin portal, save edits and upload images, connect a Supabase project.
 
-Troubleshooting
-- If you see an error about using `tailwindcss` as a PostCSS plugin, install and configure `@tailwindcss/postcss` and restart the dev server.
-- If fonts or CSS changes don't appear, stop and restart the dev server. Keep only one dev server instance running.
-- If `next/image` can't load remote hosts, add the host to `next.config.js` `images.domains` or `remotePatterns`.
+1. Copy `.env.example` to `.env.local`.
+2. Fill in the variables below.
+3. Restart `npm run dev`.
 
-Where to Edit Content
-- Projects: `data/projects.ts` + `components/ProjectsGrid.tsx` and `ProjectCard.tsx`.
-- Team: `data/team.ts` + `components/TeamGrid.tsx`.
-- Services/process: `data/services.ts`, `data/process.ts` + their matching components.
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Supabase Postgres (transaction pooler string) |
+| `SUPABASE_URL` | Supabase project URL, for image uploads |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only key for uploads. Never expose it |
+| `SUPABASE_STORAGE_BUCKET` | Public bucket name, default `images` |
+| `ADMIN_PASSWORD` | Admin login password |
+| `SESSION_SECRET` | 32+ random characters (`openssl rand -hex 32`) |
+| `NEXT_PUBLIC_DISCORD_URL` | Discord invite shown on the site |
+| `NEXT_PUBLIC_WHATSAPP_URL` | WhatsApp group invite shown on the site |
 
-Accessibility
-- The project uses semantic HTML, `aria-` attributes on form inputs for validation state, and `alt` text on team photos.
+**Step-by-step instructions, with where to find each value, are in [docs/SUPABASE.md](docs/SUPABASE.md).**
 
-Deployment
-- Works with Vercel, Netlify, or any Node host that supports Next.js. For Vercel, default settings for App Router are supported. If using a custom host, ensure proper environment variables and `next start` usage after `npm run build`.
+What happens on the first run: the app creates its two tables, turns on row-level security for them, and seeds the sample data once. After that the database is the source of truth, and edits in `data/*.ts` no longer change a populated database. Use the admin instead.
 
-Developer Notes
-- `lib/validate.ts` exports `validateContactForm({ name, email, message })` which returns an object of validation errors used by the client `ContactForm`.
-- `components/TeamGrid.tsx` uses `next/image` to render `photoUrl` when present and falls back to initials otherwise.
-- Section labels use a subtle left tick and slightly increased weight/tracking for visual anchors. Modify in each component if you want a different style.
+## The admin portal
 
-Contributing
-- Fork, create a branch, and submit PRs. Keep changes focused and run the dev server locally to verify.
+Sign in at `/admin/login`. From there you can create, edit and delete communities, organizations, events, programs, opportunities and partnerships, and attach an image to each (except partnerships). Changes appear on the public site straight away.
 
-Contact & Support
-- For questions about the scaffold or to request features, open an issue or contact the project maintainer.
+- One shared password signs you in with a signed, expiring, httpOnly cookie. If `ADMIN_PASSWORD` or `SESSION_SECRET` is missing, login is disabled.
+- Slugs cannot be changed after creation.
+- Deleting a community or organization that other records still point to is blocked, with a message naming them.
+- Images must be JPEG, PNG or WebP and 4 MB or smaller.
 
-License
-- Add your license file here. No license is specified in this scaffold by default.
+## Editing content
 
----
-If you want, I can also:
-- run the dev server and verify the Team image appears;
-- add example images to `public/images/team/`;
-- or create a short CONTRIBUTING.md for PR guidance.
+| What | Where |
+| --- | --- |
+| Communities, events, opportunities, programs, organizations, partnerships, images | The admin portal (`/admin`) |
+| Manifesto sentences, closing paragraph, audio path | `data/manifesto.ts` |
+| Background audio | `public/audio/manifesto.mp3` |
+| Discord and WhatsApp links | `data/links.ts`, or the environment variables above |
+| Homepage copy | `app/page.tsx` |
+| Footer | `components/Footer.tsx` |
+| Original club content (projects, team, services) | `data/projects.ts`, `data/team.ts`, `data/services.ts` |
 
+Records marked `sample` in the admin are placeholders. Replace them with real communities.
 
+## Project structure
+
+```
+app/                     Routes and layouts
+  admin/                 Admin portal (login, list, create, edit, server actions)
+  communities/ events/ opportunities/ discover/ manifesto/ about/ contact/
+components/
+  ecosystem/             Cards, filters and shared UI for the ecosystem pages
+  admin/                 Admin form components
+  manifesto/             Manifesto reveal
+data/                    Seed data, manifesto text, invite links
+lib/
+  types.ts               Entity types
+  ecosystem.ts           Lookups, filtering, per-request data snapshot
+  store.ts               Postgres storage with static-data fallback
+  storage.ts             Supabase Storage uploads
+  adminSchema.ts         One description of every admin form, used for rendering and validation
+  auth.ts                Admin session
+docs/SUPABASE.md         Supabase integration guide
+ARCHITECTURE.md          Design decisions and known limitations
+proxy.ts                 Redirects visitors without a session away from /admin
+```
+
+For how the pieces fit together, the data model and the known limitations, read [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Scripts
+
+| Command | Does |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+
+There is no automated test suite yet, and `npm run lint` does not work because Next.js 16 removed `next lint`.
+
+## Deploying to Vercel
+
+1. Push the repository and import it in Vercel.
+2. Add the environment variables from the table above for Production (and Preview if you use it). On Vercel, `DATABASE_URL` must be the Supabase **transaction pooler** string.
+3. Deploy. Environment variables are read at build and start time, so redeploy after changing any of them.
+4. Visit `/admin/login` and add your first real community.
+
+Uploaded images are limited to 4 MB because Vercel rejects request bodies over 4.5 MB.
+
+## Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| Site works but admin login says it is disabled | Set `ADMIN_PASSWORD` and a `SESSION_SECRET` of at least 32 characters, then restart |
+| Admin shows "DATABASE_URL is not set" | Set `DATABASE_URL` and restart |
+| "Image uploads are off" in the admin | Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`, then restart |
+| Other Supabase errors | See the troubleshooting table in [docs/SUPABASE.md](docs/SUPABASE.md) |
+| Manifesto has no sound | Check that `public/audio/manifesto.mp3` exists. The button is hidden when it is missing |
+| Dev server hangs or serves stale output | Stop it, delete `.next`, and start it again. Run only one dev server |
+| A small round icon in the bottom-left corner while developing | That is the Next.js dev indicator and does not appear in production |
+
+## Conventions
+
+- Server Components by default. Add `"use client"` only where interactivity needs it.
+- Types for every record live in `lib/types.ts`. Do not inline data arrays in components.
+- Keep Tailwind class names static so the utilities are generated.
+- Commit messages use `type(scope): description`.
+
+## Contributing
+
+Create a branch, keep changes focused, run `npm run build` and check the pages you touched in the browser before opening a pull request.
+
+## License
+
+`package.json` declares ISC. There is no LICENSE file yet.

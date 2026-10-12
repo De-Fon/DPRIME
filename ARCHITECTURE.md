@@ -215,3 +215,94 @@ Local component state only (useState/useEffect), scoped to Client Components suc
     • Add live URLs for each project (Rumia especially)
     • Wire the contact form to a real submission endpoint or service (e.g. Formspree, EmailJS, or a small FastAPI/Next.js API endpoint matching the team's existing backend pattern)
     • Add real project screenshots (currently a text-only spec-sheet layout)
+---
+
+## 6. Ecosystem Revamp (DPrime as a community connecting communities)
+
+DPrime is moving from a single-team showcase to an ecosystem layer that
+connects technology communities. The original club site is preserved at
+`/about`, `/projects`, `/team`, `/services` and `/contact`.
+
+### 6.1 Entity model (`lib/types.ts`)
+
+`Community`, `Organization`, `EcosystemEvent`, `Program`, `Opportunity` and
+`Partnership`. Communities and organizations share one slug namespace, so
+events, programs, opportunities and partnerships reference either by slug.
+`resolveEntity()` in `lib/ecosystem.ts` is the single lookup point.
+
+### 6.2 Community graph
+
+`data/partnerships.ts` stores each relationship once as a typed edge
+(`partner`, `sponsor`, `event partner`, ...). `connectionsOf(slug)` reads it
+from both directions, so a link shows on both communities' profiles.
+
+### 6.3 Discovery
+
+Filters (search text, region, topic) are plain query parameters on a GET form.
+Pages stay server-rendered and shareable, and need no client JavaScript.
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Ecosystem dashboard: events, communities, opportunities |
+| `/discover` | Unified search across all entity types |
+| `/communities`, `/communities/[slug]` | Directory and community profile |
+| `/events`, `/opportunities` | Filterable listings |
+| `/about` | The DPRIME club story (previous homepage) |
+
+### 6.4 Data storage
+
+Ecosystem data is served from Postgres when `DATABASE_URL` is set, and from the
+static files in `data/` when it is not (read-only; used for local dev and CI).
+The database is Supabase (Postgres), reached with the `pg` driver through the
+transaction pooler (see `.env.example`). Vercel's runtime filesystem is
+read-only, so file-based storage is not an option there.
+
+- One table, `entities (kind, slug, data jsonb)`, plus a `meta` table. The
+  schema is created on first use (`lib/store.ts`). Row-level security is
+  enabled on both tables with no policies, so Supabase's public Data API
+  cannot read or write them; only the server's direct connection can.
+- The `data/` files seed an empty database once. A `meta` marker makes this
+  atomic and permanent, so deleting every record does not bring samples back.
+- Records with `sample: true` render a "sample" badge. Saving a record in the
+  admin drops the flag.
+
+Images are stored in a public Supabase Storage bucket and referenced by URL in
+each record's `imageUrl` (`lib/storage.ts`). Full setup steps are in
+[docs/SUPABASE.md](docs/SUPABASE.md).
+
+### 6.5 Admin portal (`/admin`)
+
+Lets an admin create, edit and delete communities, organizations, events,
+programs, opportunities and partnerships. Changes appear on the public site
+immediately (`revalidatePath`).
+
+- **Auth:** one shared password (`ADMIN_PASSWORD`) and a signed, expiring,
+  httpOnly cookie (`SESSION_SECRET`, 32+ characters). If either is missing the
+  login is disabled (fails closed). `proxy.ts` only redirects visitors with no
+  cookie; every admin page and server action calls `requireAdmin()` for the
+  real check.
+- **Schema-driven:** `lib/adminSchema.ts` describes every field once. The form
+  renderer and the server-side validator both read it. Selects, checkbox sets,
+  dates, numbers and slug references are validated on the server, and website
+  URLs must be http(s).
+- **Integrity:** slugs are immutable after creation. Deleting a community or
+  organization that is still referenced by an event, program, opportunity or
+  partnership is blocked with a message naming the references.
+
+Environment variables are listed in `.env.example`.
+
+### 6.6 Known limitations
+
+- Unknown community slugs render the not-found page with HTTP 200 (plus
+  `noindex`), because the root `loading.tsx` streams the response first. The
+  existing `/projects/[slug]` route behaves the same way.
+- The login delay is a speed bump, not a lockout: serverless instances share
+  no state, so there is no attempt counter. Use a long random password.
+- One shared admin password means no per-person audit trail.
+- `data/*.ts` are seed-only once a database exists; edits there do not change
+  a populated database.
+
+### 6.7 Not yet built
+
+Accounts, following, joining, community self-service management, event
+registration, and the AI-assisted recommendations from priority 5.

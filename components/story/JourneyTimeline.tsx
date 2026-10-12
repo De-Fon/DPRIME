@@ -139,7 +139,7 @@ export default function JourneyTimeline() {
                       {step.title}
                     </span>
 
-                    <span className="font-mono text-[11px] text-muted/60 border border-line rounded px-2 py-1">
+                    <span className="font-mono text-xs text-muted/60 border border-line rounded px-2 py-1">
                       {step.period}
                     </span>
                   </div>
