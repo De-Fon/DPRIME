@@ -4,6 +4,49 @@ import EventCard from "@/components/ecosystem/EventCard";
 import OpportunityCard from "@/components/ecosystem/OpportunityCard";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
 import { getEcosystem, resolveEntity } from "@/lib/ecosystem";
+import { WHATSAPP_URL } from "@/data/links";
+
+const WHAT_WE_DO = [
+  {
+    title: "Make communities discoverable",
+    body: "Every club, meetup and developer group gets a profile with its mission, topics, location and where to join.",
+  },
+  {
+    title: "Connect community to community",
+    body: "Communities show their partners, sponsors and collaborators, so one community leads naturally to the next.",
+  },
+  {
+    title: "Bring events together",
+    body: "Hackathons, meetups and workshops are listed in one place, with the communities behind them.",
+  },
+  {
+    title: "Surface opportunities",
+    body: "Internships, grants, speaking slots and collaborations, posted by the communities and organizations that offer them.",
+  },
+];
+
+const AUDIENCES = [
+  {
+    title: "Developers and students",
+    body: "Find communities near you or around a topic, see what is on, and discover people building what you care about.",
+    href: "/communities",
+    cta: "Browse communities",
+  },
+  {
+    title: "Community leaders",
+    body: "Put your community on the map, find partners and speakers, and share your events and opportunities with a wider audience.",
+    href: WHATSAPP_URL,
+    cta: "Join the WhatsApp group",
+    external: true,
+  },
+  {
+    title: "Companies and organizations",
+    body: "Reach the communities where developers already learn and build, and find the right ones to sponsor or work with.",
+    href: WHATSAPP_URL,
+    cta: "Get in touch on WhatsApp",
+    external: true,
+  },
+];
 
 const HOME_PREVIEW = 3;
 
@@ -61,12 +104,13 @@ export default async function Home() {
         <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-28">
           <SectionLabel>a community connecting communities</SectionLabel>
           <h1 className="font-display text-4xl md:text-6xl text-ink max-w-3xl leading-tight">
-            Find the technology communities, events and people around you.
+            We connect Africa&rsquo;s technology communities.
           </h1>
           <p className="mt-5 text-lg text-muted max-w-2xl">
-            DPrime does not replace the groups you already belong to. It
-            connects them, so communities can discover each other, collaborate
-            and create opportunities together.
+            DPRIME helps university clubs, developer groups and open-source
+            communities find each other, run events together and share
+            opportunities. Nobody has to leave the WhatsApp, Discord or campus
+            group they already use.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/discover" className="btn-primary">
@@ -113,6 +157,58 @@ export default async function Home() {
         <p className="mt-3 font-mono text-xs text-muted">
           Listings marked sample are placeholders while communities onboard.
         </p>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-14">
+        <SectionLabel>what we do</SectionLabel>
+        <h2 className="font-display text-3xl md:text-4xl text-ink max-w-3xl">
+          Thousands of tech communities exist. Most never meet.
+        </h2>
+        <p className="mt-3 text-muted max-w-2xl">
+          DPRIME is the shared layer between them. We make communities easy to
+          find, and give them ways to work together.
+        </p>
+        <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {WHAT_WE_DO.map((item, i) => (
+            <li
+              key={item.title}
+              className="bg-card border border-line rounded-md p-6 border-l-2 hover:border-l-amber transition-colors"
+            >
+              <span className="font-mono text-xs text-amber">0{i + 1}</span>
+              <h3 className="mt-3 font-display text-xl text-ink">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted">{item.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-14">
+        <SectionLabel>who it is for</SectionLabel>
+        <h2 className="font-display text-3xl md:text-4xl text-ink">
+          Built for the people who make tech happen.
+        </h2>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+          {AUDIENCES.map((a) => (
+            <div key={a.title} className="bg-card border border-line rounded-md p-6 flex flex-col">
+              <h3 className="font-display text-xl text-ink">{a.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted flex-1">{a.body}</p>
+              {"external" in a ? (
+                <a
+                  href={a.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 text-sm text-amber hover:underline"
+                >
+                  {a.cta} →
+                </a>
+              ) : (
+                <Link href={a.href} className="mt-5 text-sm text-amber hover:underline">
+                  {a.cta} →
+                </Link>
+              )}
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-6 py-14">
@@ -174,9 +270,14 @@ export default async function Home() {
               discoverable and helps you find partners, speakers and sponsors.
             </p>
           </div>
-          <Link href="/contact" className="btn-primary self-start">
-            Get in touch
-          </Link>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary self-start"
+          >
+            Get in touch on WhatsApp
+          </a>
         </div>
       </section>
     </>

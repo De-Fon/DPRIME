@@ -37,13 +37,8 @@ export const manifesto: string[] = [
   "Nothing polished, nothing final — just the early sparks of something worth building together.",
 ];
 
-// Set NEXT_PUBLIC_DISCORD_URL to the real invite link.
-export const DISCORD_URL =
-  process.env.NEXT_PUBLIC_DISCORD_URL || "https://discord.gg/your-invite";
-
-// Set NEXT_PUBLIC_WHATSAPP_URL to the real group invite link.
-export const WHATSAPP_URL =
-  process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://chat.whatsapp.com/your-invite";
+// Invite links live in data/links.ts.
+export { DISCORD_URL, WHATSAPP_URL } from "./links";
 
 // Background track. Drop the file at public/audio/manifesto.mp3. If it is
 // missing the page works normally and the sound button is hidden.
