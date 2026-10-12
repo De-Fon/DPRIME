@@ -181,3 +181,20 @@ input:disabled,
 select:disabled {
   cursor: not-allowed;
 }
+
+/* Large screens: Tailwind sizes are rem-based, so raising the root size scales
+   type, spacing and the max-w-* content columns together instead of leaving a
+   narrow strip in the middle of a wide display. */
+@media (min-width: 1536px) { html { font-size: 106.25%; } }
+@media (min-width: 1920px) { html { font-size: 118.75%; } }
+@media (min-width: 2560px) { html { font-size: 137.5%; } }
+
+/* Scroll reveal for the About page. Hidden state only when scripting is on. */
+@media (scripting: enabled) {
+  .reveal:not(.is-visible) { opacity: 0; transform: translateY(18px); }
+  .reveal { transition: opacity 800ms ease-out, transform 800ms cubic-bezier(0.22, 1, 0.36, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; }
+  .reveal:not(.is-visible) { opacity: 1; transform: none; }
+}

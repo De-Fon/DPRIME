@@ -78,7 +78,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 border-t border-line pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-muted">© 2026 DPRIME. All rights reserved.</div>
+          <div className="text-sm text-muted">© 2026 DPRIME, a product of Stratnovo. All rights reserved.</div>
           <div className="text-xs text-muted">Connection. Discovery. Collaboration. Opportunity.</div>
         </div>
       </div>
