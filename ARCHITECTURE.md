@@ -266,6 +266,10 @@ read-only, so file-based storage is not an option there.
 - Records with `sample: true` render a "sample" badge. Saving a record in the
   admin drops the flag.
 
+Images are stored in a public Supabase Storage bucket and referenced by URL in
+each record's `imageUrl` (`lib/storage.ts`). Full setup steps are in
+[docs/SUPABASE.md](docs/SUPABASE.md).
+
 ### 6.5 Admin portal (`/admin`)
 
 Lets an admin create, edit and delete communities, organizations, events,
