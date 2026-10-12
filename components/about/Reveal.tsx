@@ -1,40 +1,13 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
-// Fades children up as they scroll into view. Content is visible by default;
-// the hidden starting state only applies when scripting is on (see globals.css),
-// so nothing is lost without JavaScript.
+// Fades content up as it scrolls into view, using CSS scroll-driven animation
+// (see .reveal in globals.css). Content is always visible and needs no
+// JavaScript; browsers without support simply show it with no animation.
 export default function Reveal({
   children,
   className = "",
-  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
-  delay?: number;
+  delay?: number; // accepted for compatibility; scroll-driven reveals ignore it
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("is-visible");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
-  );
+  return <div className={`reveal ${className}`}>{children}</div>;
 }
