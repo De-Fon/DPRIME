@@ -1,6 +1,10 @@
 // Title of the first slide, and the heading on the final full-text screen.
 export const manifestoTitle = "A civilisation out of balance";
 
+// Closing paragraph on the final screen, above the join buttons.
+export const manifestoClosing =
+  "DPRIME is where technology communities stop working in separate rooms. We connect the clubs, meetups and builders already shaping Africa’s future, so they can find each other, share what they know and open doors for the next person. Keep the groups you already love. Bring your work, your questions and your curiosity. This is only the first phase, a quiet room before the lights come on. Come and help us build what comes next.";
+
 // One entry per click. Edit freely; the reveal adapts to any length.
 // The text is the club's own manifesto; "DPRIME" stands in for the original
 // club name in the sentence that introduces the community.
