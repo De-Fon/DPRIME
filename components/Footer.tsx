@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DISCORD_URL, WHATSAPP_URL } from "../data/links";
+import { DISCORD_URL, STRATNOVO_URL, WHATSAPP_URL } from "../data/links";
 
 export default function Footer() {
   return (
@@ -78,7 +78,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 border-t border-line pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-muted">© 2026 DPRIME, a product of Stratnovo. All rights reserved.</div>
+          <div className="text-sm text-muted">© 2026 DPRIME, a product of <a href={STRATNOVO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-amber underline-offset-2 hover:underline">Stratnovo</a>. All rights reserved.</div>
           <div className="text-xs text-muted">Connection. Discovery. Collaboration. Opportunity.</div>
         </div>
       </div>

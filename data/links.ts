@@ -5,3 +5,5 @@ export const DISCORD_URL =
 
 export const WHATSAPP_URL =
   process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://chat.whatsapp.com/your-invite";
+
+export const STRATNOVO_URL = "https://www.stratnovo.co.ke";

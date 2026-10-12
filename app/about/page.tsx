@@ -1,9 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import Reveal from "@/components/about/Reveal";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
-import { WHATSAPP_URL } from "@/data/links";
-import { team } from "@/data/team";
+import { STRATNOVO_URL, WHATSAPP_URL } from "@/data/links";
 
 export const metadata = { title: "About | DPRIME" };
 
@@ -103,48 +100,30 @@ export default function About() {
             DPRIME is a product of Stratnovo, grown in the open, one community
             at a time.
           </p>
+          <a
+            href={STRATNOVO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center rounded-full border border-paper/40 px-7 py-3 font-semibold text-paper transition-colors hover:border-amber hover:text-amber"
+          >
+            Visit Stratnovo
+            <span className="ml-3" aria-hidden>
+              ↗
+            </span>
+          </a>
         </Reveal>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-20 md:py-28">
-        <Reveal className="bg-card border border-line rounded-md p-6 md:p-10">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex items-center -space-x-3 shrink-0">
-              {team.slice(0, 6).map((m, i) => (
-                <div
-                  key={m.initials}
-                  className="w-14 h-14 rounded-full overflow-hidden border-2 border-card bg-paper"
-                  style={{ zIndex: 20 - i }}
-                >
-                  {m.photoUrl ? (
-                    <Image
-                      src={m.photoUrl}
-                      alt={m.name}
-                      width={56}
-                      height={56}
-                      className="object-cover w-full h-full"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-slate/10 text-slate font-mono">
-                      {m.initials}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="flex-1 text-center md:text-left">
-              <h2 className="font-display text-2xl md:text-3xl text-ink">
-                The people behind it.
-              </h2>
-              <p className="mt-2 text-muted max-w-xl">
-                Students who learned together, stayed friends, and decided to
-                build something for everyone still looking for their people.
-              </p>
-            </div>
-            <Link href="/team" className="btn-primary shrink-0 px-6 py-3">
-              Meet the team →
-            </Link>
-          </div>
+      <section className="max-w-3xl mx-auto px-6 py-20 md:py-28 text-center">
+        <Reveal>
+          <p className="font-display text-2xl md:text-4xl text-ink leading-snug">
+            We are only at the beginning.
+          </p>
+          <p className="mt-5 text-lg md:text-xl leading-9 text-muted">
+            Every community that joins makes the next one easier to find. If
+            you have ever wished there was somewhere to start, this is us
+            building it, with you.
+          </p>
         </Reveal>
       </section>
 
