@@ -69,7 +69,7 @@ function SectionHeader({
       <SectionLabel>{label}</SectionLabel>
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
         <h2 className="font-display text-3xl md:text-4xl text-ink">{title}</h2>
-        <Link href={href} className="text-sm text-ink hover:text-amber transition">
+        <Link href={href} className="inline-flex min-h-11 items-center text-sm text-ink hover:text-amber transition">
           {cta} →
         </Link>
       </div>
@@ -112,11 +112,11 @@ export default async function Home() {
             opportunities. Nobody has to leave the WhatsApp, Discord or campus
             group they already use.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/discover" className="btn-primary">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link href="/discover" className="btn-primary px-6 py-3">
               Discover
             </Link>
-            <Link href="/communities" className="btn-secondary">
+            <Link href="/communities" className="btn-secondary px-6 py-3">
               Browse communities
             </Link>
             <a
@@ -132,7 +132,7 @@ export default async function Home() {
                 <span className="manifesto-ping absolute inline-flex h-full w-full rounded-full bg-amber group-hover:bg-paper" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber group-hover:bg-paper" />
               </span>
-              Read the manifesto
+              Read our Manifesto
               <span className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden>
                 ↗
               </span>
@@ -197,12 +197,12 @@ export default async function Home() {
                   href={a.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-5 text-sm text-amber hover:underline"
+                  className="mt-3 inline-flex min-h-11 items-center text-sm text-amber hover:underline"
                 >
                   {a.cta} →
                 </a>
               ) : (
-                <Link href={a.href} className="mt-5 text-sm text-amber hover:underline">
+                <Link href={a.href} className="mt-3 inline-flex min-h-11 items-center text-sm text-amber hover:underline">
                   {a.cta} →
                 </Link>
               )}

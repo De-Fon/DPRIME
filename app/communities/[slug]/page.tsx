@@ -42,7 +42,7 @@ export default async function CommunityPage({
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
-      <Link href="/communities" className="text-sm text-muted hover:text-amber">
+      <Link href="/communities" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">
         ← All communities
       </Link>
 
@@ -108,7 +108,7 @@ export default async function CommunityPage({
               href={community.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-amber hover:underline"
+              className="inline-flex min-h-11 items-center text-amber hover:underline"
             >
               Website →
             </a>
@@ -131,7 +131,7 @@ export default async function CommunityPage({
                 {entity.href ? (
                   <Link
                     href={entity.href}
-                    className="font-display text-lg text-ink hover:text-amber"
+                    className="inline-flex min-h-11 items-center font-display text-lg text-ink hover:text-amber"
                   >
                     {entity.name}
                   </Link>

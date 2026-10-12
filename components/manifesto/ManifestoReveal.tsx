@@ -164,7 +164,7 @@ export default function ManifestoReveal({
             className={`absolute inset-x-8 md:inset-x-12 font-display ${
               leaving === last
                 ? "top-1/2 -translate-y-1/2 text-xl md:text-3xl leading-snug"
-                : "top-1/2 -translate-y-[60%] text-3xl md:text-6xl leading-[1.15]"
+                : "top-1/2 -translate-y-[60%] text-3xl md:text-6xl leading-[1.15] [@media(max-height:520px)]:top-[40%] [@media(max-height:520px)]:!text-2xl"
             }`}
           >
             {leavingWords.map((w, i) => (
@@ -236,10 +236,10 @@ export default function ManifestoReveal({
           </div>
         ) : (
           <>
-            <div className="absolute inset-x-8 md:inset-x-12 top-1/2 -translate-y-[60%]">
+            <div className="absolute inset-x-8 md:inset-x-12 top-1/2 -translate-y-[60%] [@media(max-height:520px)]:top-[40%]">
               <div key={`in-${index}`} aria-live="polite">
-                <span className="manifesto-rule block h-[3px] w-16 bg-amber mb-8" aria-hidden />
-                <p className="font-display text-3xl md:text-6xl leading-[1.15]">
+                <span className="manifesto-rule block h-[3px] w-16 bg-amber mb-8 [@media(max-height:520px)]:mb-3" aria-hidden />
+                <p className="font-display text-3xl md:text-6xl leading-[1.15] [@media(max-height:520px)]:!text-2xl">
                   {currentWords.map((w, i) => (
                     <span key={i}>
                       <span
@@ -254,7 +254,7 @@ export default function ManifestoReveal({
               </div>
             </div>
 
-            <div className="absolute inset-x-8 md:inset-x-12 bottom-16 md:bottom-20 min-h-[3.5rem]">
+            <div className="absolute inset-x-8 md:inset-x-12 bottom-16 md:bottom-20 min-h-[3.5rem] [@media(max-height:520px)]:bottom-4">
               <button
                 type="button"
                 onClick={() => go(1)}

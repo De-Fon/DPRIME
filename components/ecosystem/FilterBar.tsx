@@ -54,7 +54,7 @@ export default function FilterBar({
       <button type="submit" className="btn-primary">
         Filter
       </button>
-      <a href={action} className="text-sm text-muted hover:text-amber text-center">
+      <a href={action} className="inline-flex min-h-11 items-center justify-center text-sm text-muted hover:text-amber">
         Reset
       </a>
     </form>

@@ -29,7 +29,7 @@ export default function OpportunityCard({
           {opportunity.deadline && ` · closes ${formatDate(opportunity.deadline)}`}
         </span>
         {poster?.href ? (
-          <Link href={poster.href} className="hover:text-amber">
+          <Link href={poster.href} className="hover:text-amber inline-block py-3 -my-3">
             {poster.name}
           </Link>
         ) : (

@@ -31,7 +31,7 @@ export default function EventCard({
       <div className="mt-5 pt-4 border-t border-line flex flex-wrap items-center justify-between gap-2 font-mono text-xs text-muted">
         <span>{event.location}</span>
         {host?.href ? (
-          <Link href={host.href} className="hover:text-amber">
+          <Link href={host.href} className="hover:text-amber inline-block py-3 -my-3">
             hosted by {host.name}
           </Link>
         ) : (

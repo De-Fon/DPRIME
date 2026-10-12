@@ -58,7 +58,7 @@ export default async function AdminList({
                   <div className="text-sm text-ink truncate">
                     {schema.label(d)}
                     {d.sample === true && (
-                      <span className="ml-2 font-mono text-[10px] uppercase text-muted">sample</span>
+                      <span className="ml-2 font-mono text-xs uppercase text-muted">sample</span>
                     )}
                   </div>
                   <div className="font-mono text-xs text-muted truncate">{schema.detail(d)}</div>

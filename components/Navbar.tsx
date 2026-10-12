@@ -48,7 +48,7 @@ const navItems = [
         </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-8">
 
           <div className="flex items-center space-x-6">
 
@@ -56,7 +56,7 @@ const navItems = [
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative group"
+                className="relative group py-2"
               >
                 <span
                   className={`nav-link text-sm font-medium duration-150 ease-out ${
@@ -69,7 +69,7 @@ const navItems = [
                 </span>
 
                 <span
-                  className={`absolute left-0 -bottom-1 h-0.5 bg-amber rounded transition-all duration-150 ${
+                  className={`absolute left-0 bottom-1 h-0.5 bg-amber rounded transition-all duration-150 ${
                     isActive(item.href)
                       ? "w-full"
                       : "w-0 group-hover:w-full"
@@ -96,7 +96,7 @@ const navItems = [
         </div>
 
         {/* Mobile menu */}
-        <div className="md:hidden relative">
+        <div className="lg:hidden relative">
 
           <button
             aria-expanded={open}

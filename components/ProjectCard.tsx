@@ -47,7 +47,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative z-20 text-sm text-amber font-semibold flex items-center gap-2 opacity-90 group-hover:underline transition-transform duration-150 group-hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/40 rounded-sm"
+                className="relative z-20 min-h-11 text-sm text-amber font-semibold flex items-center gap-2 opacity-90 group-hover:underline transition-transform duration-150 group-hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/40 rounded-sm"
               >
                 <span>View project</span>
                 <span className="transform transition-transform duration-150 group-hover:translate-x-1">→</span>
