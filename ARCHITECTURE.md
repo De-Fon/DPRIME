@@ -249,14 +249,54 @@ Pages stay server-rendered and shareable, and need no client JavaScript.
 | `/events`, `/opportunities` | Filterable listings |
 | `/about` | The DPRIME club story (previous homepage) |
 
-### 6.4 Data status
+### 6.4 Data storage
 
-Only `dprime` is a real record. Everything else is flagged `sample: true`
-and rendered with a "sample" badge. Replace these as real communities onboard.
+Ecosystem data is served from Postgres when `DATABASE_URL` is set, and from the
+static files in `data/` when it is not (read-only; used for local dev and CI).
+On Vercel, add the Neon integration from the Marketplace, which sets
+`DATABASE_URL`. Vercel's runtime filesystem is read-only, so file-based
+storage is not an option there.
 
-### 6.5 Not yet built (needs a backend)
+- One table, `entities (kind, slug, data jsonb)`, plus a `meta` table. The
+  schema is created on first use (`lib/store.ts`).
+- The `data/` files seed an empty database once. A `meta` marker makes this
+  atomic and permanent, so deleting every record does not bring samples back.
+- Records with `sample: true` render a "sample" badge. Saving a record in the
+  admin drops the flag.
 
-Accounts, following, joining, community management tools, event
+### 6.5 Admin portal (`/admin`)
+
+Lets an admin create, edit and delete communities, organizations, events,
+programs, opportunities and partnerships. Changes appear on the public site
+immediately (`revalidatePath`).
+
+- **Auth:** one shared password (`ADMIN_PASSWORD`) and a signed, expiring,
+  httpOnly cookie (`SESSION_SECRET`, 32+ characters). If either is missing the
+  login is disabled (fails closed). `proxy.ts` only redirects visitors with no
+  cookie; every admin page and server action calls `requireAdmin()` for the
+  real check.
+- **Schema-driven:** `lib/adminSchema.ts` describes every field once. The form
+  renderer and the server-side validator both read it. Selects, checkbox sets,
+  dates, numbers and slug references are validated on the server, and website
+  URLs must be http(s).
+- **Integrity:** slugs are immutable after creation. Deleting a community or
+  organization that is still referenced by an event, program, opportunity or
+  partnership is blocked with a message naming the references.
+
+Environment variables are listed in `.env.example`.
+
+### 6.6 Known limitations
+
+- Unknown community slugs render the not-found page with HTTP 200 (plus
+  `noindex`), because the root `loading.tsx` streams the response first. The
+  existing `/projects/[slug]` route behaves the same way.
+- The login delay is a speed bump, not a lockout: serverless instances share
+  no state, so there is no attempt counter. Use a long random password.
+- One shared admin password means no per-person audit trail.
+- `data/*.ts` are seed-only once a database exists; edits there do not change
+  a populated database.
+
+### 6.7 Not yet built
+
+Accounts, following, joining, community self-service management, event
 registration, and the AI-assisted recommendations from priority 5.
-Static data is the deliberate Phase 1 trade-off; the typed model is the
-contract a backend would implement.
