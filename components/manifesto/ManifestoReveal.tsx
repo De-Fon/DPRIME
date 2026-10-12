@@ -9,7 +9,7 @@ const WORD_OUT_STAGGER_MS = 30;
 const FULL_IN_STAGGER_MS = 40;
 const FULL_OUT_STAGGER_MS = 14;
 const AUDIO_VOLUME = 0.5;
-const AUDIO_FADE_MS = 2500;
+const AUDIO_FADE_MS = 800;
 
 // Full-screen, one sentence at a time, then a closing paragraph and the join
 // links. Words rise in one by one out of a blur;
