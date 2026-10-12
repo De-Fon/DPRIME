@@ -13,3 +13,11 @@ export const manifesto: string[] = [
 // Set NEXT_PUBLIC_DISCORD_URL to the real invite link.
 export const DISCORD_URL =
   process.env.NEXT_PUBLIC_DISCORD_URL || "https://discord.gg/your-invite";
+
+// Set NEXT_PUBLIC_WHATSAPP_URL to the real group invite link.
+export const WHATSAPP_URL =
+  process.env.NEXT_PUBLIC_WHATSAPP_URL || "https://chat.whatsapp.com/your-invite";
+
+// Background track. Drop the file at public/audio/manifesto.mp3. If it is
+// missing the page works normally and the sound button is hidden.
+export const AUDIO_SRC = "/audio/manifesto.mp3";

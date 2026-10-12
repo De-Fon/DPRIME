@@ -70,9 +70,22 @@ export default async function Home() {
             <Link href="/communities" className="btn-secondary">
               Browse communities
             </Link>
-            <Link href="/manifesto" className="btn-secondary">
+            <a
+              href="/manifesto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="manifesto-launch group relative inline-flex cursor-pointer items-center gap-3 rounded-full bg-ink px-8 py-4 text-base font-semibold text-paper transition-colors hover:bg-amber"
+            >
+              <span className="relative flex h-2.5 w-2.5" aria-hidden>
+                <span className="manifesto-ping absolute inline-flex h-full w-full rounded-full bg-amber group-hover:bg-paper" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber group-hover:bg-paper" />
+              </span>
               Read the manifesto
-            </Link>
+              <span className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden>
+                ↗
+              </span>
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
           </div>
         </div>
       </section>
