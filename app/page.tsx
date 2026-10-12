@@ -3,11 +3,7 @@ import CommunityCard from "@/components/ecosystem/CommunityCard";
 import EventCard from "@/components/ecosystem/EventCard";
 import OpportunityCard from "@/components/ecosystem/OpportunityCard";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
-import { communities } from "@/data/communities";
-import { ecosystemEvents } from "@/data/ecosystemEvents";
-import { opportunities } from "@/data/opportunities";
-import { organizations } from "@/data/organizations";
-import { partnerships } from "@/data/partnerships";
+import { getEcosystem, resolveEntity } from "@/lib/ecosystem";
 
 const HOME_PREVIEW = 3;
 
@@ -35,15 +31,17 @@ function SectionHeader({
   );
 }
 
-export default function Home() {
-  const upcoming = [...ecosystemEvents]
+export default async function Home() {
+  const eco = await getEcosystem();
+  const { communities, organizations, opportunities, partnerships } = eco;
+  const upcoming = [...eco.events]
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(0, HOME_PREVIEW);
 
   const stats = [
     { value: communities.length, label: "communities" },
     { value: organizations.length, label: "organizations" },
-    { value: ecosystemEvents.length, label: "events" },
+    { value: eco.events.length, label: "events" },
     { value: opportunities.length, label: "opportunities" },
     { value: partnerships.length, label: "connections" },
   ];
@@ -89,7 +87,7 @@ export default function Home() {
           ))}
         </dl>
         <p className="mt-3 font-mono text-xs text-muted">
-          Most listings are labelled sample data while communities onboard.
+          Listings marked sample are placeholders while communities onboard.
         </p>
       </section>
 
@@ -102,7 +100,7 @@ export default function Home() {
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {upcoming.map((e) => (
-            <EventCard key={e.slug} event={e} />
+            <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
           ))}
         </div>
       </section>
@@ -130,7 +128,7 @@ export default function Home() {
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {opportunities.slice(0, HOME_PREVIEW).map((o) => (
-            <OpportunityCard key={o.slug} opportunity={o} />
+            <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />
           ))}
         </div>
       </section>

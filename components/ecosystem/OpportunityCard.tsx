@@ -1,14 +1,15 @@
 import Link from "next/link";
 import type { Opportunity } from "@/lib/types";
-import { formatDate, resolveEntity } from "@/lib/ecosystem";
+import { formatDate, type EntityRef } from "@/lib/ecosystem";
 import SampleBadge from "./SampleBadge";
 
 export default function OpportunityCard({
   opportunity,
+  poster,
 }: {
   opportunity: Opportunity;
+  poster: EntityRef | null;
 }) {
-  const poster = resolveEntity(opportunity.postedBySlug);
   return (
     <article className="bg-card border border-line rounded-md p-6 border-l-2 hover:border-l-amber transition duration-150 hover:-translate-y-1 hover:shadow-md">
       <div className="flex items-center justify-between gap-3 mb-4">
@@ -29,7 +30,7 @@ export default function OpportunityCard({
             {poster.name}
           </Link>
         ) : (
-          <span>{poster?.name}</span>
+          <span>{poster?.name ?? opportunity.postedBySlug}</span>
         )}
       </div>
     </article>

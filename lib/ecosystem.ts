@@ -1,18 +1,39 @@
-import { communities } from "@/data/communities";
-import { organizations } from "@/data/organizations";
-import { ecosystemEvents } from "@/data/ecosystemEvents";
-import { programs } from "@/data/programs";
-import { opportunities } from "@/data/opportunities";
-import { partnerships } from "@/data/partnerships";
+import { cache } from "react";
+import { listEntities } from "./store";
 import type {
   Community,
   EcosystemEvent,
   Opportunity,
   Organization,
   Partnership,
+  Program,
   Region,
   Topic,
 } from "./types";
+
+// A point-in-time view of every entity, loaded once per request. All lookup
+// and filter helpers below are pure functions over this snapshot.
+export interface Ecosystem {
+  communities: Community[];
+  organizations: Organization[];
+  events: EcosystemEvent[];
+  programs: Program[];
+  opportunities: Opportunity[];
+  partnerships: Partnership[];
+}
+
+export const getEcosystem = cache(async (): Promise<Ecosystem> => {
+  const [communities, organizations, events, programs, opportunities, partnerships] =
+    await Promise.all([
+      listEntities("community"),
+      listEntities("organization"),
+      listEntities("event"),
+      listEntities("program"),
+      listEntities("opportunity"),
+      listEntities("partnership"),
+    ]);
+  return { communities, organizations, events, programs, opportunities, partnerships };
+});
 
 export interface EntityRef {
   slug: string;
@@ -23,8 +44,8 @@ export interface EntityRef {
 
 // Communities and organizations share one slug namespace, which lets events,
 // programs, opportunities and partnerships reference either by slug.
-export function resolveEntity(slug: string): EntityRef | null {
-  const community = communities.find((c) => c.slug === slug);
+export function resolveEntity(eco: Ecosystem, slug: string): EntityRef | null {
+  const community = eco.communities.find((c) => c.slug === slug);
   if (community) {
     return {
       slug,
@@ -33,7 +54,7 @@ export function resolveEntity(slug: string): EntityRef | null {
       sample: !!community.sample,
     };
   }
-  const org = organizations.find((o) => o.slug === slug);
+  const org = eco.organizations.find((o) => o.slug === slug);
   if (org) return { slug, name: org.name, href: null, sample: !!org.sample };
   return null;
 }
@@ -44,30 +65,30 @@ export interface Connection {
 }
 
 // Partnerships are stored once but are visible from both sides.
-export function connectionsOf(slug: string): Connection[] {
+export function connectionsOf(eco: Ecosystem, slug: string): Connection[] {
   const result: Connection[] = [];
-  for (const p of partnerships) {
+  for (const p of eco.partnerships) {
     const otherSlug =
       p.fromSlug === slug ? p.toSlug : p.toSlug === slug ? p.fromSlug : null;
     if (!otherSlug) continue;
-    const entity = resolveEntity(otherSlug);
+    const entity = resolveEntity(eco, otherSlug);
     if (entity) result.push({ entity, type: p.type });
   }
   return result;
 }
 
-export function eventsFor(slug: string): EcosystemEvent[] {
-  return ecosystemEvents
+export function eventsFor(eco: Ecosystem, slug: string): EcosystemEvent[] {
+  return eco.events
     .filter((e) => e.hostSlug === slug || e.partnerSlugs.includes(slug))
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export function opportunitiesFor(slug: string): Opportunity[] {
-  return opportunities.filter((o) => o.postedBySlug === slug);
+export function opportunitiesFor(eco: Ecosystem, slug: string): Opportunity[] {
+  return eco.opportunities.filter((o) => o.postedBySlug === slug);
 }
 
-export function programsFor(slug: string) {
-  return programs.filter((p) => p.runBySlug === slug);
+export function programsFor(eco: Ecosystem, slug: string) {
+  return eco.programs.filter((p) => p.runBySlug === slug);
 }
 
 export interface Filters {
@@ -93,27 +114,42 @@ function matches<T extends Filterable>(
   return true;
 }
 
-export const filterCommunities = (f: Filters): Community[] =>
-  communities.filter((c) =>
+export const filterCommunities = (eco: Ecosystem, f: Filters): Community[] =>
+  eco.communities.filter((c) =>
     matches(c, `${c.name} ${c.tagline} ${c.location} ${c.kind}`, f),
   );
 
-export const filterOrganizations = (f: Filters): Organization[] =>
-  organizations.filter((o) =>
+export const filterOrganizations = (eco: Ecosystem, f: Filters): Organization[] =>
+  eco.organizations.filter((o) =>
     matches(o, `${o.name} ${o.description} ${o.location}`, f),
   );
 
-export const filterEvents = (f: Filters): EcosystemEvent[] =>
-  ecosystemEvents
+export const filterEvents = (eco: Ecosystem, f: Filters): EcosystemEvent[] =>
+  eco.events
     .filter((e) =>
       matches(e, `${e.title} ${e.description} ${e.location} ${e.kind}`, f),
     )
     .sort((a, b) => a.date.localeCompare(b.date));
 
-export const filterOpportunities = (f: Filters): Opportunity[] =>
-  opportunities.filter((o) =>
+export const filterOpportunities = (eco: Ecosystem, f: Filters): Opportunity[] =>
+  eco.opportunities.filter((o) =>
     matches(o, `${o.title} ${o.description} ${o.location} ${o.kind}`, f),
   );
+
+// Everything that points at `slug`. Used to block deletes that would leave
+// dangling references.
+export function referencesTo(eco: Ecosystem, slug: string): string[] {
+  const refs: string[] = [];
+  for (const e of eco.events)
+    if (e.hostSlug === slug || e.partnerSlugs.includes(slug)) refs.push(`event "${e.title}"`);
+  for (const p of eco.programs)
+    if (p.runBySlug === slug) refs.push(`program "${p.title}"`);
+  for (const o of eco.opportunities)
+    if (o.postedBySlug === slug) refs.push(`opportunity "${o.title}"`);
+  for (const p of eco.partnerships)
+    if (p.fromSlug === slug || p.toSlug === slug) refs.push(`partnership ${p.fromSlug} / ${p.toSlug}`);
+  return refs;
+}
 
 export const REGIONS: Region[] = [
   "East Africa",

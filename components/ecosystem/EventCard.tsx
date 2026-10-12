@@ -1,10 +1,15 @@
 import type { EcosystemEvent } from "@/lib/types";
-import { formatDate, resolveEntity } from "@/lib/ecosystem";
+import { formatDate, type EntityRef } from "@/lib/ecosystem";
 import Link from "next/link";
 import SampleBadge from "./SampleBadge";
 
-export default function EventCard({ event }: { event: EcosystemEvent }) {
-  const host = resolveEntity(event.hostSlug);
+export default function EventCard({
+  event,
+  host,
+}: {
+  event: EcosystemEvent;
+  host: EntityRef | null;
+}) {
   return (
     <article className="bg-card border border-line rounded-md p-6 transition duration-150 hover:-translate-y-1 hover:border-amber/40 hover:shadow-md">
       <div className="flex items-center justify-between gap-3 mb-6">
@@ -27,7 +32,7 @@ export default function EventCard({ event }: { event: EcosystemEvent }) {
             hosted by {host.name}
           </Link>
         ) : (
-          <span>hosted by {host?.name}</span>
+          <span>hosted by {host?.name ?? event.hostSlug}</span>
         )}
       </div>
     </article>

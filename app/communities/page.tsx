@@ -2,7 +2,7 @@ import CommunityCard from "@/components/ecosystem/CommunityCard";
 import EmptyState from "@/components/ecosystem/EmptyState";
 import FilterBar from "@/components/ecosystem/FilterBar";
 import PageHeader from "@/components/ecosystem/PageHeader";
-import { filterCommunities, firstParam } from "@/lib/ecosystem";
+import { filterCommunities, firstParam, getEcosystem } from "@/lib/ecosystem";
 
 export const metadata = { title: "Communities | DPRIME" };
 
@@ -17,7 +17,7 @@ export default async function CommunitiesPage({
     region: firstParam(sp.region),
     topic: firstParam(sp.topic),
   };
-  const results = filterCommunities(filters);
+  const results = filterCommunities(await getEcosystem(), filters);
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">

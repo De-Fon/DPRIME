@@ -5,19 +5,14 @@ import OpportunityCard from "@/components/ecosystem/OpportunityCard";
 import SampleBadge from "@/components/ecosystem/SampleBadge";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
 import Tag from "@/components/ecosystem/Tag";
-import { communities } from "@/data/communities";
 import {
   connectionsOf,
   eventsFor,
+  getEcosystem,
   opportunitiesFor,
   programsFor,
+  resolveEntity,
 } from "@/lib/ecosystem";
-
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return communities.map((c) => ({ slug: c.slug }));
-}
 
 export async function generateMetadata({
   params,
@@ -25,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const community = communities.find((c) => c.slug === slug);
+  const community = (await getEcosystem()).communities.find((c) => c.slug === slug);
   return { title: community ? `${community.name} | DPRIME` : "Community | DPRIME" };
 }
 
@@ -35,13 +30,14 @@ export default async function CommunityPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const community = communities.find((c) => c.slug === slug);
+  const eco = await getEcosystem();
+  const community = eco.communities.find((c) => c.slug === slug);
   if (!community) notFound();
 
-  const events = eventsFor(slug);
-  const opportunities = opportunitiesFor(slug);
-  const programs = programsFor(slug);
-  const connections = connectionsOf(slug);
+  const events = eventsFor(eco, slug);
+  const opportunities = opportunitiesFor(eco, slug);
+  const programs = programsFor(eco, slug);
+  const connections = connectionsOf(eco, slug);
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
@@ -148,7 +144,7 @@ export default async function CommunityPage({
           <h2 className="font-display text-2xl text-ink mb-5">Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {events.map((e) => (
-              <EventCard key={e.slug} event={e} />
+              <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
             ))}
           </div>
         </section>
@@ -179,7 +175,7 @@ export default async function CommunityPage({
           <h2 className="font-display text-2xl text-ink mb-5">Opportunities</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {opportunities.map((o) => (
-              <OpportunityCard key={o.slug} opportunity={o} />
+              <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />
             ))}
           </div>
         </section>

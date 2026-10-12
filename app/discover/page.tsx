@@ -11,6 +11,8 @@ import {
   filterOpportunities,
   filterOrganizations,
   firstParam,
+  getEcosystem,
+  resolveEntity,
 } from "@/lib/ecosystem";
 
 export const metadata = { title: "Discover | DPRIME" };
@@ -46,10 +48,11 @@ export default async function DiscoverPage({
     region: firstParam(sp.region),
     topic: firstParam(sp.topic),
   };
-  const communities = filterCommunities(filters);
-  const orgs = filterOrganizations(filters);
-  const events = filterEvents(filters);
-  const opportunities = filterOpportunities(filters);
+  const eco = await getEcosystem();
+  const communities = filterCommunities(eco, filters);
+  const orgs = filterOrganizations(eco, filters);
+  const events = filterEvents(eco, filters);
+  const opportunities = filterOpportunities(eco, filters);
   const total =
     communities.length + orgs.length + events.length + opportunities.length;
 
@@ -79,7 +82,7 @@ export default async function DiscoverPage({
       <Group title="Events" count={events.length}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {events.map((e) => (
-            <EventCard key={e.slug} event={e} />
+            <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
           ))}
         </div>
       </Group>
@@ -87,7 +90,7 @@ export default async function DiscoverPage({
       <Group title="Opportunities" count={opportunities.length}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {opportunities.map((o) => (
-            <OpportunityCard key={o.slug} opportunity={o} />
+            <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />
           ))}
         </div>
       </Group>
