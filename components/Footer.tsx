@@ -38,11 +38,18 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-muted hover:text-amber break-words social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/40 focus-visible:text-amber rounded-sm">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 11.5a8.5 8.5 0 0 1-12.7 7.4L4 20l1.1-3.1A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+                    <path d="M9 8.5c.2-.5.5-.5.8-.5h.4c.2 0 .3.1.4.4l.7 1.6c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4 0 .7.5.8 1.1 1.4 1.9 1.9.3.2.5.2.7 0l.6-.7c.2-.2.4-.2.6-.1l1.5.7c.3.1.4.2.4.4 0 .3-.2 1-.6 1.3-.4.4-1 .6-1.7.5-1-.1-2.1-.6-3.3-1.6-1-.8-1.8-1.9-2.1-2.8-.3-.9-.1-1.7.3-2.3Z" fill="currentColor" />
+                  </svg>
                   WhatsApp group
                 </a>
               </li>
               <li>
                 <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-muted hover:text-amber break-words social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/40 focus-visible:text-amber rounded-sm">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M19.7 5.3a18.7 18.7 0 0 0-4.6-1.4l-.6 1.2a17.2 17.2 0 0 0-5 0l-.6-1.2a18.7 18.7 0 0 0-4.6 1.4C1.4 9.6.6 13.8 1 18a18.9 18.9 0 0 0 5.7 2.9l1.2-2a12 12 0 0 1-1.9-.9l.5-.4a13.4 13.4 0 0 0 11 0l.5.4a12 12 0 0 1-1.9.9l1.2 2A18.9 18.9 0 0 0 23 18c.5-4.9-.8-9-3.3-12.7ZM8.6 15.1c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.8 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z" />
+                  </svg>
                   Discord
                 </a>
               </li>
