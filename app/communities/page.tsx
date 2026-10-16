@@ -20,20 +20,20 @@ export default async function CommunitiesPage({
   const results = filterCommunities(await getEcosystem(), filters);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
+    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
       <PageHeader
         label="communities"
         title="Find your community."
         intro="University clubs, developer groups and open-source collectives, discoverable by location and topic. Communities keep their own channels; DPRIME connects them."
       />
       <FilterBar action="/communities" values={filters} />
-      <p className="mt-6 mb-4 font-mono text-xs text-muted">
+      <div className="mb-4 mt-8 flex items-center justify-between gap-3">\n        <p className="font-mono text-xs uppercase tracking-wider text-muted">
         {results.length} {results.length === 1 ? "community" : "communities"}
       </p>
       {results.length === 0 ? (
-        <EmptyState message="No communities match these filters." />
+        <EmptyState message="No communities match these filters. Try a different topic or region, or clear your search." resetHref="/communities" />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((c) => (
             <CommunityCard key={c.slug} community={c} />
           ))}
