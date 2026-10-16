@@ -22,7 +22,7 @@ export default function EventCard({
             <span className="rounded-full border border-line px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted">{event.kind}</span>
           </span>
         </div>
-        <h2 className="font-display text-xl leading-snug tracking-tight text-ink sm:text-2xl">{event.title}</h2>
+        <h2 className="font-display text-xl leading-snug tracking-tight text-ink sm:text-2xl"><Link href={`/events/${event.slug}`} className="rounded-sm hover:text-amber focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber">{event.title}</Link></h2>
         <p className="mt-2 line-clamp-4 text-sm leading-6 text-muted">{event.description}</p>
         {event.topics.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
