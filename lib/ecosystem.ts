@@ -206,24 +206,24 @@ function matches<T extends Filterable>(
 
 export const filterCommunities = (eco: Ecosystem, f: Filters): Community[] =>
   eco.communities.filter((c) =>
-    matches(c, `${c.name} ${c.tagline} ${c.location} ${c.kind}`, f),
+    matches(c, `${c.name} ${c.tagline} ${c.mission} ${c.location} ${c.kind} ${c.topics.join(" ")}`, f),
   );
 
 export const filterOrganizations = (eco: Ecosystem, f: Filters): Organization[] =>
   eco.organizations.filter((o) =>
-    matches(o, `${o.name} ${o.description} ${o.location}`, f),
+    matches(o, `${o.name} ${o.description} ${o.location} ${o.kind} ${o.topics.join(" ")}`, f),
   );
 
 export const filterEvents = (eco: Ecosystem, f: Filters): EcosystemEvent[] =>
   eco.events
     .filter((e) =>
-      matches(e, `${e.title} ${e.description} ${e.location} ${e.kind}`, f),
+      matches(e, `${e.title} ${e.description} ${e.location} ${e.kind} ${e.topics.join(" ")}`, f),
     )
     .sort((a, b) => a.date.localeCompare(b.date));
 
 export const filterOpportunities = (eco: Ecosystem, f: Filters): Opportunity[] =>
   eco.opportunities.filter((o) =>
-    matches(o, `${o.title} ${o.description} ${o.location} ${o.kind}`, f),
+    matches(o, `${o.title} ${o.description} ${o.location} ${o.kind} ${o.topics.join(" ")}`, f),
   );
 
 // Everything that points at `slug`. Used to block deletes that would leave
