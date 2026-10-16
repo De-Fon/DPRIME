@@ -53,17 +53,20 @@ export default async function Home() {
               <Link href="/communities" className="btn-secondary min-h-11">Browse communities</Link>
             </div>
           </div>
-          <aside className="relative isolate overflow-hidden rounded-2xl border border-[#f0e4d8] bg-[#fffaf5] p-6 sm:p-8">
-            <div className="relative z-10 max-w-[75%]">
-              <p className="font-mono text-[10px] font-semibold uppercase tracking-[.2em] text-amber">for community leaders</p>
-              <h2 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight text-ink">Put your community on the map.</h2>
-              <p className="mt-3 text-sm leading-6 text-muted">Help people discover what you do, find collaborators and connect with the wider ecosystem.</p>
-              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary mt-5 min-h-11 text-sm">Connect with DPRIME <span aria-hidden="true">→</span></a>
+          <aside className="relative isolate flex min-h-[320px] flex-col overflow-hidden rounded-2xl border border-[#eadfd5] bg-[#fffaf5] p-6 sm:min-h-[340px] sm:p-8">
+            <div aria-hidden="true" className="pointer-events-none absolute right-6 top-6 h-2.5 w-2.5 rounded-full bg-amber/70" />
+            <div className="relative z-10 max-w-[min(100%,22rem)]">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-[.2em] text-amber">For community leaders</p>
+              <h2 className="mt-4 max-w-sm font-display text-[1.75rem] font-semibold leading-[1.12] tracking-tight text-ink sm:text-3xl">Put your community on the map.</h2>
+              <p className="mt-4 max-w-sm text-sm leading-6 text-[#555D68]">Help people discover what you do, find collaborators, and connect with the wider technology ecosystem.</p>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 inline-flex min-h-11 items-center gap-2 self-start text-sm">Connect with DPRIME <span aria-hidden="true">→</span></a>
             </div>
-            <div aria-hidden="true" className="pointer-events-none absolute -bottom-7 -right-8 flex h-36 w-36 items-center justify-center rounded-full border-[18px] border-[#f4dfcc] sm:h-44 sm:w-44">
-              <Image src="/images/brand/logo3.png" alt="" width={78} height={78} className="relative z-10 h-16 w-16 object-contain sm:h-20 sm:w-20" />
+            <div aria-hidden="true" className="pointer-events-none absolute -bottom-12 -right-12 flex h-40 w-40 items-center justify-center rounded-full border-[14px] border-[#f4dfcc] sm:-bottom-10 sm:-right-10 sm:h-48 sm:w-48">
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/80 sm:h-28 sm:w-28">
+                <Image src="/images/brand/logo3.png" alt="" width={88} height={88} className="h-16 w-16 object-contain sm:h-20 sm:w-20" />
+              </div>
             </div>
-            <div aria-hidden="true" className="pointer-events-none absolute right-5 top-5 h-3 w-3 rounded-full bg-amber/60" />
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-5 right-5 h-px w-12 bg-[#e8cdb8]" />
           </aside>
         </div>
       </section>
