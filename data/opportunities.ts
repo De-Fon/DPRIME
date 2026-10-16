@@ -1,51 +1,5 @@
 import type { Opportunity } from "../lib/types";
 
-export const opportunities: Opportunity[] = [
-  {
-    slug: "sample-backend-internship",
-    title: "Sample Backend Internship",
-    kind: "internship",
-    description: "Three-month internship on a cloud platform team.",
-    location: "Nairobi, Kenya",
-    region: "East Africa",
-    topics: ["Cloud", "Web"],
-    postedBySlug: "sample-cloud-co",
-    deadline: "2026-12-01",
-    sample: true,
-  },
-  {
-    slug: "sample-conference-speaker",
-    title: "Sample Call for Speakers",
-    kind: "speaking",
-    description: "Speakers wanted for a regional developer conference.",
-    location: "Cape Town, South Africa",
-    region: "Southern Africa",
-    topics: ["General"],
-    postedBySlug: "sample-women-in-tech",
-    deadline: "2026-11-30",
-    sample: true,
-  },
-  {
-    slug: "sample-student-grant",
-    title: "Sample Student Builder Grant",
-    kind: "grant",
-    description: "Seed grants for student teams building community tools.",
-    location: "Accra, Ghana",
-    region: "West Africa",
-    topics: ["Startups"],
-    postedBySlug: "sample-innovation-fund",
-    deadline: "2027-01-31",
-    sample: true,
-  },
-  {
-    slug: "sample-oss-maintainer-help",
-    title: "Sample Maintainers Wanted",
-    kind: "collaboration",
-    description: "Open-source project seeking contributors for docs and tests.",
-    location: "Remote",
-    region: "Global",
-    topics: ["Open Source"],
-    postedBySlug: "sample-oss-collective",
-    sample: true,
-  },
-];
+// Keep the public directory free of invented or third-party placeholder
+// opportunities. Add verified listings when their details are confirmed.
+export const opportunities: Opportunity[] = [];
