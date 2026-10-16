@@ -6,7 +6,7 @@ import Tag from "./Tag";
 
 export default function CommunityCard({ community }: { community: Community }) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-card transition duration-200 hover:-translate-y-0.5 hover:border-amber/50 hover:shadow-lg hover:shadow-ink/5 focus-within:border-amber/60">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-line bg-card transition duration-200 hover:-translate-y-0.5 hover:border-amber/50 hover:shadow-lg hover:shadow-ink/5 focus-within:border-amber/60">
       <Link
         href={`/communities/${community.slug}`}
         className="absolute inset-0 z-10 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber"
