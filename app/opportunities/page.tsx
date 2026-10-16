@@ -28,18 +28,19 @@ export default async function OpportunitiesPage({
         intro="Internships, grants, speaking slots and collaborations posted by communities and organizations."
       />
       <FilterBar action="/opportunities" values={filters} />
-      <div className="mb-4 mt-8 flex items-center justify-between gap-3">\n        <p className="font-mono text-xs uppercase tracking-wider text-muted">
-        {results.length} {results.length === 1 ? "opportunity" : "opportunities"}
-      </p>
+      <div className="mb-4 mt-8 flex items-center justify-between gap-3">
+        <p className="font-mono text-xs uppercase tracking-wider text-muted">
+          {results.length} {results.length === 1 ? "opportunity" : "opportunities"}
+        </p>
+        <p className="text-sm text-muted">Browse current listings</p>
+      </div>
       {results.length === 0 ? (
         <EmptyState message="No opportunities match these filters. Try another topic or region, or clear your search." resetHref="/opportunities" />
       ) : (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {results.map((o) => (
-            <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />
-          ))}
+          {results.map((o) => <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />)}
         </div>
       )}
-    </div>
+    </main>
   );
 }
