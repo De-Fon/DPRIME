@@ -9,15 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: '#F8F4EF',
+        paper: '#FFFFFF',
         ink: '#171717',
         darkbg: '#2B1C13',
-        slate: '#625A54',
+        slate: '#5D626B',
         amber: '#C95B00',
-        line: '#E4D7CC',
-        card: '#FFFEFC',
-        muted: '#625A54',
-        body: '#413A35',
+        line: '#E7E5E2',
+        card: '#FFFFFF',
+        muted: '#5D626B',
+        body: '#343A43',
       },
       fontFamily: {
         display: ['var(--font-archivo)', 'sans-serif'],
