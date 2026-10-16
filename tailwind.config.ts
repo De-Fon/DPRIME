@@ -9,16 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: '#EEF0F2',
-        ink: '#171A21',
-        darkbg: '#002B36',
-        // neutral slate: warm/neutral gray (replaces blue-leaning slate)
-        slate: '#5B6166',
-        amber: '#C97A3D',
-        line: '#CDD1D6',
-        card: '#FFFFFF',
-        muted: '#6B7075',
-        body: '#3A3F47',
+        paper: '#F8F4EF',
+        ink: '#171717',
+        darkbg: '#2B1C13',
+        slate: '#625A54',
+        amber: '#C95B00',
+        line: '#E4D7CC',
+        card: '#FFFEFC',
+        muted: '#625A54',
+        body: '#413A35',
       },
       fontFamily: {
         display: ['var(--font-archivo)', 'sans-serif'],
@@ -26,11 +25,16 @@ const config: Config = {
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
       },
       backgroundImage: {
-        // subtle neutral grid using the `line` token
-        'blueprint-grid': "linear-gradient(#CDD1D6 0.5px, transparent 0.5px), linear-gradient(90deg, #CDD1D6 0.5px, transparent 0.5px)",
+        'blueprint-grid': "linear-gradient(rgba(201,91,0,.07) 0.5px, transparent 0.5px), linear-gradient(90deg, rgba(201,91,0,.07) 0.5px, transparent 0.5px)",
       },
       backgroundSize: {
-        'grid-28': '28px 28px',
+        'grid-28': '32px 32px',
+      },
+      borderRadius: {
+        card: '1.2rem',
+      },
+      boxShadow: {
+        card: '0 1px 2px rgba(45,29,18,.04)',
       },
     },
   },
