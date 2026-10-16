@@ -126,7 +126,12 @@ export async function listEntities<K extends Kind>(kind: K): Promise<KindMap[K][
     "SELECT data FROM entities WHERE kind = $1 ORDER BY slug",
     [kind],
   );
-  return rows.map((r) => r.data as KindMap[K]);
+  // Do not expose development/sample rows that may already exist in a persistent
+  // database from an earlier seed. They remain hidden until replaced with
+  // verified real records.
+  return rows
+    .map((r) => r.data as KindMap[K])
+    .filter((record) => !(record as { sample?: boolean }).sample);
 }
 
 export async function getEntity<K extends Kind>(
@@ -145,7 +150,10 @@ export async function getEntity<K extends Kind>(
     "SELECT data FROM entities WHERE kind = $1 AND slug = $2",
     [kind, slug],
   );
-  return (rows[0]?.data as KindMap[K] | undefined) ?? null;
+  const record = rows[0]?.data as KindMap[K] | undefined;
+  // A previously seeded placeholder must not be reachable through a detail URL.
+  if (record && (record as { sample?: boolean }).sample) return null;
+  return record ?? null;
 }
 
 export async function saveEntity(kind: Kind, slug: string, data: unknown): Promise<void> {
