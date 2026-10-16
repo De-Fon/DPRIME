@@ -8,15 +8,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="min-w-0">
             <Link href="/" aria-label="DPRIME home" className="inline-block">
-              <span className="font-display text-lg text-ink">DPRIME</span>
+              <span className="font-display text-2xl font-semibold tracking-tight text-ink">DPRIME<span className="text-amber">.</span></span>
             </Link>
-            <p className="mt-3 text-sm text-muted max-w-xs">DPRIME connects technology communities across Africa, so clubs, meetups and builders can find each other, run events together and share opportunities.</p>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-[#555D68]">A community connecting communities. We help Africa’s technology clubs, meetups and builders find one another, create together and share opportunities.</p>
           </div>
 
           <div className="min-w-0">
-            <h4 className="font-mono text-sm text-ink mb-3">Explore</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/discover" className="text-muted hover:text-amber nav-link">Discover</Link></li>
+            <h4 className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-ink">Explore</h4>
+            <ul className="space-y-3 text-sm">
+              <li><Link href="/discover" className="text-[#555D68] transition-colors hover:text-amber nav-link">Discover</Link></li>
               <li><Link href="/communities" className="text-muted hover:text-amber nav-link">Communities</Link></li>
               <li><Link href="/events" className="text-muted hover:text-amber nav-link">Events</Link></li>
               <li><Link href="/opportunities" className="text-muted hover:text-amber nav-link">Opportunities</Link></li>
@@ -37,7 +37,7 @@ export default function Footer() {
             <h4 className="font-mono text-sm text-ink mb-3">Connect</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-muted hover:text-amber break-words social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/40 focus-visible:text-amber rounded-sm">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-8 items-center gap-3 text-[#555D68] transition-colors hover:text-amber break-words social-link focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/40 focus-visible:text-amber rounded-sm">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M20 11.5a8.5 8.5 0 0 1-12.7 7.4L4 20l1.1-3.1A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
                     <path d="M9 8.5c.2-.5.5-.5.8-.5h.4c.2 0 .3.1.4.4l.7 1.6c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4 0 .7.5.8 1.1 1.4 1.9 1.9.3.2.5.2.7 0l.6-.7c.2-.2.4-.2.6-.1l1.5.7c.3.1.4.2.4.4 0 .3-.2 1-.6 1.3-.4.4-1 .6-1.7.5-1-.1-2.1-.6-3.3-1.6-1-.8-1.8-1.9-2.1-2.8-.3-.9-.1-1.7.3-2.3Z" fill="currentColor" />
@@ -84,9 +84,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-line pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-muted">© 2026 DPRIME, a product of <a href={STRATNOVO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-amber underline-offset-2 hover:underline">Stratnovo</a>. All rights reserved.</div>
-          <div className="text-xs text-muted">Connection. Discovery. Collaboration. Opportunity.</div>
+        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-line pt-6 text-left sm:flex-row sm:items-center">
+          <div className="text-xs leading-5 text-[#626873]">© 2026 DPRIME, a product of <a href={STRATNOVO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-amber underline-offset-2 hover:underline">Stratnovo</a>. All rights reserved.</div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#626873]">Built for communities across Africa</div>
         </div>
       </div>
     </footer>
