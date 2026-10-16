@@ -18,7 +18,7 @@ export default function EventCard({ event, host }: { event: EcosystemEvent; host
   const isPast = event.date < new Date().toISOString().slice(0, 10);
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition duration-200 hover:-translate-y-1 hover:border-amber/40 hover:shadow-lg hover:shadow-ink/5">
-      <CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} variant="event" />
+      <CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} variant="event" fit="contain" />
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start gap-3">
           <DateBlock date={event.date} />
