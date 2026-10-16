@@ -1,5 +1,6 @@
 import CommunityCard from "@/components/ecosystem/CommunityCard";
-import Link from "next/link";\nimport CoverImage from "@/components/ecosystem/CoverImage";
+import Link from "next/link";
+import CoverImage from "@/components/ecosystem/CoverImage";
 import EmptyState from "@/components/ecosystem/EmptyState";
 import EventCard from "@/components/ecosystem/EventCard";
 import FilterBar from "@/components/ecosystem/FilterBar";
