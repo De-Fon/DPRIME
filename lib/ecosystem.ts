@@ -11,10 +11,9 @@ import type {
   Topic,
 } from "./types";
 
-// A point-in-time view of every public entity, loaded once per request.
-// Sample records remain in the underlying data store for development/admin use,
-// but are excluded from public-facing pages so placeholders are not mistaken
-// for real communities, events, programs or opportunities.
+// A point-in-time view of every ecosystem entity, loaded once per request.
+// Sample records are intentionally included so developers can exercise public
+// listings and detail pages before verified production content is available.
 export interface Ecosystem {
   communities: Community[];
   organizations: Organization[];
@@ -36,12 +35,12 @@ export const getEcosystem = cache(async (): Promise<Ecosystem> => {
     ]);
 
   return {
-    communities: communities.filter((item) => !item.sample),
-    organizations: organizations.filter((item) => !item.sample),
-    events: events.filter((item) => !item.sample),
-    programs: programs.filter((item) => !item.sample),
-    opportunities: opportunities.filter((item) => !item.sample),
-    partnerships: partnerships.filter((item) => !item.sample),
+    communities,
+    organizations,
+    events,
+    programs,
+    opportunities,
+    partnerships,
   };
 });
 
