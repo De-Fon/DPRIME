@@ -204,3 +204,39 @@ select:disabled {
     }
   }
 }
+
+
+/* Ecosystem UI refinements: readable body rhythm, predictable media, and
+   clear keyboard feedback across directory and detail pages. */
+body {
+  line-height: 1.55;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+select:focus-visible,
+input[type="search"]:focus-visible,
+input[type="text"]:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid theme('colors.amber');
+  outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  article,
+  article:hover {
+    transition: none !important;
+    transform: none !important;
+    scroll-behavior: auto !important;
+  }
+}
