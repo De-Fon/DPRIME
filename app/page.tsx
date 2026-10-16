@@ -41,15 +41,15 @@ export default async function Home() {
       <section className="border-b border-line bg-white">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:px-6 md:grid-cols-[1.25fr_.75fr] md:items-center md:py-16 lg:gap-14 lg:py-20">
           <div>
-            <SectionLabel>the dprime ecosystem</SectionLabel>
+            <SectionLabel>a community connecting communities</SectionLabel>
             <h1 className="max-w-2xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[3.5rem]">
-              Find your people.<br />Build what&rsquo;s next.
+              We connect Africa&rsquo;s<br />technology communities.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-muted sm:text-lg">
-              Explore communities, events, opportunities and organisations across Kenya&rsquo;s tech and innovation ecosystem.
+              DPRIME brings university clubs, developer groups, and open-source communities together to discover one another, organize events, collaborate, and share opportunities — while staying connected to the platforms they already use.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/discover" className="btn-primary min-h-11">Explore DPRIME <span aria-hidden="true">→</span></Link>
+              <Link href="/discover" className="btn-primary min-h-11">Discover <span aria-hidden="true">→</span></Link>
               <Link href="/communities" className="btn-secondary min-h-11">Browse communities</Link>
             </div>
           </div>
