@@ -25,7 +25,7 @@ export default function FilterBar({
           type="search"
           name="q"
           defaultValue={values.q}
-          placeholder="Name, topic or location"
+          placeholder="Search names, topics, locations…"
           aria-label="Search listings"
           className={field}
         />
