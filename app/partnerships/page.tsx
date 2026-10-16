@@ -23,14 +23,14 @@ export default async function PartnershipsPage() {
           {partnerships.map((partnership, index) => {
             const from = resolveEntity(eco, partnership.fromSlug);
             const to = resolveEntity(eco, partnership.toSlug);
-            return <li key={`${partnership.fromSlug}-${partnership.toSlug}-${partnership.type}-${index}`} className="rounded-xl border border-line bg-card p-5 sm:p-6">
+            return <li key={`${partnership.fromSlug}-${partnership.toSlug}-${partnership.type}-${index}`} className="rounded-xl border border-line bg-card p-5 transition hover:border-amber/50 sm:p-6">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-2"><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-amber">{partnership.type}</span>{partnership.sample && <SampleBadge />}</div>
               <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
                 {from?.href ? <Link href={from.href} className="inline-flex min-h-11 items-center font-display text-lg text-ink hover:text-amber">{from.name} ↗</Link> : <span className="inline-flex min-h-11 items-center font-display text-lg text-ink">{from?.name ?? partnership.fromSlug}</span>}
                 <span aria-hidden="true" className="text-amber">↔</span>
                 {to?.href ? <Link href={to.href} className="inline-flex min-h-11 items-center font-display text-lg text-ink hover:text-amber">{to.name} ↗</Link> : <span className="inline-flex min-h-11 items-center font-display text-lg text-ink">{to?.name ?? partnership.toSlug}</span>}
               </div>
-              <p className="mt-2 text-sm leading-6 text-muted">A {partnership.type} connection in the DPRIME ecosystem.</p>
+              <Link href={`/partnerships/${partnership.fromSlug}/${partnership.toSlug}`} className="mt-3 inline-flex min-h-11 items-center text-sm text-amber hover:underline">View connection details ↗</Link>
             </li>;
           })}
         </ul>
