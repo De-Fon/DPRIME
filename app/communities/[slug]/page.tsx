@@ -51,7 +51,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
               </div>
             </div>
             <div className="relative min-h-[220px] border-t border-line bg-white lg:min-h-full lg:border-l lg:border-t-0">
-              <CoverImage src={community.imageUrl} alt={community.name} priority className="h-full min-h-[220px] border-0 lg:min-h-[370px]" variant="community" />
+              <CoverImage src={community.imageUrl} alt={community.name} priority className="h-full min-h-[220px] border-0 lg:min-h-[370px]" variant="community" fit="contain" />
             </div>
           </div>
         </header>
