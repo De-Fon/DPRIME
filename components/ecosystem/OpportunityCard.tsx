@@ -19,7 +19,7 @@ export default function OpportunityCard({
           <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-amber">{opportunity.kind}</span>
           {opportunity.sample && <SampleBadge />}
         </div>
-        <h2 className="font-display text-xl leading-snug tracking-tight text-ink sm:text-2xl">{opportunity.title}</h2>
+        <h2 className="font-display text-xl leading-snug tracking-tight text-ink sm:text-2xl"><Link href={`/opportunities/${opportunity.slug}`} className="rounded-sm hover:text-amber focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber">{opportunity.title}</Link></h2>
         <p className="mt-2 line-clamp-4 text-sm leading-6 text-muted">{opportunity.description}</p>
         {opportunity.topics.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
