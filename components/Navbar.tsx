@@ -24,8 +24,8 @@ const navItems = [
     (path !== "/" && pathname.startsWith(path));
 
   return (
-    <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur-sm border-b border-line">
-      <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur-sm">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-3 sm:px-6">
 
         {/* Brand */}
         <Link
@@ -43,22 +43,22 @@ const navItems = [
               className="object-contain w-auto h-auto"
             />
 
-            <span className="text-2xl font-extrabold text-ink tracking-tight truncate">
+            <span className="truncate text-xl font-extrabold tracking-tight text-ink sm:text-2xl">
               DPRIME
             </span>
           </div>
         </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden lg:flex items-center space-x-8">
+        <div className="hidden items-center space-x-5 xl:flex">
 
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-5">
 
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative group py-2"
+                className="group relative min-h-11 py-2"
               >
                 <span
                   className={`nav-link text-sm font-medium duration-150 ease-out ${
