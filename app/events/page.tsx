@@ -28,18 +28,19 @@ export default async function EventsPage({
         intro="Meetups, hackathons and workshops across communities. Each event links the communities and organizations behind it."
       />
       <FilterBar action="/events" values={filters} />
-      <div className="mb-4 mt-8 flex items-center justify-between gap-3">\n        <p className="font-mono text-xs uppercase tracking-wider text-muted">
-        {results.length} {results.length === 1 ? "event" : "events"}
-      </p>
+      <div className="mb-4 mt-8 flex items-center justify-between gap-3">
+        <p className="font-mono text-xs uppercase tracking-wider text-muted">
+          {results.length} {results.length === 1 ? "event" : "events"}
+        </p>
+        <p className="text-sm text-muted">Dates and hosts at a glance</p>
+      </div>
       {results.length === 0 ? (
         <EmptyState message="No events match these filters. Try a broader search or clear your selected filters." resetHref="/events" />
       ) : (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {results.map((e) => (
-            <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
-          ))}
+          {results.map((e) => <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />)}
         </div>
       )}
-    </div>
+    </main>
   );
 }
