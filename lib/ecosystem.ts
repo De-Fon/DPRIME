@@ -137,12 +137,12 @@ const SEARCH_SYNONYMS: Record<string, string[]> = {
 function normalizeSearch(value: string): string {
   return value
     .normalize("NFD")
-    .replace(/[\\u0300-\\u036f]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/https?:\\/\\/|www\\./g, " ")
+    .replace(/https?:\/\/|www\./g, " ")
     .replace(/[^a-z0-9]+/g, " ")
     .trim()
-    .replace(/\\s+/g, " ");
+    .replace(/\s+/g, " ");
 }
 
 function editDistance(a: string, b: string): number {
