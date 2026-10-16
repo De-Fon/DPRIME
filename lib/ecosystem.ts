@@ -113,6 +113,72 @@ interface Filterable {
   topics: Topic[];
 }
 
+const SEARCH_SYNONYMS: Record<string, string[]> = {
+  meetup: ["event", "gathering", "networking"],
+  gathering: ["meetup", "event", "community"],
+  job: ["work", "career", "employment"],
+  internship: ["attachment", "placement", "work experience"],
+  grant: ["funding", "sponsorship", "support"],
+  scholarship: ["funding", "bursary", "education"],
+  startup: ["founder", "entrepreneur", "business"],
+  developer: ["programmer", "software", "coding", "engineer"],
+  coding: ["programming", "developer", "software"],
+  ai: ["artificial intelligence", "machine learning"],
+  ml: ["machine learning", "ai"],
+  online: ["virtual", "remote"],
+  virtual: ["online", "remote"],
+  remote: ["online", "virtual"],
+  nairobi: ["kenya", "east africa"],
+  kenya: ["nairobi", "east africa"],
+  organisation: ["organization", "company", "institution"],
+  organization: ["organisation", "company", "institution"],
+};
+
+function normalizeSearch(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\\u0300-\\u036f]/g, "")
+    .toLowerCase()
+    .replace(/https?:\\/\\/|www\\./g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\\s+/g, " ");
+}
+
+function editDistance(a: string, b: string): number {
+  if (Math.abs(a.length - b.length) > 2) return 3;
+  let previous = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const current = [i];
+    for (let j = 1; j <= b.length; j++) {
+      current[j] = Math.min(
+        current[j - 1] + 1,
+        previous[j] + 1,
+        previous[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+    }
+    previous = current;
+  }
+  return previous[b.length];
+}
+
+function tokenMatches(queryToken: string, haystackTokens: string[]): boolean {
+  if (queryToken.length < 3) return haystackTokens.some((word) => word === queryToken);
+  const stem = queryToken.endsWith("ies") && queryToken.length > 4
+    ? queryToken.slice(0, -3) + "y"
+    : queryToken.endsWith("s") && queryToken.length > 4
+      ? queryToken.slice(0, -1)
+      : queryToken;
+  const alternatives = [queryToken, stem, ...(SEARCH_SYNONYMS[queryToken] ?? [])];
+  return haystackTokens.some((word) =>
+    alternatives.some((candidate) =>
+      word === candidate ||
+      (candidate.length >= 4 && (word.startsWith(candidate) || candidate.startsWith(word))) ||
+      (candidate.length >= 5 && word.length >= 5 && editDistance(candidate, word) <= 1),
+    ),
+  );
+}
+
 function matches<T extends Filterable>(
   item: T,
   searchText: string,
@@ -120,9 +186,22 @@ function matches<T extends Filterable>(
 ): boolean {
   if (region && item.region !== region) return false;
   if (topic && !item.topics.includes(topic as Topic)) return false;
-  if (q && !searchText.toLowerCase().includes(q.trim().toLowerCase()))
-    return false;
-  return true;
+  if (!q?.trim()) return true;
+
+  const query = normalizeSearch(q);
+  if (!query) return true;
+  const normalizedText = normalizeSearch(searchText);
+  // Exact phrase wins; otherwise require each meaningful query word to match
+  // somewhere in the record, making multi-word searches less brittle.
+  if (normalizedText.includes(query)) return true;
+  const queryTokens = query.split(" ").filter((token) => token.length > 1);
+  const textTokens = normalizedText.split(" ");
+  const stopWords = new Set(["the", "and", "for", "with", "from", "what", "how", "where", "find", "near", "in", "to", "a", "an"]);
+  const usefulTokens = queryTokens.filter((token) => !stopWords.has(token));
+  if (!usefulTokens.length) return normalizedText.includes(query);
+  // For long natural-language queries, tolerate one unmatched word.
+  const matched = usefulTokens.filter((token) => tokenMatches(token, textTokens)).length;
+  return matched === usefulTokens.length || (usefulTokens.length >= 4 && matched >= usefulTokens.length - 1);
 }
 
 export const filterCommunities = (eco: Ecosystem, f: Filters): Community[] =>
