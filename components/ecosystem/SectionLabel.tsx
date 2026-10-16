@@ -1,13 +1,9 @@
 export default function SectionLabel({ children }: { children: string }) {
   return (
-    <div className="font-mono text-sm text-muted mb-4">
-      <span className="inline-flex items-center">
-        <span
-          className="inline-block w-[3px] h-[14px] bg-amber mr-2.5"
-          aria-hidden
-        />
-        <span className="font-medium tracking-[0.05em]">{children}</span>
-      </span>
+    <div className="mb-3 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-amber sm:text-[11px]">
+      <span aria-hidden="true" className="inline-flex h-2 w-2 shrink-0 rounded-full bg-amber" />
+      <span>{children}</span>
+      <span aria-hidden="true" className="h-px min-w-5 flex-1 bg-[#F0D9C7]" />
     </div>
   );
 }

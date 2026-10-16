@@ -2,205 +2,122 @@
 @config "../tailwind.config.ts";
 
 :root {
-  /* Font variables are injected via next/font using the class on <html> */
+  color-scheme: light;
+  --paper: #FFFFFF;
+  --ink: #171717;
+  --line: #E7E5E2;
+  --accent: #C95B00;
+  --card: #FFFFFF;
+  --muted: #5D626B;
 }
 
-/* Design tokens */
-.bg-paper { background-color: #EEF0F2; }
-.text-ink { color: #171A21; }
-.border-line { border-color: #CDD1D6; }
+.bg-paper { background-color: var(--paper); }
+.text-ink { color: var(--ink); }
+.border-line { border-color: var(--line); }
 
-/* Utility for faint blueprint grid (use with a layering element) */
 .bg-blueprint {
-  /* use neutral line color rather than blue tints */
-  background-image: linear-gradient(#CDD1D6 0.5px, transparent 0.5px), linear-gradient(90deg, #CDD1D6 0.5px, transparent 0.5px);
-  background-size: 28px 28px;
+  background-image:
+    linear-gradient(rgba(201,91,0,.07) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, rgba(201,91,0,.07) 0.5px, transparent 0.5px);
+  background-size: 32px 32px;
 }
 
-html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-body { font-family: var(--font-lora), Georgia, serif; }
-
-/* Prevent accidental horizontal scrolling from large images/SVGs */
-img, svg, video {
-  max-width: 100%;
-  height: auto;
-  display: block;
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
-
-/* clip accidental horizontal overflow while preserving vertical scroll */
 body {
+  font-family: var(--font-archivo), Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--ink);
+  background: #FFFFFF;
   overflow-x: hidden;
 }
+img, svg, video { max-width: 100%; height: auto; display: block; }
+p { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.035em; }
 
-/* Global card utility to ensure consistent surfaces */
 .card {
-  @apply bg-card border border-line rounded-md shadow-sm transition-shadow transition-transform duration-150 ease-out;
+  @apply border transition duration-200 ease-out;
+  background: var(--card);
+  border-color: var(--line);
+  border-radius: 1.2rem;
+  box-shadow: 0 1px 2px rgba(18, 25, 38, .035);
 }
-.card:hover,
-.card:focus-within {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(23,26,33,0.06);
-  border-color: rgba(255,122,45,0.12);
-}
-
-/* Buttons: primary and secondary helpers */
-.btn-primary {
-  @apply inline-block px-4 py-2 bg-amber text-paper rounded font-semibold transition-colors transition-transform duration-150 ease-out;
-}
-.btn-primary:hover,
-.btn-primary:focus {
+.card:hover, .card:focus-within {
   transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(18, 25, 38, .07);
+  border-color: rgba(201,91,0,.28);
 }
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold transition duration-200;
+  background: var(--accent);
+  color: white;
+  border-radius: 999px;
+}
+.btn-primary:hover, .btn-primary:focus { transform: translateY(-2px); background: #A94C00; }
 .btn-secondary {
-  @apply inline-block px-4 py-2 bg-transparent border border-line text-ink rounded transition-colors duration-150 ease-out;
+  @apply inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold transition duration-200;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
 }
-.btn-secondary:hover,
-.btn-secondary:focus {
-  transform: translateY(-2px);
-}
+.btn-secondary:hover, .btn-secondary:focus { transform: translateY(-2px); border-color: var(--accent); background: #FFFFFF; }
 
-/* Micro-interaction helpers for nav/social */
-.nav-link {
-  transition: color 150ms ease-out;
+.nav-link, .social-link { transition: color 160ms ease, transform 160ms ease; }
+.social-link:hover { transform: translateY(-2px); }
+.btn-primary:focus-visible, .btn-secondary:focus-visible, .nav-link:focus-visible,
+.social-link:focus-visible, .card:focus-visible, a:focus-visible, button:focus-visible,
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
-.social-link {
-  transition: color 150ms ease-out, transform 150ms ease-out;
-}
-.social-link:hover {
-  transform: translateY(-2px);
-}
+a { text-underline-offset: .2em; }
+button:not(:disabled), [role="button"], a[href], select, summary, label[for],
+input[type="submit"], input[type="checkbox"], input[type="radio"] { cursor: pointer; }
+button:disabled, input:disabled, select:disabled { cursor: not-allowed; }
 
-/* Focus states for accessibility */
-.btn-primary:focus-visible,
-.btn-secondary:focus-visible,
-.nav-link:focus-visible,
-.social-link:focus-visible,
-.card:focus-visible,
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid theme('colors.amber');
-  outline-offset: 2px;
-}
-
-/* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
-  .btn-primary,
-  .btn-secondary,
-  .card,
-  .nav-link,
-  .social-link {
-    transition: none !important;
-    animation: none !important;
-    transform: none !important;
-  }
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
-
-
-/* Manifesto: immersive word-by-word reveal. */
-@keyframes word-in {
-  from { opacity: 0; transform: translateY(0.55em); filter: blur(10px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-@keyframes word-out {
-  from { opacity: 1; transform: translateY(0); filter: blur(0); }
-  to { opacity: 0; transform: translateY(-0.55em); filter: blur(10px); }
-}
-@keyframes rule-draw {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-@keyframes cta-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes grid-drift {
-  from { transform: translate(0, 0); }
-  to { transform: translate(28px, 28px); }
-}
-@keyframes arrow-nudge {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
-}
-@keyframes stage-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+@keyframes word-in { from { opacity: 0; transform: translateY(.55em); filter: blur(10px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+@keyframes word-out { from { opacity: 1; transform: translateY(0); filter: blur(0); } to { opacity: 0; transform: translateY(-.55em); filter: blur(10px); } }
+@keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes cta-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes grid-drift { from { transform: translate(0,0); } to { transform: translate(32px,32px); } }
+@keyframes arrow-nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+@keyframes stage-in { from { opacity: 0; } to { opacity: 1; } }
 .word { display: inline-block; will-change: transform, opacity, filter; }
-.word-in { animation: word-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-.word-out { animation: word-out 450ms cubic-bezier(0.4, 0, 1, 1) both; }
-.manifesto-rule {
-  transform-origin: left;
-  animation: rule-draw 900ms cubic-bezier(0.22, 1, 0.36, 1) 150ms both;
-}
-.manifesto-cta { animation: cta-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.word-in { animation: word-in 800ms cubic-bezier(.22,1,.36,1) both; }
+.word-out { animation: word-out 450ms cubic-bezier(.4,0,1,1) both; }
+.manifesto-rule { transform-origin: left; animation: rule-draw 900ms cubic-bezier(.22,1,.36,1) 150ms both; }
+.manifesto-cta { animation: cta-in 700ms cubic-bezier(.22,1,.36,1) both; }
 .manifesto-arrow { display: inline-block; animation: arrow-nudge 1.8s ease-in-out 2s infinite; }
 .manifesto-stage { animation: stage-in 900ms ease-out both; }
 .manifesto-grid {
-  background-image:
-    linear-gradient(#EEF0F2 0.5px, transparent 0.5px),
-    linear-gradient(90deg, #EEF0F2 0.5px, transparent 0.5px);
-  background-size: 28px 28px;
+  background-image: linear-gradient(rgba(248,244,239,.8) .5px, transparent .5px), linear-gradient(90deg, rgba(248,244,239,.8) .5px, transparent .5px);
+  background-size: 32px 32px;
   animation: grid-drift 14s linear infinite;
 }
-@keyframes launch-ring {
-  0% { box-shadow: 0 0 0 0 rgba(201, 122, 61, 0.55); }
-  70% { box-shadow: 0 0 0 16px rgba(201, 122, 61, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(201, 122, 61, 0); }
-}
-@keyframes ping-dot {
-  75%, 100% { transform: scale(2.4); opacity: 0; }
-}
+@keyframes launch-ring { 0% { box-shadow: 0 0 0 0 rgba(201,91,0,.45); } 70% { box-shadow: 0 0 0 16px rgba(201,91,0,0); } 100% { box-shadow: 0 0 0 0 rgba(201,91,0,0); } }
+@keyframes ping-dot { 75%,100% { transform: scale(2.4); opacity: 0; } }
 .manifesto-launch { animation: launch-ring 2.4s ease-out infinite; }
-.manifesto-ping { animation: ping-dot 1.6s cubic-bezier(0, 0, 0.2, 1) infinite; }
-
+.manifesto-ping { animation: ping-dot 1.6s cubic-bezier(0,0,.2,1) infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .manifesto-launch, .manifesto-ping { animation: none; }
-  .word-in, .word-out, .manifesto-rule, .manifesto-cta, .manifesto-arrow,
-  .manifesto-stage, .manifesto-grid { animation: none; }
+  .manifesto-launch, .manifesto-ping, .word-in, .word-out, .manifesto-rule, .manifesto-cta,
+  .manifesto-arrow, .manifesto-stage, .manifesto-grid { animation: none !important; }
 }
 
-/* Tailwind's preflight resets buttons to the default cursor. Every control
-   that does something shows the pointer; disabled ones show not-allowed. */
-button:not(:disabled),
-[role="button"],
-a[href],
-select,
-summary,
-label[for],
-input[type="submit"],
-input[type="checkbox"],
-input[type="radio"] {
-  cursor: pointer;
-}
-button:disabled,
-input:disabled,
-select:disabled {
-  cursor: not-allowed;
-}
-
-/* Large screens: Tailwind sizes are rem-based, so raising the root size scales
-   type, spacing and the max-w-* content columns together instead of leaving a
-   narrow strip in the middle of a wide display. */
 @media (min-width: 1536px) { html { font-size: 106.25%; } }
-@media (min-width: 1920px) { html { font-size: 118.75%; } }
-@media (min-width: 2560px) { html { font-size: 137.5%; } }
+@media (min-width: 1920px) { html { font-size: 112.5%; } }
+@media (min-width: 2560px) { html { font-size: 125%; } }
 
-/* Scroll reveal for the About page. Always visible by default; only browsers
-   that support scroll-driven animation get the fade-up. */
-@keyframes reveal-up {
-  from { opacity: 0.45; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes reveal-up { from { opacity: .45; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 45%;
-    }
+    .reveal { animation: reveal-up linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
   }
 }
