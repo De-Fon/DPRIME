@@ -1,5 +1,5 @@
 import CommunityCard from "@/components/ecosystem/CommunityCard";
-import CoverImage from "@/components/ecosystem/CoverImage";
+import Link from "next/link";\nimport CoverImage from "@/components/ecosystem/CoverImage";
 import EmptyState from "@/components/ecosystem/EmptyState";
 import EventCard from "@/components/ecosystem/EventCard";
 import FilterBar from "@/components/ecosystem/FilterBar";
@@ -114,7 +114,7 @@ export default async function DiscoverPage({
                   <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-amber">{o.kind}</span>
                   {o.sample && <SampleBadge />}
                 </div>
-                <h3 className="font-display text-xl leading-snug tracking-tight text-ink">{o.name}</h3>
+                <h3 className="font-display text-xl leading-snug tracking-tight text-ink"><Link href={`/organizations/${o.slug}`} className="hover:text-amber focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber">{o.name}</Link></h3>
                 <p className="mt-2 text-sm leading-6 text-muted">{o.description}</p>
                 {o.topics.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{o.topics.slice(0, 4).map((t) => <Tag key={t}>{t}</Tag>)}</div>}
                 <div className="mt-auto border-t border-line pt-4 mt-5 font-mono text-xs text-muted">{o.location} · {o.region}</div>
