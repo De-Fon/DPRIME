@@ -142,7 +142,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-10">
+      <section className="mx-auto max-w-6xl px-5 py-8 sm:px-6 md:py-10">
         <dl className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {stats.map((s) => (
             <div
@@ -159,7 +159,7 @@ export default async function Home() {
         </p>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-14">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-6 md:py-16">
         <SectionLabel>what we do</SectionLabel>
         <h2 className="font-display text-3xl md:text-4xl text-ink max-w-3xl">
           Thousands of tech communities exist. Most never meet.
@@ -168,7 +168,7 @@ export default async function Home() {
           DPRIME is the shared layer between them. We make communities easy to
           find, and give them ways to work together.
         </p>
-        <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <ul className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {WHAT_WE_DO.map((item, i) => (
             <li
               key={item.title}
@@ -182,12 +182,12 @@ export default async function Home() {
         </ul>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-14">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-6 md:py-16">
         <SectionLabel>who it is for</SectionLabel>
         <h2 className="font-display text-3xl md:text-4xl text-ink">
           Built for the people who make tech happen.
         </h2>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-5">
           {AUDIENCES.map((a) => (
             <div key={a.title} className="bg-card border border-line rounded-md p-6 flex flex-col">
               <h3 className="font-display text-xl text-ink">{a.title}</h3>
@@ -211,7 +211,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-14">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-6 md:py-16">
         <SectionHeader
           label="what's happening"
           title="Upcoming events"
@@ -231,7 +231,7 @@ export default async function Home() {
         )}
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-14">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-6 md:py-16">
         <SectionHeader
           label="communities"
           title="Communities to explore"
@@ -245,7 +245,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-14">
+      <section className="mx-auto max-w-6xl px-5 py-12 sm:px-6 md:py-16">
         <SectionHeader
           label="opportunities"
           title="Open opportunities"
