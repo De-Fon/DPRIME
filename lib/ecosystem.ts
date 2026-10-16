@@ -38,7 +38,7 @@ export const getEcosystem = cache(async (): Promise<Ecosystem> => {
 export interface EntityRef {
   slug: string;
   name: string;
-  href: string | null; // organizations have no detail page yet
+  href: string | null;
   sample: boolean;
 }
 
@@ -55,7 +55,7 @@ export function resolveEntity(eco: Ecosystem, slug: string): EntityRef | null {
     };
   }
   const org = eco.organizations.find((o) => o.slug === slug);
-  if (org) return { slug, name: org.name, href: null, sample: !!org.sample };
+  if (org) return { slug, name: org.name, href: `/organizations/${slug}`, sample: !!org.sample };
   return null;
 }
 
