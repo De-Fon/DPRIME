@@ -221,6 +221,20 @@ export const filterEvents = (eco: Ecosystem, f: Filters): EcosystemEvent[] =>
     )
     .sort((a, b) => a.date.localeCompare(b.date));
 
+export const filterPrograms = (eco: Ecosystem, f: Filters): Program[] => {
+  const q = normalizeSearch(f.q ?? "");
+  return eco.programs.filter((program) => {
+    if (f.topic && !program.topics.includes(f.topic as Topic)) return false;
+    if (!q) return true;
+    const haystack = normalizeSearch(`${program.title} ${program.description} ${program.kind} ${program.duration} ${program.topics.join(" ")} ${resolveEntity(eco, program.runBySlug)?.name ?? program.runBySlug}`);
+    if (haystack.includes(q)) return true;
+    const queryTokens = q.split(" ").filter((token) => token.length > 1);
+    const textTokens = haystack.split(" ");
+    const matched = queryTokens.filter((token) => tokenMatches(token, textTokens)).length;
+    return matched === queryTokens.length || (queryTokens.length >= 4 && matched >= queryTokens.length - 1);
+  });
+};
+
 export const filterOpportunities = (eco: Ecosystem, f: Filters): Opportunity[] =>
   eco.opportunities.filter((o) =>
     matches(o, `${o.title} ${o.description} ${o.location} ${o.kind} ${o.topics.join(" ")}`, f),
