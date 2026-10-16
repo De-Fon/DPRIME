@@ -171,7 +171,7 @@ export default async function CommunityPage({
                 <div className="font-mono text-xs text-amber mb-2">
                   {p.kind} · {p.duration}
                 </div>
-                <h3 className="font-display text-xl text-ink">{p.title}</h3>
+                <h3 className="font-display text-xl text-ink"><Link href={`/programs/${p.slug}`} className="hover:text-amber">{p.title} ↗</Link></h3>
                 <p className="mt-2 text-sm text-muted">{p.description}</p>
                 </div>
               </article>
