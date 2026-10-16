@@ -71,7 +71,37 @@ export default async function Home() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl space-y-12 px-5 py-10 sm:px-6 sm:py-12 lg:space-y-14 lg:py-14">
+      <div className="mx-auto max-w-7xl space-y-14 px-5 py-10 sm:px-6 sm:py-12 lg:space-y-16 lg:py-14">
+        <section aria-labelledby="what-we-do" className="grid gap-7 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
+          <div className="max-w-xl">
+            <SectionLabel>what we do</SectionLabel>
+            <h2 id="what-we-do" className="mt-2 font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl">
+              Thousands of tech communities exist. Most never meet.
+            </h2>
+            <p className="mt-4 max-w-lg text-base leading-7 text-muted">
+              DPRIME is the shared layer between them. We make communities easier to find and help them discover opportunities to meet, learn, and work together.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <InfoCard number="01" title="Make communities discoverable" text="Find clubs, meetups, and developer groups, and learn about their mission, interests, and how to connect." />
+            <InfoCard number="02" title="Connect communities" text="Discover related groups, organizations, and potential collaborators across the technology ecosystem." />
+            <InfoCard number="03" title="Bring events together" text="Explore meetups, workshops, and gatherings in one place, with the communities behind them." />
+            <InfoCard number="04" title="Surface opportunities" text="Find internships, grants, speaking opportunities, and collaborations listed by organizations and communities." />
+          </div>
+        </section>
+
+        <section aria-labelledby="who-its-for">
+          <SectionLabel>who it is for</SectionLabel>
+          <h2 id="who-its-for" className="mt-2 font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl">
+            Built for the people who make tech happen.
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <AudienceCard title="Developers and students" text="Find communities around your interests, discover events, and meet people building what you care about." href="/communities" action="Browse communities" />
+            <AudienceCard title="Community leaders" text="Help people find your community, share what you do, and connect with potential partners and collaborators." href={WHATSAPP_URL} action="Connect with DPRIME" external />
+            <AudienceCard title="Companies and organizations" text="Discover technology communities and explore opportunities to support, collaborate, or work together." href="/organizations" action="Explore organizations" />
+          </div>
+        </section>
+
         <section aria-labelledby="featured-communities">
           <SectionHeader label="meet your people" title="Featured communities" href="/communities" cta="See all communities" />
           {communities.length ? (
@@ -111,6 +141,34 @@ export default async function Home() {
         </section>
       </div>
     </div>
+  );
+}
+
+function InfoCard({ number, title, text }: { number: string; title: string; text: string }) {
+  return (
+    <article className="flex h-full flex-col rounded-xl border border-line bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:border-[#e6c8b2] hover:shadow-[0_8px_24px_rgba(23,23,23,0.04)] sm:p-6">
+      <span className="font-mono text-xs font-semibold tracking-[.12em] text-amber">{number}</span>
+      <h3 className="mt-4 font-display text-lg font-semibold leading-snug text-ink">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
+    </article>
+  );
+}
+
+function AudienceCard({ title, text, href, action, external = false }: { title: string; text: string; href: string; action: string; external?: boolean }) {
+  return (
+    <article className="flex h-full flex-col rounded-xl border border-line bg-white p-5 sm:p-6">
+      <h3 className="font-display text-lg font-semibold leading-snug text-ink">{title}</h3>
+      <p className="mt-3 text-sm leading-6 text-muted">{text}</p>
+      {external ? (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-sm font-semibold text-amber hover:text-ink">
+          {action} <span aria-hidden="true">→</span>
+        </a>
+      ) : (
+        <Link href={href} className="mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-sm font-semibold text-amber hover:text-ink">
+          {action} <span aria-hidden="true">→</span>
+        </Link>
+      )}
+    </article>
   );
 }
 
