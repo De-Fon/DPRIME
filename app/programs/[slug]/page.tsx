@@ -24,7 +24,7 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
       <Link href={provider?.href ?? "/discover"} className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← {provider ? provider.name : "Back to discover"}</Link>
       <header className="mt-6">
         <CoverImage src={program.imageUrl} alt={program.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" />
-        <SectionLabel>{program.kind} · {program.duration}</SectionLabel>
+        <SectionLabel>{`${program.kind} · ${program.duration}`}</SectionLabel>
         <div className="mt-3 flex flex-wrap items-center gap-3"><h1 className="font-display text-4xl leading-tight tracking-tight text-ink sm:text-5xl">{program.title}</h1>{program.sample && <SampleBadge />}</div>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">{program.description}</p>
         <div className="mt-5 flex flex-wrap gap-2">{program.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>
