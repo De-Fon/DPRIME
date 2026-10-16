@@ -24,7 +24,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
       <Link href="/events" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← All events</Link>
       <header className="mt-6">
-        <CoverImage src={event.imageUrl} alt={event.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" />
+        <CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" variant="event" />
         <SectionLabel>{`${event.kind} · ${formatDate(event.date)}`}</SectionLabel>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <h1 className="font-display text-4xl leading-tight tracking-tight text-ink sm:text-5xl">{event.title}</h1>
