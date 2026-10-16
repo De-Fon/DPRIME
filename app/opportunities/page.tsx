@@ -21,20 +21,20 @@ export default async function OpportunitiesPage({
   const results = filterOpportunities(eco, filters);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
+    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
       <PageHeader
         label="opportunities"
         title="Opportunities across the ecosystem."
         intro="Internships, grants, speaking slots and collaborations posted by communities and organizations."
       />
       <FilterBar action="/opportunities" values={filters} />
-      <p className="mt-6 mb-4 font-mono text-xs text-muted">
+      <div className="mb-4 mt-8 flex items-center justify-between gap-3">\n        <p className="font-mono text-xs uppercase tracking-wider text-muted">
         {results.length} {results.length === 1 ? "opportunity" : "opportunities"}
       </p>
       {results.length === 0 ? (
-        <EmptyState message="No opportunities match these filters." />
+        <EmptyState message="No opportunities match these filters. Try another topic or region, or clear your search." resetHref="/opportunities" />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {results.map((o) => (
             <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />
           ))}
