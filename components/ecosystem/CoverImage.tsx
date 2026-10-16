@@ -16,7 +16,7 @@ export default function CoverImage({
   priority = false,
   className = "",
   variant = "community",
-  fit = "cover",
+  fit = "contain",
 }: {
   src?: string;
   alt: string;
@@ -26,7 +26,7 @@ export default function CoverImage({
   fit?: "cover" | "contain";
 }) {
   return (
-    <div className={`relative isolate aspect-[16/9] w-full overflow-hidden border-b border-line bg-paper ${className}`}>
+    <div className={`relative isolate aspect-[16/9] w-full overflow-hidden border-b border-line bg-[#F7F6F2] ${className}`}>
       {src ? (
         <Image
           src={src}
