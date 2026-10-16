@@ -51,7 +51,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
               </div>
             </div>
             <div className="relative min-h-[240px] border-t border-line bg-white lg:min-h-full lg:border-l lg:border-t-0">
-              <CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} priority className="h-full min-h-[240px] border-0 lg:min-h-[390px]" variant="event" />
+              <CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} priority className="h-full min-h-[240px] border-0 lg:min-h-[390px]" variant="event" fit="contain" />
             </div>
           </div>
         </header>
