@@ -16,12 +16,14 @@ export default function CoverImage({
   priority = false,
   className = "",
   variant = "community",
+  fit = "cover",
 }: {
   src?: string;
   alt: string;
   priority?: boolean;
   className?: string;
   variant?: CoverVariant;
+  fit?: "cover" | "contain";
 }) {
   return (
     <div className={`relative isolate aspect-[16/9] w-full overflow-hidden border-b border-line bg-paper ${className}`}>
@@ -32,7 +34,7 @@ export default function CoverImage({
           fill
           sizes="(min-width: 1280px) 380px, (min-width: 768px) 45vw, 100vw"
           priority={priority}
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+          className={`${fit === "contain" ? "object-contain p-3 sm:p-5" : "object-cover transition-transform duration-500 group-hover:scale-[1.025]"}`}
         />
       ) : (
         <div
