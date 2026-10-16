@@ -6,6 +6,7 @@ import FilterBar from "@/components/ecosystem/FilterBar";
 import OpportunityCard from "@/components/ecosystem/OpportunityCard";
 import PageHeader from "@/components/ecosystem/PageHeader";
 import SampleBadge from "@/components/ecosystem/SampleBadge";
+import Tag from "@/components/ecosystem/Tag";
 import {
   filterCommunities,
   filterEvents,
@@ -29,10 +30,11 @@ function Group({
 }) {
   if (count === 0) return null;
   return (
-    <section className="mt-12">
-      <h2 className="font-display text-2xl text-ink mb-5">
-        {title} <span className="font-mono text-xs text-muted">{count}</span>
-      </h2>
+    <section className="mt-12 sm:mt-14">
+      <div className="mb-5 flex items-end justify-between gap-4 border-b border-line pb-3">
+        <h2 className="font-display text-2xl tracking-tight text-ink sm:text-3xl">{title}</h2>
+        <span className="font-mono text-xs text-muted">{String(count).padStart(2, "0")} results</span>
+      </div>
       {children}
     </section>
   );
@@ -54,69 +56,74 @@ export default async function DiscoverPage({
   const orgs = filterOrganizations(eco, filters);
   const events = filterEvents(eco, filters);
   const opportunities = filterOpportunities(eco, filters);
-  const total =
-    communities.length + orgs.length + events.length + opportunities.length;
+  const total = communities.length + orgs.length + events.length + opportunities.length;
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
+    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
       <PageHeader
         label="discover"
-        title="What is happening in technology around you?"
-        intro="Search communities, organizations, events and opportunities in one place."
+        title="Find your place in the tech ecosystem."
+        intro="Explore communities, organizations, events and opportunities across regions and topics. Use the filters to narrow the directory to what matters to you."
       />
       <FilterBar action="/discover" values={filters} />
+      <p className="mt-4 text-sm text-muted" role="status" aria-live="polite">
+        {total} {total === 1 ? "result" : "results"} across {[
+          communities.length > 0 ? "communities" : null,
+          orgs.length > 0 ? "organizations" : null,
+          events.length > 0 ? "events" : null,
+          opportunities.length > 0 ? "opportunities" : null,
+        ].filter(Boolean).length} {[
+          communities.length > 0 ? "category" : null,
+          orgs.length > 0 ? "category" : null,
+          events.length > 0 ? "category" : null,
+          opportunities.length > 0 ? "category" : null,
+        ].filter(Boolean).length === 1 ? "category" : "categories"}
+      </p>
 
       {total === 0 && (
-        <div className="mt-10">
-          <EmptyState message="Nothing matches these filters. Try a broader search." />
+        <div className="mt-8">
+          <EmptyState message="Nothing matches these filters. Try a broader search, choose a different region or topic, or clear the filters to see all listings." resetHref="/discover" />
         </div>
       )}
 
       <Group title="Communities" count={communities.length}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {communities.map((c) => (
-            <CommunityCard key={c.slug} community={c} />
-          ))}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {communities.map((c) => <CommunityCard key={c.slug} community={c} />)}
         </div>
       </Group>
 
       <Group title="Events" count={events.length}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {events.map((e) => (
-            <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />
-          ))}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          {events.map((e) => <EventCard key={e.slug} event={e} host={resolveEntity(eco, e.hostSlug)} />)}
         </div>
       </Group>
 
       <Group title="Opportunities" count={opportunities.length}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {opportunities.map((o) => (
-            <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />
-          ))}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          {opportunities.map((o) => <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />)}
         </div>
       </Group>
 
       <Group title="Organizations" count={orgs.length}>
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {orgs.map((o) => (
-            <li
-              key={o.slug}
-              className="bg-card border border-line rounded-md overflow-hidden"
-            >
+            <li key={o.slug} className="flex h-full flex-col overflow-hidden rounded-xl border border-line bg-card transition duration-200 hover:-translate-y-0.5 hover:border-amber/50 hover:shadow-lg hover:shadow-ink/5">
               <CoverImage src={o.imageUrl} alt={o.name} />
-              <div className="p-6">
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-mono text-xs text-amber">{o.kind}</span>
-                {o.sample && <SampleBadge />}
-              </div>
-              <h3 className="font-display text-lg text-ink">{o.name}</h3>
-              <p className="mt-2 text-sm text-muted">{o.description}</p>
-              <p className="mt-4 font-mono text-xs text-muted">{o.location}</p>
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-amber">{o.kind}</span>
+                  {o.sample && <SampleBadge />}
+                </div>
+                <h3 className="font-display text-xl leading-snug tracking-tight text-ink">{o.name}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted">{o.description}</p>
+                {o.topics.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{o.topics.slice(0, 4).map((t) => <Tag key={t}>{t}</Tag>)}</div>}
+                <div className="mt-auto border-t border-line pt-4 mt-5 font-mono text-xs text-muted">{o.location} · {o.region}</div>
+                {o.website && <a href={o.website} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-11 items-center text-sm text-amber hover:underline">Visit website ↗</a>}
               </div>
             </li>
           ))}
         </ul>
       </Group>
-    </div>
+    </main>
   );
 }
