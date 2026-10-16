@@ -12,6 +12,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: event ? `${event.title} | DPRIME` : "Event | DPRIME" };
 }
 
+function MetaLabel({ children }: { children: string }) {
+  return <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A64A00]">{children}</p>;
+}
+
 export default async function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const eco = await getEcosystem();
@@ -19,35 +23,46 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
   if (!event) notFound();
   const host = resolveEntity(eco, event.hostSlug);
   const partners = event.partnerSlugs.map((partnerSlug) => resolveEntity(eco, partnerSlug)).filter(Boolean);
+  const past = event.date < new Date().toISOString().slice(0, 10);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
-      <Link href="/events" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← All events</Link>
-      <header className="mt-6">
-        <CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" variant="event" />
-        <SectionLabel>{`${event.kind} · ${formatDate(event.date)}`}</SectionLabel>
-        <div className="mt-3 flex flex-wrap items-center gap-3">
-          <h1 className="font-display text-4xl leading-tight tracking-tight text-ink sm:text-5xl">{event.title}</h1>
-          {event.sample && <SampleBadge />}
+    <main className="min-h-screen bg-white">
+      <div className="mx-auto max-w-7xl px-5 pb-14 pt-6 sm:px-6 sm:pt-8 lg:pb-20">
+        <Link href="/events" className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[#555D68] transition hover:text-amber"><span aria-hidden="true">←</span> All events</Link>
+        <header className="mt-4">
+          <div className="overflow-hidden rounded-2xl border border-line"><CoverImage src={event.imageUrl ?? host?.imageUrl} alt={event.title} priority className="border-0" variant="event" /></div>
+          <div className="mt-7">
+            <SectionLabel>{`${event.kind} · ${formatDate(event.date)}`}</SectionLabel>
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h1 className="font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl lg:text-5xl">{event.title}</h1>
+                  {event.sample && <SampleBadge />}
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2"><span className={`inline-flex min-h-7 items-center rounded-full px-3 text-xs font-semibold ${past ? "bg-gray-100 text-gray-700" : "bg-emerald-50 text-emerald-800"}`}>{past ? "Past event" : "Upcoming event"}</span>{event.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>
+                <p className="mt-4 max-w-3xl text-base leading-7 text-[#555D68] sm:text-lg">{event.description}</p>
+              </div>
+              {host?.href && <Link href={host.href} className="btn-secondary min-h-11 w-fit shrink-0">View host <span aria-hidden="true">↗</span></Link>}
+            </div>
+          </div>
+        </header>
+
+        <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.65fr)_minmax(280px,.85fr)]">
+          <section className="rounded-2xl border border-line bg-white p-5 sm:p-7">
+            <MetaLabel>About this event</MetaLabel>
+            <p className="mt-3 max-w-3xl text-base leading-7 text-[#343A43]">{event.description}</p>
+            {partners.length > 0 && <div className="mt-7 border-t border-line pt-5"><MetaLabel>Event partners</MetaLabel><ul className="mt-3 flex flex-wrap gap-2">{partners.map((partner) => partner && <li key={partner.slug}>{partner.href ? <Link className="inline-flex min-h-10 items-center rounded-full border border-line px-4 text-sm font-medium text-[#343A43] transition hover:border-amber hover:text-amber" href={partner.href}>{partner.name} ↗</Link> : <span className="inline-flex min-h-10 items-center rounded-full border border-line px-4 text-sm text-[#343A43]">{partner.name}</span>}</li>)}</ul></div>}
+          </section>
+          <aside className="h-fit rounded-2xl border border-line bg-white p-5 sm:p-7">
+            <h2 className="font-display text-lg font-semibold tracking-tight text-ink">Key details</h2>
+            <dl className="mt-5 space-y-5">
+              <div><MetaLabel>Date</MetaLabel><dd className="mt-1.5 text-sm font-medium text-[#343A43]">{formatDate(event.date)}</dd></div>
+              <div><MetaLabel>Location</MetaLabel><dd className="mt-1.5 text-sm leading-6 text-[#343A43]">{event.location}</dd></div>
+              <div><MetaLabel>Region</MetaLabel><dd className="mt-1.5 text-sm text-[#343A43]">{event.region}</dd></div>
+              <div><MetaLabel>Hosted by</MetaLabel><dd className="mt-1.5">{host?.href ? <Link href={host.href} className="inline-flex min-h-10 items-center text-sm font-semibold text-amber hover:underline">{host.name} ↗</Link> : <span className="text-sm text-[#343A43]">{host?.name ?? event.hostSlug}</span>}</dd></div>
+            </dl>
+          </aside>
         </div>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">{event.description}</p>
-        <div className="mt-5 flex flex-wrap gap-2">{event.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>
-      </header>
-      <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-3">
-        <section className="rounded-xl border border-line bg-card p-6 md:col-span-2">
-          <h2 className="font-mono text-xs uppercase tracking-[0.16em] text-amber">About this event</h2>
-          <p className="mt-3 text-base leading-7 text-muted">{event.description}</p>
-          {partners.length > 0 && <>
-            <h2 className="mt-7 font-mono text-xs uppercase tracking-[0.16em] text-amber">Event partners</h2>
-            <ul className="mt-3 flex flex-wrap gap-3">{partners.map((partner) => partner && <li key={partner.slug}>{partner.href ? <Link className="inline-flex min-h-11 items-center rounded-lg border border-line px-3 text-sm text-ink hover:border-amber hover:text-amber" href={partner.href}>{partner.name} ↗</Link> : <span className="inline-flex min-h-11 items-center rounded-lg border border-line px-3 text-sm text-ink">{partner?.name}</span>}</li>)}</ul>
-          </>}
-        </section>
-        <aside className="h-fit space-y-5 rounded-xl border border-line bg-card p-6">
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Date</p><p className="mt-1 text-base text-ink">{formatDate(event.date)}</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Location</p><p className="mt-1 text-base text-ink">{event.location}</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Region</p><p className="mt-1 text-base text-ink">{event.region}</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Hosted by</p>{host?.href ? <Link href={host.href} className="mt-1 inline-flex min-h-11 items-center text-base text-amber hover:underline">{host.name} ↗</Link> : <p className="mt-1 text-base text-ink">{host?.name ?? event.hostSlug}</p>}</div>
-        </aside>
       </div>
     </main>
   );
