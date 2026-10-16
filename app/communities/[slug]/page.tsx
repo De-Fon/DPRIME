@@ -97,7 +97,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
           <div className="mb-5"><SectionLabel>learn and grow</SectionLabel><h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Programs</h2></div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">{programs.map((program) => <article key={program.slug} className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:shadow-lg">
             <CoverImage src={program.imageUrl} alt={program.title} variant="program" />
-            <div className="flex flex-1 flex-col p-5"><MetaLabel>{program.kind} · {program.duration}</MetaLabel><h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink"><Link href={`/programs/${program.slug}`} className="hover:text-amber">{program.title} ↗</Link></h3><p className="mt-2 text-sm leading-6 text-[#555D68]">{program.description}</p></div>
+            <div className="flex flex-1 flex-col p-5"><MetaLabel>{`${program.kind} · ${program.duration}`}</MetaLabel><h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink"><Link href={`/programs/${program.slug}`} className="hover:text-amber">{program.title} ↗</Link></h3><p className="mt-2 text-sm leading-6 text-[#555D68]">{program.description}</p></div>
           </article>)}</div>
         </section>}
 
