@@ -10,10 +10,14 @@ export default function PageHeader({
   intro: string;
 }) {
   return (
-    <header className="mb-8">
+    <header className="mb-9 max-w-3xl">
       <SectionLabel>{label}</SectionLabel>
-      <h1 className="font-display text-4xl md:text-5xl text-ink">{title}</h1>
-      <p className="mt-3 text-lg text-muted max-w-2xl">{intro}</p>
+      <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight tracking-tight text-ink sm:text-5xl md:text-6xl">
+        {title}
+      </h1>
+      <p className="mt-4 max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8">
+        {intro}
+      </p>
     </header>
   );
 }
