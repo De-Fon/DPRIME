@@ -13,6 +13,7 @@ import {
   filterEvents,
   filterOpportunities,
   filterOrganizations,
+  filterPrograms,
   firstParam,
   getEcosystem,
   resolveEntity,
@@ -57,7 +58,8 @@ export default async function DiscoverPage({
   const orgs = filterOrganizations(eco, filters);
   const events = filterEvents(eco, filters);
   const opportunities = filterOpportunities(eco, filters);
-  const total = communities.length + orgs.length + events.length + opportunities.length;
+  const programs = filterPrograms(eco, filters);
+  const total = communities.length + orgs.length + events.length + opportunities.length + programs.length;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
@@ -73,11 +75,13 @@ export default async function DiscoverPage({
           orgs.length > 0 ? "organizations" : null,
           events.length > 0 ? "events" : null,
           opportunities.length > 0 ? "opportunities" : null,
+          programs.length > 0 ? "programs" : null,
         ].filter(Boolean).length} {[
           communities.length > 0 ? "category" : null,
           orgs.length > 0 ? "category" : null,
           events.length > 0 ? "category" : null,
           opportunities.length > 0 ? "category" : null,
+          programs.length > 0 ? "category" : null,
         ].filter(Boolean).length === 1 ? "category" : "categories"}
       </p>
 
@@ -102,6 +106,22 @@ export default async function DiscoverPage({
       <Group title="Opportunities" count={opportunities.length}>
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           {opportunities.map((o) => <OpportunityCard key={o.slug} opportunity={o} poster={resolveEntity(eco, o.postedBySlug)} />)}
+        </div>
+      </Group>
+
+      <Group title="Programs" count={programs.length}>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {programs.map((program) => (
+            <article key={program.slug} className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-0.5 hover:border-amber/40 hover:shadow-lg">
+              <CoverImage src={program.imageUrl ?? resolveEntity(eco, program.runBySlug)?.imageUrl} alt={program.title} variant="program" />
+              <div className="flex flex-1 flex-col p-5">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#A64A00]">{program.kind} · {program.duration}</p>
+                <h3 className="mt-2 font-display text-xl font-semibold leading-snug text-ink"><Link href={`/programs/${program.slug}`} className="hover:text-amber">{program.title} <span aria-hidden="true">↗</span></Link></h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#555D68]">{program.description}</p>
+                {program.topics.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{program.topics.slice(0, 3).map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>}
+              </div>
+            </article>
+          ))}
         </div>
       </Group>
 
