@@ -12,7 +12,7 @@ export default function CommunityCard({ community }: { community: Community }) {
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition duration-200 hover:-translate-y-1 hover:border-amber/40 hover:shadow-lg hover:shadow-ink/5 focus-within:border-amber/60">
       <Link href={`/communities/${community.slug}`} className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber" aria-label={`View community: ${community.name}`} />
-      <CoverImage src={community.imageUrl} alt={community.name} variant="community" />
+      <CoverImage src={community.imageUrl} alt={community.name} variant="community" fit="contain" />
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
           <span className="inline-flex rounded-full bg-[#FFF2E7] px-2.5 py-1 text-[11px] font-semibold tracking-wide text-[#984600]">{titleCase(community.kind)}</span>
