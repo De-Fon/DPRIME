@@ -28,7 +28,6 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/manifesto" className="text-muted hover:text-amber nav-link">Our manifesto</Link></li>
               <li><Link href="/about" className="text-muted hover:text-amber nav-link">Our story</Link></li>
-              <li><Link href="/team" className="text-muted hover:text-amber nav-link">The team</Link></li>
               <li><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-amber nav-link">Get in touch</a></li>
             </ul>
           </div>
