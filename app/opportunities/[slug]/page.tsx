@@ -6,46 +6,19 @@ import SampleBadge from "@/components/ecosystem/SampleBadge";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
 import Tag from "@/components/ecosystem/Tag";
 import { formatDate, getEcosystem, resolveEntity } from "@/lib/ecosystem";
-
-const FALLBACK_OG_IMAGE = "/images/brand/logo3.png";
-const SITE_NAME = "DPRIME";
+import { buildOpportunityMetadata } from "@/lib/opportunityMetadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const item = (await getEcosystem()).opportunities.find((o) => o.slug === slug);
+  const eco = await getEcosystem();
+  const item = eco.opportunities.find((o) => o.slug === slug);
 
   if (!item) {
     return { title: "Opportunity | DPRIME" };
   }
 
-  const title = `${item.title} | ${SITE_NAME}`;
-  const description =
-    item.description.length > 200
-      ? item.description.slice(0, 197) + "…"
-      : item.description;
-
-  // imageUrl is already a full public HTTPS URL (Supabase Storage public bucket).
-  // Fall back to the brand logo (resolved against metadataBase in the root layout).
-  const ogImage = item.imageUrl || FALLBACK_OG_IMAGE;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: `/opportunities/${slug}`,
-      siteName: SITE_NAME,
-      type: "article",
-      images: [{ url: ogImage }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-    },
-  };
+  const poster = resolveEntity(eco, item.postedBySlug);
+  return buildOpportunityMetadata({ opportunity: item, poster });
 }
 
 export default async function OpportunityDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -59,7 +32,7 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
       <Link href="/opportunities" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← All opportunities</Link>
       <header className="mt-6">
-        <CoverImage src={opportunity.imageUrl} alt={opportunity.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" />
+        <CoverImage src={opportunity.imageUrl ?? poster?.imageUrl} alt={opportunity.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" />
         <SectionLabel>{opportunity.kind}</SectionLabel>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <h1 className="font-display text-4xl leading-tight tracking-tight text-ink sm:text-5xl">{opportunity.title}</h1>

@@ -4,12 +4,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ChromeGate from "../components/ChromeGate";
 
+import { getSiteUrl } from "@/lib/site";
+
 export const metadata = {
-  metadataBase: new URL(
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000",
-  ),
+  metadataBase: new URL(getSiteUrl()),
   title: "DPRIME | A community connecting communities",
   description:
     "Discover technology communities, events and opportunities across Africa.",
