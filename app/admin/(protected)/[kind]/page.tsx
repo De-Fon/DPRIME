@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { deleteEntityAction } from "@/app/admin/actions";
+import PromoteButton from "@/components/admin/PromoteButton";
 import { requireAdmin } from "@/lib/auth";
 import { SCHEMAS, SEGMENT_TO_KIND } from "@/lib/adminSchema";
 import { firstParam } from "@/lib/ecosystem";
@@ -38,6 +39,7 @@ export default async function AdminList({
 
       {sp.saved && <p className="mb-4 text-sm text-green-800">Saved.</p>}
       {sp.deleted && <p className="mb-4 text-sm text-green-800">Deleted.</p>}
+      {sp.promoted && <p className="mb-4 text-sm text-green-800">Community promoted to organization.</p>}
       {error && (
         <p role="alert" className="mb-4 text-sm text-red-700 border border-red-200 bg-red-50 rounded-md p-3">
           {error}
@@ -67,6 +69,9 @@ export default async function AdminList({
                   <Link href={`/admin/${segment}/${encodeURIComponent(key)}`} className="text-amber hover:underline">
                     Edit
                   </Link>
+                  {kind === "community" && (
+                    <PromoteButton slug={key} name={String(d.name ?? key)} />
+                  )}
                   <form action={deleteEntityAction.bind(null, kind, key)}>
                     <button type="submit" className="text-red-700 hover:underline">
                       Delete

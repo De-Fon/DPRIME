@@ -168,3 +168,54 @@ export async function deleteEntityAction(kind: Kind, slug: string): Promise<void
   refresh();
   redirect(`${back}?deleted=1`);
 }
+
+export type OrgKind = "company" | "institution" | "nonprofit";
+
+export async function promoteToOrganization(
+  slug: string,
+  orgKind: OrgKind,
+): Promise<{ error?: string }> {
+  await requireAdmin();
+
+  if (!dbConfigured()) {
+    return { error: "DATABASE_URL is not set, so changes cannot be saved." };
+  }
+
+  const community = await getEntity("community", slug);
+  if (!community) {
+    return { error: `No community found with slug "${slug}".` };
+  }
+
+  const existingOrg = await getEntity("organization", slug);
+  if (existingOrg) {
+    return { error: `An organization with slug "${slug}" already exists.` };
+  }
+
+  const c = community as unknown as Record<string, unknown>;
+  const organization = {
+    slug: c.slug,
+    name: c.name,
+    kind: orgKind,
+    description: c.mission || c.tagline || "",
+    location: c.location || "",
+    region: c.region,
+    topics: c.topics || [],
+    website: c.website,
+    imageUrl: c.imageUrl,
+  };
+
+  try {
+    const created = await createEntity("organization", slug, organization);
+    if (!created) {
+      return { error: "Could not create organization. The slug may already be taken." };
+    }
+    await removeEntity("community", slug);
+  } catch (err) {
+    console.error("promote failed", err);
+    return { error: "Promotion failed. Check the database connection and try again." };
+  }
+
+  refresh();
+  redirect("/admin/communities?promoted=1");
+}
+
