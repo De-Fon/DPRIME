@@ -17,7 +17,7 @@ export default function FilterBar({
       method="get"
       role="search"
       aria-label="Filter listings"
-      className="grid grid-cols-1 gap-3 rounded-xl border border-line bg-card/70 p-4 sm:grid-cols-2 lg:grid-cols-[minmax(240px,2fr)_minmax(150px,1fr)_minmax(150px,1fr)_auto_auto] lg:items-center lg:p-5"
+      className="grid grid-cols-1 gap-3 rounded-xl border border-line bg-card/70 p-4 sm:grid-cols-2 lg:grid-cols-[minmax(300px,2.5fr)_minmax(160px,1fr)_minmax(160px,1fr)_auto_auto] lg:items-center lg:p-5"
     >
       <label className="block min-w-0">
         <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Search</span>

@@ -22,7 +22,7 @@ export default async function OrganizationDetailPage({ params }: { params: Promi
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
-      <Link href="/discover" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← Back to discover</Link>
+      <Link href="/organizations" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← All organizations</Link>
       <header className="mt-6">
         <CoverImage src={organization.imageUrl} alt={organization.name} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" />
         <SectionLabel>{organization.kind}</SectionLabel>

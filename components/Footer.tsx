@@ -18,6 +18,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li><Link href="/discover" className="text-[#555D68] transition-colors hover:text-amber nav-link">Discover</Link></li>
               <li><Link href="/communities" className="text-muted hover:text-amber nav-link">Communities</Link></li>
+              <li><Link href="/organizations" className="text-muted hover:text-amber nav-link">Organizations</Link></li>
               <li><Link href="/events" className="text-muted hover:text-amber nav-link">Events</Link></li>
               <li><Link href="/opportunities" className="text-muted hover:text-amber nav-link">Opportunities</Link></li>
             </ul>
@@ -28,6 +29,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/manifesto" className="text-muted hover:text-amber nav-link">Our manifesto</Link></li>
               <li><Link href="/about" className="text-muted hover:text-amber nav-link">Our story</Link></li>
+              <li><Link href="/partnerships" className="text-muted hover:text-amber nav-link">Partnerships</Link></li>
               <li><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-muted hover:text-amber nav-link">Get in touch</a></li>
             </ul>
           </div>

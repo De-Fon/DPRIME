@@ -98,7 +98,13 @@ export default async function Home() {
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             <AudienceCard title="Developers and students" text="Find communities around your interests, discover events, and meet people building what you care about." href="/communities" action="Browse communities" />
             <AudienceCard title="Community leaders" text="Help people find your community, share what you do, and connect with potential partners and collaborators." href={WHATSAPP_URL} action="Connect with DPRIME" external />
-            <AudienceCard title="Companies and organizations" text="Discover technology communities and explore opportunities to support, collaborate, or work together." href="/organizations" action="Explore organizations" />
+            <AudienceCard
+              title="Companies and organizations"
+              text="Discover technology communities and explore opportunities to support, collaborate, or work together."
+              href="/organizations"
+              action="Explore organizations"
+              secondaryLink={{ href: "/partnerships", label: "See Partnerships" }}
+            />
           </div>
         </section>
 
@@ -154,20 +160,44 @@ function InfoCard({ number, title, text }: { number: string; title: string; text
   );
 }
 
-function AudienceCard({ title, text, href, action, external = false }: { title: string; text: string; href: string; action: string; external?: boolean }) {
+function AudienceCard({
+  title,
+  text,
+  href,
+  action,
+  external = false,
+  secondaryLink,
+}: {
+  title: string;
+  text: string;
+  href: string;
+  action: string;
+  external?: boolean;
+  secondaryLink?: { href: string; label: string };
+}) {
   return (
     <article className="flex h-full flex-col rounded-xl border border-line bg-white p-5 sm:p-6">
       <h3 className="font-display text-lg font-semibold leading-snug text-ink">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-muted">{text}</p>
-      {external ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" className="mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-sm font-semibold text-amber hover:text-ink">
-          {action} <span aria-hidden="true">→</span>
-        </a>
-      ) : (
-        <Link href={href} className="mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-sm font-semibold text-amber hover:text-ink">
-          {action} <span aria-hidden="true">→</span>
-        </Link>
-      )}
+      <div className="mt-auto pt-4">
+        {external ? (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-amber hover:text-ink">
+            {action} <span aria-hidden="true">→</span>
+          </a>
+        ) : (
+          <Link href={href} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-amber hover:text-ink">
+            {action} <span aria-hidden="true">→</span>
+          </Link>
+        )}
+        {secondaryLink && (
+          <p className="mt-1 text-xs text-muted">
+            Interested in partnering with us?{" "}
+            <Link href={secondaryLink.href} className="font-medium text-amber hover:underline">
+              {secondaryLink.label} →
+            </Link>
+          </p>
+        )}
+      </div>
     </article>
   );
 }
