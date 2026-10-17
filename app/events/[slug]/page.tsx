@@ -1,15 +1,23 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import CoverImage from "@/components/ecosystem/CoverImage";
 import SampleBadge from "@/components/ecosystem/SampleBadge";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
 import Tag from "@/components/ecosystem/Tag";
 import { formatDate, getEcosystem, resolveEntity } from "@/lib/ecosystem";
+import { buildEventMetadata } from "@/lib/eventMetadata";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const event = (await getEcosystem()).events.find((item) => item.slug === slug);
-  return { title: event ? `${event.title} | DPRIME` : "Event | DPRIME" };
+  const eco = await getEcosystem();
+  const event = eco.events.find((item) => item.slug === slug);
+  if (!event) {
+    return { title: "Event | DPRIME" };
+  }
+
+  const host = resolveEntity(eco, event.hostSlug);
+  return buildEventMetadata({ event, host });
 }
 
 function MetaLabel({ children }: { children: string }) {
