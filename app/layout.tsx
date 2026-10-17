@@ -5,6 +5,11 @@ import Footer from "../components/Footer";
 import ChromeGate from "../components/ChromeGate";
 
 export const metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000",
+  ),
   title: "DPRIME | A community connecting communities",
   description:
     "Discover technology communities, events and opportunities across Africa.",

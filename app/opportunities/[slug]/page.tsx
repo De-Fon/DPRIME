@@ -1,15 +1,51 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import CoverImage from "@/components/ecosystem/CoverImage";
 import SampleBadge from "@/components/ecosystem/SampleBadge";
 import SectionLabel from "@/components/ecosystem/SectionLabel";
 import Tag from "@/components/ecosystem/Tag";
 import { formatDate, getEcosystem, resolveEntity } from "@/lib/ecosystem";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+const FALLBACK_OG_IMAGE = "/images/brand/logo3.png";
+const SITE_NAME = "DPRIME";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const item = (await getEcosystem()).opportunities.find((opportunity) => opportunity.slug === slug);
-  return { title: item ? `${item.title} | DPRIME` : "Opportunity | DPRIME" };
+  const item = (await getEcosystem()).opportunities.find((o) => o.slug === slug);
+
+  if (!item) {
+    return { title: "Opportunity | DPRIME" };
+  }
+
+  const title = `${item.title} | ${SITE_NAME}`;
+  const description =
+    item.description.length > 200
+      ? item.description.slice(0, 197) + "…"
+      : item.description;
+
+  // imageUrl is already a full public HTTPS URL (Supabase Storage public bucket).
+  // Fall back to the brand logo (resolved against metadataBase in the root layout).
+  const ogImage = item.imageUrl || FALLBACK_OG_IMAGE;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/opportunities/${slug}`,
+      siteName: SITE_NAME,
+      type: "article",
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
 }
 
 export default async function OpportunityDetailPage({ params }: { params: Promise<{ slug: string }> }) {
