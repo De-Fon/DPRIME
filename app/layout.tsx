@@ -8,6 +8,10 @@ export const metadata = {
   title: "DPRIME | A community connecting communities",
   description:
     "Discover technology communities, events and opportunities across Africa.",
+  icons: {
+    icon: "/images/brand/logo3.png",
+    apple: "/images/brand/logo3.png",
+  },
 };
 
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo", display: "swap" });
