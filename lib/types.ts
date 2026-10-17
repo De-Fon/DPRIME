@@ -125,6 +125,7 @@ export interface EcosystemEvent {
   topics: Topic[];
   hostSlug: string; // community slug
   partnerSlugs: string[]; // community or organization slugs
+  link?: string; // registration or event URL (optional)
   sample?: boolean;
 }
 
@@ -144,6 +145,7 @@ export interface Program {
   duration: string;
   topics: Topic[];
   runBySlug: string; // community or organization slug
+  link?: string; // program or application URL (optional)
   sample?: boolean;
 }
 
@@ -170,6 +172,7 @@ export interface Opportunity {
   topics: Topic[];
   postedBySlug: string; // community or organization slug
   deadline?: string; // ISO date
+  link?: string; // application or listing URL (optional)
   sample?: boolean;
 }
 

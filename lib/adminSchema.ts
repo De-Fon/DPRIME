@@ -132,6 +132,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
       topicsField,
       { name: "hostSlug", label: "Host", type: "ref", required: true, help: "Slug of the hosting community" },
       { name: "partnerSlugs", label: "Partners", type: "tags", help: "Comma separated slugs of communities or organizations" },
+      { name: "link", label: "Link", type: "text", help: "Full http(s) URL for RSVP, tickets, or details. Optional." },
     ],
   },
   program: {
@@ -157,6 +158,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
       { name: "duration", label: "Duration", type: "text", required: true },
       topicsField,
       { name: "runBySlug", label: "Run by", type: "ref", required: true, help: "Slug of a community or organization" },
+      { name: "link", label: "Link", type: "text", help: "Full http(s) URL to apply or learn more. Optional." },
     ],
   },
   opportunity: {
@@ -184,6 +186,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
       topicsField,
       { name: "postedBySlug", label: "Posted by", type: "ref", required: true, help: "Slug of a community or organization" },
       { name: "deadline", label: "Deadline", type: "date", help: "Optional" },
+      { name: "link", label: "Link", type: "text", help: "Full http(s) URL to apply or view listing. Optional." },
     ],
   },
   partnership: {
@@ -296,7 +299,7 @@ export function validate(
         if (f.name === "slug") {
           if (!SLUG_RE.test(text)) errors[f.name] = "Use lowercase letters, numbers and hyphens";
           else data[f.name] = text;
-        } else if (f.name === "website") {
+        } else if (f.name === "website" || f.name === "link") {
           if (!isHttpUrl(text)) errors[f.name] = "Must be a valid http(s) URL";
           else data[f.name] = text;
         } else data[f.name] = text;

@@ -37,12 +37,37 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
           <h2 className="font-mono text-xs uppercase tracking-[0.16em] text-amber">Opportunity details</h2>
           <p className="mt-3 text-base leading-7 text-muted">{opportunity.description}</p>
           {opportunity.deadline && <div className="mt-6 border-t border-line pt-5"><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Application deadline</p><p className="mt-1 text-base text-ink">{formatDate(opportunity.deadline)}</p></div>}
+          {opportunity.link && (
+            <div className="mt-6 border-t border-line pt-5">
+              <a
+                href={opportunity.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex min-h-11 items-center gap-2"
+              >
+                Apply / View opportunity <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          )}
         </section>
         <aside className="h-fit space-y-5 rounded-xl border border-line bg-card p-6">
           <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Type</p><p className="mt-1 text-base capitalize text-ink">{opportunity.kind}</p></div>
           <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Location</p><p className="mt-1 text-base text-ink">{opportunity.location}</p></div>
           <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Region</p><p className="mt-1 text-base text-ink">{opportunity.region}</p></div>
           <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Posted by</p>{poster?.href ? <Link href={poster.href} className="mt-1 inline-flex min-h-11 items-center text-base text-amber hover:underline">{poster.name} ↗</Link> : <p className="mt-1 text-base text-ink">{poster?.name ?? opportunity.postedBySlug}</p>}</div>
+          {opportunity.link && (
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Link</p>
+              <a
+                href={opportunity.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-amber hover:underline"
+              >
+                Apply or learn more ↗
+              </a>
+            </div>
+          )}
         </aside>
       </div>
     </main>

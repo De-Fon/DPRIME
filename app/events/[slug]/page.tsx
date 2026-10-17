@@ -46,7 +46,24 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#555D68] sm:text-lg sm:leading-8">{event.description}</p>
               {event.topics.length > 0 && <div className="mt-5 flex flex-wrap gap-2">{event.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>}
               <div className="mt-7 flex flex-wrap gap-3">
-                {host?.href && <Link href={host.href} className="btn-primary inline-flex min-h-11 items-center gap-2">View event host <span aria-hidden="true">↗</span></Link>}
+                {event.link && (
+                  <a
+                    href={event.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex min-h-11 items-center gap-2"
+                  >
+                    Event / Register link <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+                {host?.href && (
+                  <Link
+                    href={host.href}
+                    className={`inline-flex min-h-11 items-center gap-2 ${event.link ? "inline-flex min-h-11 items-center rounded-full border border-line bg-white px-5 text-sm font-semibold text-ink transition hover:border-amber" : "btn-primary"}`}
+                  >
+                    View event host <span aria-hidden="true">↗</span>
+                  </Link>
+                )}
                 <Link href="/events" className="inline-flex min-h-11 items-center rounded-full border border-line bg-white px-5 text-sm font-semibold text-ink transition hover:border-amber">Explore more events</Link>
               </div>
             </div>

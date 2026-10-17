@@ -30,8 +30,39 @@ export default async function ProgramDetailPage({ params }: { params: Promise<{ 
         <div className="mt-5 flex flex-wrap gap-2">{program.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>
       </header>
       <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-3">
-        <section className="rounded-xl border border-line bg-card p-6 md:col-span-2"><h2 className="font-mono text-xs uppercase tracking-[0.16em] text-amber">About this program</h2><p className="mt-3 text-base leading-7 text-muted">{program.description}</p></section>
-        <aside className="h-fit space-y-5 rounded-xl border border-line bg-card p-6"><div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Duration</p><p className="mt-1 text-base text-ink">{program.duration}</p></div><div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Run by</p>{provider?.href ? <Link href={provider.href} className="mt-1 inline-flex min-h-11 items-center text-base text-amber hover:underline">{provider.name} ↗</Link> : <p className="mt-1 text-base text-ink">{provider?.name ?? program.runBySlug}</p>}</div></aside>
+        <section className="rounded-xl border border-line bg-card p-6 md:col-span-2">
+          <h2 className="font-mono text-xs uppercase tracking-[0.16em] text-amber">About this program</h2>
+          <p className="mt-3 text-base leading-7 text-muted">{program.description}</p>
+          {program.link && (
+            <div className="mt-6 border-t border-line pt-5">
+              <a
+                href={program.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex min-h-11 items-center gap-2"
+              >
+                Apply / Learn more <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          )}
+        </section>
+        <aside className="h-fit space-y-5 rounded-xl border border-line bg-card p-6">
+          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Duration</p><p className="mt-1 text-base text-ink">{program.duration}</p></div>
+          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Run by</p>{provider?.href ? <Link href={provider.href} className="mt-1 inline-flex min-h-11 items-center text-base text-amber hover:underline">{provider.name} ↗</Link> : <p className="mt-1 text-base text-ink">{provider?.name ?? program.runBySlug}</p>}</div>
+          {program.link && (
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Website</p>
+              <a
+                href={program.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-amber hover:underline"
+              >
+                Visit program website ↗
+              </a>
+            </div>
+          )}
+        </aside>
       </div>
     </main>
   );
