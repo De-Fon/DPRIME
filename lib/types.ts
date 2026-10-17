@@ -51,6 +51,7 @@ export type Region =
   | "Southern Africa"
   | "North Africa"
   | "Central Africa"
+  | "Pan African"
   | "Global";
 
 export type Topic =

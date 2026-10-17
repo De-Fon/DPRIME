@@ -261,6 +261,7 @@ export const REGIONS: Region[] = [
   "Southern Africa",
   "North Africa",
   "Central Africa",
+  "Pan African",
   "Global",
 ];
 
