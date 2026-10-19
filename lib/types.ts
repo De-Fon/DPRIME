@@ -155,6 +155,7 @@ export type OpportunityKind =
   | "freelance"
   | "project"
   | "scholarship"
+  | "studentship"
   | "hackathon"
   | "fellowship"
   | "grant"

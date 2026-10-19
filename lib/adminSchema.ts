@@ -178,7 +178,7 @@ export const SCHEMAS: Record<Kind, KindSchema> = {
         label: "Kind",
         type: "select",
         required: true,
-        options: ["job", "internship", "freelance", "project", "scholarship", "hackathon", "fellowship", "grant", "speaking", "collaboration"],
+        options: ["job", "internship", "freelance", "project", "scholarship", "studentship", "hackathon", "fellowship", "grant", "speaking", "collaboration"],
       },
       { name: "description", label: "Description", type: "textarea", required: true },
       { name: "location", label: "Location", type: "text", required: true },
