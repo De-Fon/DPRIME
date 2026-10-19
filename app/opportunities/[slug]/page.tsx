@@ -29,55 +29,64 @@ export default async function OpportunityDetailPage({ params }: { params: Promis
   const poster = resolveEntity(eco, opportunity.postedBySlug);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
-      <Link href="/opportunities" className="inline-flex min-h-11 items-center text-sm text-muted hover:text-amber">← All opportunities</Link>
-      <header className="mt-6">
-        <CoverImage src={opportunity.imageUrl ?? poster?.imageUrl} alt={opportunity.title} priority className="mb-7 max-w-4xl overflow-hidden rounded-xl border border-line" />
-        <SectionLabel>{opportunity.kind}</SectionLabel>
-        <div className="mt-3 flex flex-wrap items-center gap-3">
-          <h1 className="font-display text-4xl leading-tight tracking-tight text-ink sm:text-5xl">{opportunity.title}</h1>
-          {opportunity.sample && <SampleBadge />}
-        </div>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-muted">{opportunity.description}</p>
-        <div className="mt-5 flex flex-wrap gap-2">{opportunity.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>
-      </header>
-      <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-3">
-        <section className="rounded-xl border border-line bg-card p-6 md:col-span-2">
-          <h2 className="font-mono text-xs uppercase tracking-[0.16em] text-amber">Opportunity details</h2>
-          <p className="mt-3 text-base leading-7 text-muted">{opportunity.description}</p>
-          {opportunity.deadline && <div className="mt-6 border-t border-line pt-5"><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Application deadline</p><p className="mt-1 text-base text-ink">{formatDate(opportunity.deadline)}</p></div>}
-          {opportunity.link && (
-            <div className="mt-6 border-t border-line pt-5">
-              <a
-                href={opportunity.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary inline-flex min-h-11 items-center gap-2"
-              >
-                Apply / View opportunity <span aria-hidden="true">↗</span>
-              </a>
+    <main className="min-h-screen bg-white text-ink">
+      <div className="mx-auto max-w-7xl px-5 pb-16 pt-5 sm:px-6 sm:pb-20 sm:pt-8">
+        <Link href="/opportunities" className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[#555D68] transition hover:text-amber">
+          <span aria-hidden="true">←</span> All opportunities
+        </Link>
+
+        <header className="mt-4 overflow-hidden rounded-3xl border border-line bg-white">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(300px,.78fr)]">
+            <div className="flex min-w-0 flex-col justify-center p-6 sm:p-9 lg:p-12">
+              <SectionLabel>{opportunity.kind}</SectionLabel>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                {opportunity.sample && <SampleBadge />}
+                <span className="text-xs font-medium text-[#626873]">Opportunity</span>
+              </div>
+              <h1 className="mt-3 max-w-3xl break-words font-display text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">{opportunity.title}</h1>
+              <p className="mt-5 max-w-2xl whitespace-pre-line break-words text-base leading-7 text-[#555D68] sm:text-lg sm:leading-8">{opportunity.description}</p>
+              {opportunity.topics.length > 0 && <ul aria-label="Topics" className="mt-5 flex flex-wrap gap-2">{opportunity.topics.map((topic) => <li key={topic}><Tag>{topic}</Tag></li>)}</ul>}
+              {opportunity.link && <div className="mt-7"><a href={opportunity.link} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex min-h-11 items-center gap-2">Apply / View opportunity <span aria-hidden="true">↗</span></a></div>}
             </div>
-          )}
+            <div className="relative flex min-h-[220px] items-center border-t border-line bg-[#F7F6F2] p-4 sm:p-6 lg:border-l lg:border-t-0">
+              <CoverImage src={opportunity.imageUrl ?? poster?.imageUrl} alt={opportunity.title} priority className="w-full overflow-hidden rounded-2xl border border-line bg-white" variant="opportunity" fit="contain" />
+            </div>
+          </div>
+        </header>
+
+        <section aria-labelledby="opportunity-summary" className="mt-6 overflow-hidden rounded-2xl border border-line bg-white">
+          <div className="border-b border-line px-5 py-4 sm:px-7">
+            <SectionLabel>At a glance</SectionLabel>
+            <h2 id="opportunity-summary" className="mt-2 font-display text-xl font-semibold tracking-tight sm:text-2xl">Opportunity information</h2>
+          </div>
+          <dl className="divide-y divide-[#E7E5E2]">
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7">
+              <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Type</dt>
+              <dd className="break-words text-sm font-medium capitalize leading-6 text-ink">{opportunity.kind}</dd>
+            </div>
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7">
+              <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Location</dt>
+              <dd className="break-words text-sm font-medium leading-6 text-ink">{opportunity.location || "Not specified"}</dd>
+            </div>
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7">
+              <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Region</dt>
+              <dd className="break-words text-sm font-medium leading-6 text-ink">{opportunity.region || "Not specified"}</dd>
+            </div>
+            {opportunity.deadline && <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7">
+              <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Application deadline</dt>
+              <dd className="break-words text-sm font-medium leading-6 text-ink">{formatDate(opportunity.deadline)}</dd>
+            </div>}
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7">
+              <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Posted by</dt>
+              <dd className="break-words text-sm font-medium leading-6 text-ink">{poster?.href ? <Link href={poster.href} className="text-amber hover:underline">{poster.name} ↗</Link> : poster?.name ?? opportunity.postedBySlug}</dd>
+            </div>
+            {opportunity.link && <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7">
+              <dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Application link</dt>
+              <dd className="break-words text-sm font-medium leading-6"><a href={opportunity.link} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline">Open official opportunity link ↗</a></dd>
+            </div>}
+          </dl>
         </section>
-        <aside className="h-fit space-y-5 rounded-xl border border-line bg-card p-6">
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Type</p><p className="mt-1 text-base capitalize text-ink">{opportunity.kind}</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Location</p><p className="mt-1 text-base text-ink">{opportunity.location}</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Region</p><p className="mt-1 text-base text-ink">{opportunity.region}</p></div>
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Posted by</p>{poster?.href ? <Link href={poster.href} className="mt-1 inline-flex min-h-11 items-center text-base text-amber hover:underline">{poster.name} ↗</Link> : <p className="mt-1 text-base text-ink">{poster?.name ?? opportunity.postedBySlug}</p>}</div>
-          {opportunity.link && (
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">Link</p>
-              <a
-                href={opportunity.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-amber hover:underline"
-              >
-                Apply or learn more ↗
-              </a>
-            </div>
-          )}
-        </aside>
+        <p className="mt-4 max-w-3xl text-xs leading-5 text-[#777D86]">Check the application link and deadline before applying. Opportunity information is displayed as provided by the poster.</p>
       </div>
     </main>
   );
