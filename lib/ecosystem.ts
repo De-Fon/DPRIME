@@ -121,6 +121,7 @@ const SEARCH_SYNONYMS: Record<string, string[]> = {
   grant: ["funding", "sponsorship", "support"],
   scholarship: ["funding", "bursary", "education", "studentship"],
   studentship: ["scholarship", "funding", "bursary", "education", "student"],
+  education: ["learning", "training", "academic", "university", "school", "studentship"],
   startup: ["founder", "entrepreneur", "business"],
   developer: ["programmer", "software", "coding", "engineer"],
   coding: ["programming", "developer", "software"],
@@ -276,6 +277,7 @@ export const TOPICS: Topic[] = [
   "Open Source",
   "Startups",
   "Women in Tech",
+  "Education",
   "General",
 ];
 

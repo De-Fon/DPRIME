@@ -64,6 +64,7 @@ export type Topic =
   | "Open Source"
   | "Startups"
   | "Women in Tech"
+  | "Education"
   | "General";
 
 export type CommunityKind =
