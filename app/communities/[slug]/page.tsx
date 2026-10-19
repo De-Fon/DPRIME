@@ -31,44 +31,28 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
   const channels = community.channels.filter(Boolean);
 
   return (
-    <main className="min-h-screen bg-white text-ink">
-      <div className="mx-auto max-w-7xl px-5 pb-16 pt-5 sm:px-6 sm:pb-20 sm:pt-8">
-        <Link href="/communities" className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[#555D68] transition hover:text-amber"><span aria-hidden="true">←</span> All communities</Link>
-
-        <header className="mt-4 overflow-hidden rounded-3xl border border-line bg-[#FCFBF9]">
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(280px,.8fr)]">
-            <div className="flex flex-col justify-center p-6 sm:p-9 lg:p-12">
-              <SectionLabel>{community.kind}</SectionLabel>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <h1 className="font-display text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">{community.name}</h1>
-                {community.sample && <SampleBadge />}
-              </div>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-[#555D68] sm:text-lg sm:leading-8">{community.tagline}</p>
-              {community.topics.length > 0 && <div className="mt-5 flex flex-wrap gap-2">{community.topics.map((topic) => <Tag key={topic}>{topic}</Tag>)}</div>}
-              <div className="mt-7 flex flex-wrap gap-3">
-                {community.website && <a href={community.website} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex min-h-11 items-center gap-2">Visit community website <span aria-hidden="true">↗</span></a>}
-                <Link href="/events" className="inline-flex min-h-11 items-center rounded-full border border-line bg-white px-5 text-sm font-semibold transition hover:border-amber">Explore events</Link>
-              </div>
+    <main className="min-h-screen bg-[#FAFAF8] text-ink">
+      <div className="mx-auto max-w-6xl px-5 pb-16 pt-5 sm:px-6 sm:pb-20 sm:pt-8">
+        <Link href="/communities" className="inline-flex min-h-10 items-center gap-2 text-sm font-medium text-[#626873] hover:text-amber"><span aria-hidden="true">←</span> Back to communities</Link>
+        <header className="mt-5 overflow-hidden rounded-3xl border border-line bg-white">
+          <div className="bg-[#F1F0EC] p-4 sm:p-6">
+            <CoverImage src={community.imageUrl} alt={community.name} priority className="overflow-hidden rounded-2xl border border-line bg-white" variant="community" fit="contain" />
+          </div>
+          <div className="p-5 sm:p-8 lg:p-10">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-[#FFF2E7] px-3 py-1.5 text-xs font-semibold capitalize text-[#984600]">{community.kind}</span>
+              {community.memberCount != null && <span className="rounded-full bg-[#F3F4F6] px-3 py-1.5 text-xs font-medium text-[#454B55]">{community.memberCount.toLocaleString()} members</span>}
+              {community.sample && <SampleBadge />}
             </div>
-            <div className="relative min-h-[220px] border-t border-line bg-white lg:min-h-full lg:border-l lg:border-t-0">
-              <CoverImage src={community.imageUrl} alt={community.name} priority className="h-full min-h-[220px] border-0 lg:min-h-[370px]" variant="community" fit="contain" />
+            <h1 className="mt-4 max-w-4xl break-words font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">{community.name}</h1>
+            <p className="mt-4 max-w-3xl whitespace-pre-line break-words text-base leading-8 text-[#555D68] sm:text-lg">{community.tagline}</p>
+            {community.topics.length > 0 && <ul aria-label="Community focus areas" className="mt-5 flex flex-wrap gap-2">{community.topics.map((topic) => <li key={topic}><Tag>{topic}</Tag></li>)}</ul>}
+            <div className="mt-7 flex flex-wrap gap-3">
+              {community.website && <a href={community.website} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex min-h-11 items-center gap-2">Visit community website <span aria-hidden="true">↗</span></a>}
+              <Link href="/events" className="inline-flex min-h-11 items-center rounded-full border border-line bg-white px-5 text-sm font-semibold transition hover:border-amber">Explore events</Link>
             </div>
           </div>
         </header>
-
-        <section aria-labelledby="community-information" className="mt-6 overflow-hidden rounded-2xl border border-line bg-white">
-          <div className="border-b border-line px-5 py-4 sm:px-7">
-            <SectionLabel>At a glance</SectionLabel>
-            <h2 id="community-information" className="mt-2 font-display text-xl font-semibold tracking-tight sm:text-2xl">Community information</h2>
-          </div>
-          <dl className="divide-y divide-[#E7E5E2]">
-            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Community type</dt><dd className="break-words text-sm font-medium capitalize leading-6 text-ink">{community.kind}</dd></div>
-            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Based in</dt><dd className="break-words text-sm font-medium leading-6 text-ink">{community.location || "Not specified"}</dd></div>
-            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Region</dt><dd className="break-words text-sm font-medium leading-6 text-ink">{community.region || "Not specified"}</dd></div>
-            {community.memberCount !== undefined && <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Community size</dt><dd className="break-words text-sm font-medium leading-6 text-ink">{community.memberCount.toLocaleString()} members</dd></div>}
-            <div className="grid grid-cols-1 gap-2 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="pt-1 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Focus areas</dt><dd>{community.topics.length > 0 ? <ul className="flex flex-wrap gap-2">{community.topics.map((topic) => <li key={topic}><Tag>{topic}</Tag></li>)}</ul> : <span className="text-sm text-[#626873]">Not specified</span>}</dd></div>
-          </dl>
-        </section>
 
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
           <div className="min-w-0">
