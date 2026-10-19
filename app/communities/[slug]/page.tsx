@@ -56,10 +56,18 @@ export default async function CommunityPage({ params }: { params: Promise<{ slug
           </div>
         </header>
 
-        <section className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-label="Community at a glance">
-          <div className="rounded-2xl border border-line p-5"><MetaLabel>Based in</MetaLabel><p className="mt-2 text-sm font-medium leading-6">{community.location}</p><p className="mt-1 text-xs text-[#626873]">{community.region}</p></div>
-          {community.memberCount !== undefined && <div className="rounded-2xl border border-line p-5"><MetaLabel>Community size</MetaLabel><p className="mt-2 font-display text-2xl font-semibold">{community.memberCount.toLocaleString()}</p><p className="mt-1 text-xs text-[#626873]">members</p></div>}
-          <div className="rounded-2xl border border-line p-5"><MetaLabel>Focus areas</MetaLabel><p className="mt-2 text-sm font-medium leading-6">{community.topics.length ? community.topics.join(" · ") : "Not specified"}</p></div>
+        <section aria-labelledby="community-information" className="mt-6 overflow-hidden rounded-2xl border border-line bg-white">
+          <div className="border-b border-line px-5 py-4 sm:px-7">
+            <SectionLabel>At a glance</SectionLabel>
+            <h2 id="community-information" className="mt-2 font-display text-xl font-semibold tracking-tight sm:text-2xl">Community information</h2>
+          </div>
+          <dl className="divide-y divide-[#E7E5E2]">
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Community type</dt><dd className="break-words text-sm font-medium capitalize leading-6 text-ink">{community.kind}</dd></div>
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Based in</dt><dd className="break-words text-sm font-medium leading-6 text-ink">{community.location || "Not specified"}</dd></div>
+            <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Region</dt><dd className="break-words text-sm font-medium leading-6 text-ink">{community.region || "Not specified"}</dd></div>
+            {community.memberCount !== undefined && <div className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Community size</dt><dd className="break-words text-sm font-medium leading-6 text-ink">{community.memberCount.toLocaleString()} members</dd></div>}
+            <div className="grid grid-cols-1 gap-2 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-6 sm:px-7"><dt className="pt-1 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#777D86]">Focus areas</dt><dd>{community.topics.length > 0 ? <ul className="flex flex-wrap gap-2">{community.topics.map((topic) => <li key={topic}><Tag>{topic}</Tag></li>)}</ul> : <span className="text-sm text-[#626873]">Not specified</span>}</dd></div>
+          </dl>
         </section>
 
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
