@@ -20,10 +20,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return buildEventMetadata({ event, host });
 }
 
-function MetaLabel({ children }: { children: string }) {
-  return <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#A64A00]">{children}</p>;
-}
-
 export default async function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const eco = await getEcosystem();
